@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height"
+        android:background="@color/color_19d472">
+
+        <!--  <ImageView
+              android:id="@+id/iv_left_img"
+              style="@style/iconSearch"
+              android:layout_centerVertical="true"
+              android:layout_marginLeft="@dimen/gap_between_views"/>-->
+
+        <!--<TextView
+            android:id="@+id/tv_conut"
+            android:layout_width="@dimen/activity_horizontal_margin"
+            android:layout_height="@dimen/activity_vertical_margin"
+            android:layout_gravity="top|right"
+            android:layout_marginLeft="@dimen/size_2dip"
+            android:layout_marginTop="@dimen/size_2dip"
+            android:background="@drawable/bg_circle_red"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@color/white"
+            android:textSize="10sp"
+            android:visibility="invisible" />-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/ll_recommend"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_recommend"
+                    android:layout_width="@dimen/size_20dip"
+                    android:layout_height="3dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/ic_launcher_background" />
+
+                <TextView
+                    android:id="@+id/tv_recommend"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购买大蒜"
+                    android:layout_above="@+id/iv_recommend"
+                    android:layout_marginBottom="6dp"
+                    android:textColor="@color/white"
+                    android:textSize="20sp" />
+
+                <!-- <ImageView
+                     android:id="@+id/exhibit_message"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+
+                     android:layout_marginTop="14dp"
+                     android:background="@drawable/index_item_small"
+                     android:visibility="invisible"
+                     android:layout_alignParentTop="true"
+                     android:layout_toRightOf="@+id/tv_recommend"
+                     android:layout_toEndOf="@+id/tv_recommend" />-->
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/ll_attention"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_attention"
+                    android:layout_width="@dimen/size_20dip"
+                    android:layout_height="3dp"
+                    android:background="@drawable/ic_launcher_background"
+                    android:visibility="invisible"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true" />
+
+                <TextView
+                    android:id="@+id/tv_attention"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="出售大蒜"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"
+                    android:layout_above="@+id/iv_attention"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="6dp" />
+
+                <ImageView
+                    android:id="@+id/attention_message"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@color/white"
+                    android:visibility="invisible"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/tv_attention"
+                    android:layout_toEndOf="@+id/tv_attention" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/iv_right_img"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/size_10dip"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:background="#F2EFE9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

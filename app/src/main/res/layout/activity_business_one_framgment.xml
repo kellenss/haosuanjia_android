@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/rl_top"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/title_height">
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/title_left_margin"
+            android:layout_marginLeft="@dimen/title_left_margin"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_home_search"
+            android:visibility="gone"
+            android:layout_width="wrap_content" />
+        <TextView
+            android:id="@+id/tv_address"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/title_left_margin"
+            android:layout_marginLeft="@dimen/title_left_margin"
+            android:layout_height="wrap_content"
+            android:text="金乡"
+            android:textSize="@dimen/size_18sp"
+            android:textColor="@color/white"
+            android:visibility="invisible"
+            android:layout_width="wrap_content" />
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:hint="搜索"
+            android:textColorHint="@color/gray_temp_detail"
+            android:singleLine="true"
+            android:ellipsize="middle"
+            android:drawableLeft="@mipmap/icon_home_search_img"
+            android:paddingLeft="@dimen/size_12dip"
+            android:background="@color/bg_gray"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="17sp" />
+
+        <ImageView
+            android:id="@+id/iv_right"
+            android:layout_height="32dp"
+            android:layout_width="24dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/title_left_margin"
+            android:layout_marginRight="@dimen/title_left_margin"
+            android:background="@mipmap/icon_all_brand"
+            android:visibility="invisible" />
+
+        <!--      <View
+                  android:id="@+id/tv_line"
+                  android:layout_width="fill_parent"
+                  android:layout_height="@dimen/size_1px"
+                  android:layout_alignParentBottom="true"
+                  android:background="@color/color_divider_line" />-->
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_5dip"
+        android:background="@color/gray_d6"
+        />
+    <suanhang.jinan.com.suannihen.view.listviewload.XListView
+        android:id="@+id/lv_bussiness_main"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:cacheColorHint="@android:color/transparent"
+        android:divider="@color/color_divider_line"
+        android:dividerHeight="@dimen/size_0dip"
+        android:listSelector="@android:color/transparent" />
+
+</LinearLayout>

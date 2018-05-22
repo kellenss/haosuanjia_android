@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl_top"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="@dimen/title_height"
+    android:background="@color/color_19d472">
+
+    <ImageView
+        android:id="@+id/iv_back_head"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/title_left_margin"
+        android:layout_marginLeft="@dimen/title_left_margin"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/size_5dip"
+        android:background="@mipmap/icon_back"
+        android:visibility="visible"
+        android:layout_width="wrap_content" />
+    <TextView
+        android:id="@+id/tv_left_head"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="@dimen/title_left_margin"
+        android:layout_marginLeft="@dimen/title_left_margin"
+        android:layout_height="wrap_content"
+        android:text="金乡"
+        android:visibility="gone"
+        android:textSize="@dimen/size_18sp"
+        android:textColor="@color/white"
+        android:layout_width="wrap_content" />
+    <TextView
+        android:id="@+id/tv_title_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
+        android:singleLine="true"
+        android:ellipsize="middle"
+        android:text="蒜来蒜去"
+        android:textColor="@color/white"
+        android:textSize="22sp" />
+
+    <ImageView
+        android:id="@+id/iv_right_head"
+        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/title_left_margin"
+        android:layout_marginRight="@dimen/title_left_margin"
+        android:background="@mipmap/icon_all_brand"
+        android:visibility="visible" />
+    <TextView
+        android:id="@+id/tv_right_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="@dimen/title_left_margin"
+        android:layout_marginRight="@dimen/title_left_margin"
+        android:text="发布"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+    <View
+        android:id="@+id/tv_line"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/size_1px"
+        android:layout_alignParentBottom="true"
+        android:background="@color/color_divider_line" />
+</RelativeLayout>

@@ -1,0 +1,357 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="indicator_right_padding">10dp</dimen>
+    <dimen name="indicator_corner_radius">12dp</dimen>
+    <dimen name="indicator_internal_padding">4dp</dimen>
+    <dimen name="header_footer_left_right_padding">25dp</dimen>
+    <dimen name="header_footer_top_bottom_padding">10dp</dimen>
+
+    <dimen name="tab_height">49dp</dimen>
+    <dimen name="profile_tab_height">60dp</dimen>
+    <!-- marginbottome = 19-->
+    <!-- marginbottome = 19-->
+    <!-- 需要调整的有标题栏和viewpagertab的高度（高和下边距）之和（tabandtitle_height）、总高度header_height、可以隐藏的头的高度imageview_height -->
+
+    <!-- 需要调整的有标题栏和viewpagertab的高度（高和下边距）之和（tabandtitle_height）、总高度header_height、可以隐藏的头的高度imageview_height -->
+
+    <dimen name="userinfo_textsize">15sp</dimen>
+
+    <dimen name="profile_head_height">@dimen/size_230dip</dimen>
+    <dimen name="profile_head">@dimen/size_280dip</dimen>
+    <dimen name="profile_head_sup">@dimen/size_270dip</dimen>
+    <dimen name="profile_head_supplier">@dimen/size_331dip</dimen>
+
+    <dimen name="userinfo_wheeltoptextsize">20dp</dimen>
+    <dimen name="selectpop_textsize">20dp</dimen>
+    <dimen name="selectpop_padding">10dp</dimen>
+    <dimen name="attestation_addvie_textsize">14dp</dimen>
+
+    <!--*****************************alertView start *****************************-->
+    <!--标题文字大小-->
+    <dimen name="textSize_alert_title">22sp</dimen>
+    <dimen name="textSize_actionsheet_title">14sp</dimen>
+    <!--标题文字高度-->
+    <dimen name="height_alert_title">60dp</dimen>
+    <dimen name="height_actionsheet_title">40dp</dimen>
+    <!--消息文字大小-->
+    <dimen name="textSize_alert_msg">15sp</dimen>
+    <dimen name="textSize_actionsheet_msg">14sp</dimen>
+    <!--消息距离底部间距-->
+    <dimen name="marginBottom_alert_msg">25dp</dimen>
+    <dimen name="marginBottom_actionsheet_msg">14dp</dimen>
+    <!--窗口模式左右两边到屏幕的间距-->
+    <dimen name="margin_alert_left_right">40dp</dimen>
+    <dimen name="margin_actionsheet_left_right">10dp</dimen>
+    <!--线条粗细-->
+    <dimen name="size_divier">1dp</dimen>
+    <!--按钮的高度-->
+    <dimen name="height_alert_button">48dp</dimen>
+    <!--按钮文字大小-->
+    <dimen name="textSize_alert_button">18sp</dimen>
+    <!--圆角-->
+    <dimen name="radius_alertview">15px</dimen>
+    <!--*****************************alertView end *****************************-->
+
+    <dimen name="gap_between_views">10dp</dimen>
+
+    <!--*****************************-发布展览引导层入口 start *****************************-->
+    <!--发布展览入口引导层图片大小根据按钮图片大小同比例计算得出-->
+    <dimen name="activity_entrace_publish_circle_size">100dp</dimen>
+    <dimen name="activity_entrace_highlight_circle">183dp</dimen>
+    <dimen name="activity_entrace_highlight_circle_stroke">5dp</dimen>
+    <!--*****************************-发布展览引导层入口 end *****************************-->
+    <!--*****************************-home页引导层入口 start *****************************-->
+    <!--引导层图片大小根据按钮图片大小同比例计算得出-->
+    <!--*****************************-home页引导层入口 end *****************************-->
+    <!--*****************************-展览编辑页引导层入口 start *****************************-->
+    <!--引导层图片大小根据按钮图片大小同比例计算得出-->
+    <dimen name="activity_exhibit_edit_ivH">30dp</dimen>
+    <dimen name="activity_exhibit_edit_ivW">87dp</dimen>
+    <dimen name="activity_exhibit_edit_highlight_H">135dp</dimen>
+    <dimen name="activity_exhibit_edit_highlight_W">120dp</dimen>
+    <!--*****************************-展览编辑页引导层入口 end *****************************-->
+    <!--*****************************-作品详情页引导层入口 start *****************************-->
+    <!--引导层图片大小根据按钮图片大小同比例计算得出-->
+    <dimen name="activity_collection_ivH">150dp</dimen>
+    <dimen name="activity_collection_hightlight_ivW">180dp</dimen>
+    <dimen name="activity_collection_hightlight_ivH">200dp</dimen>
+    <!--irrow_btn大小//80 225 距离底部15-->
+    <dimen name="activity_collection_irrow_btn_ivW">112dp</dimen>
+    <dimen name="activity_collection_irrow_btn_marginbottom">7dp</dimen>
+    <!--*****************************-作品详情页引导层入口 end *****************************-->
+    <dimen name="title_right_H">24dp</dimen>
+    <dimen name="title_right_W">60dp</dimen>
+    <dimen name="title_left_margin">10dp</dimen>
+    <dimen name="title_left_back_size">25dp</dimen>
+
+    <dimen name="textsize_title">22sp</dimen>
+    <dimen name="textsize_title_lr">16sp</dimen>
+
+    <dimen name="fans_group_title_height">35dp</dimen>
+    <dimen name="fans_group_title_padding_left">10dp</dimen>
+    <dimen name="fans_group_title_textsize">16sp</dimen>
+
+    <dimen name="exhibit_tab_gap">3dp</dimen>
+
+    <dimen name="exhibittab_newer_userphoto">29dp</dimen>
+    <dimen name="exhibittab_newer_vip">14dp</dimen>
+    <dimen name="exhibittab_newer_userphotoL">12dp</dimen>
+    <dimen name="exhibittab_newer_userphotoT">15dp</dimen>
+    <dimen name="exhibittab_newer_vipL">33dp</dimen>
+    <dimen name="exhibittab_newer_vipT">32dp</dimen>
+    <dimen name="exhibittab_newer_usernameL">42dp</dimen>
+    <dimen name="exhibittab_newer_usernameT">13dp</dimen>
+    <dimen name="exhibittab_newer_usernameS">12sp</dimen>
+    <dimen name="exhibittab_newer_usernameP">10dp</dimen>
+    <dimen name="exhibittab_newer_locationB">12dp</dimen>
+    <dimen name="exhibittab_newer_locationL">15dp</dimen>
+    <dimen name="exhibittab_newer_locationS">11sp</dimen>
+    <dimen name="exhibittab_newer_textS">10sp</dimen>
+    <dimen name="exhibittab_newer_textH">28dp</dimen>
+    <dimen name="exhibittab_newer_contenttextH">32dp</dimen>
+    <dimen name="exhibittab_newer_contenttextLP">20dp</dimen>
+    <dimen name="exhibittab_newer_contenttextRP">20dp</dimen>
+    <dimen name="exhibittab_newer_contenttextS">15sp</dimen>
+    <dimen name="exhibittab_newer_textivP">4dp</dimen>
+    <dimen name="exhibittab_newer_textM">10dp</dimen>
+
+
+    <dimen name="exhibit_tab_selected_typesize">40dp</dimen>
+    <dimen name="exhibit_tab_selected_imgH">275dp</dimen>
+    <dimen name="exhibit_tab_small_iv_size">14dp</dimen>
+    <dimen name="exhibit_tab_titleimg_size">35dp</dimen>
+    <dimen name="exhibit_tab_scrollH">280dp</dimen>
+    <dimen name="exhibit_tab_notification_num">16dp</dimen>
+    <dimen name="exhibit_tab_notification_left">33dp</dimen>
+    <dimen name="exhibit_tab_notification_top">2dp</dimen>
+
+    <dimen name="exhibit_tab_title_lineH">2dp</dimen>
+    <dimen name="exhibit_tab_title_lineW">40dp</dimen>
+    <dimen name="exhibit_tab_title_textH">47dp</dimen>
+    <dimen name="exhibit_tab_title_textsize">18sp</dimen>
+    <dimen name="exhibit_tab_title_centerW">50dp</dimen>
+
+    <dimen name="exhibit_tab_scroll_title">200dp</dimen>
+    <dimen name="exhibittab_viewpager_dianH">35dp</dimen>
+    <dimen name="exhibittab_viewpager_dianMarginTop">165dp</dimen>
+    <dimen name="exhibittab_tabs_MarginTop">210dp</dimen>
+
+    <dimen name="exhibittab_tabs_H">65dp</dimen>
+    <dimen name="exhibittab_tabs_textsize">15sp</dimen>
+    <dimen name="exhibittab_tabs_topwhite">5dp</dimen>
+    <dimen name="exhibittab_tabs_drawablesize">20dp</dimen>
+
+    <dimen name="fansmine_title_center">20dp</dimen>
+    <dimen name="fansmine_title_bigS">18sp</dimen>
+    <dimen name="fansmine_title_lineH">2dp</dimen>
+    <dimen name="fansmine_title_lineW">100dp</dimen>
+    <dimen name="fansmine_title_textH">47dp</dimen>
+
+    <dimen name="item_exhibitpcshow_preview_p">4dp</dimen>
+
+    <!--********自定义控件首页流日历*****start***-->
+    <dimen name="monthTextSize">25dp</dimen>
+    <dimen name="exhibit_tab_typeH">24dp</dimen>
+    <dimen name="exhibit_tab_typeW">70dp</dimen>20sp
+    <dimen name="exhibit_tab_des">16sp</dimen>
+    <dimen name="exhibit_tab_imgH">200dp</dimen>
+    <!--********自定义控件首页流日历*****end***-->
+
+
+    <!--********举报*****start***-->
+    <dimen name="report_itemH">55dp</dimen>
+    <dimen name="report_item_textS">15sp</dimen>
+    <dimen name="report_item_left">15dp</dimen>
+    <dimen name="report_edit_padding">11dp</dimen>
+    <dimen name="report_editH">110dp</dimen>
+    <dimen name="report_edit_textS">14sp</dimen>
+    <dimen name="report_btnTop">35dp</dimen>
+    <dimen name="report_btnH">40dp</dimen>
+    <dimen name="report_btn_textS">16sp</dimen>
+    <!--********举报*****end***-->
+    <dimen name="share_pic_size">45dp</dimen>
+    <dimen name="share_tv_drawable_p">12dp</dimen>
+    <dimen name="select_nick_S">14sp</dimen>
+
+    <!--dp-->
+    <dimen name="size_0dip">0dp</dimen>
+    <dimen name="size_0_5dip">0.5dp</dimen>
+    <dimen name="size_1dip">1dp</dimen>
+    <dimen name="size_1_5dip">1.5dp</dimen>
+    <dimen name="size_2dip">2dp</dimen>
+    <dimen name="size_3dip">3dp</dimen>
+    <dimen name="size_4dip">4dp</dimen>
+    <dimen name="size_5dip">5dp</dimen>
+    <dimen name="size_6dip">6dp</dimen>
+    <dimen name="size_7dip">7dp</dimen>
+    <dimen name="size_8dip">8dp</dimen>
+    <dimen name="size_9dip">9dp</dimen>
+    <dimen name="size_10dip">10dp</dimen>
+    <dimen name="size_11dip">11dp</dimen>
+    <dimen name="size_12dip">12dp</dimen>
+    <dimen name="size_13dip">13dp</dimen>
+    <dimen name="size_13_5dip">13.5dp</dimen>
+    <dimen name="size_14dip">14dp</dimen>
+    <dimen name="size_15dip">15dp</dimen>
+    <dimen name="size_16dip">16dp</dimen>
+    <dimen name="size_17dip">17dp</dimen>
+    <dimen name="size_18dip">18dp</dimen>
+    <dimen name="size_19dip">19dp</dimen>
+    <dimen name="size_20dip">20dp</dimen>
+    <dimen name="size_21dip">21dp</dimen>
+    <dimen name="size_22dip">22dp</dimen>
+    <dimen name="size_23dip">23dp</dimen>
+    <dimen name="size_24dip">24dp</dimen>
+    <dimen name="size_25dip">25dp</dimen>
+    <dimen name="size_26dip">26dp</dimen>
+    <dimen name="size_27dip">27dp</dimen>
+    <dimen name="size_28dip">28dp</dimen>
+    <dimen name="size_30dip">30dp</dimen>
+    <dimen name="size_31dip">31dp</dimen>
+    <dimen name="size_32dip">32dp</dimen>
+    <dimen name="size_33dip">33dp</dimen>
+    <dimen name="size_35dip">35dp</dimen>
+    <dimen name="size_36dip">36dp</dimen>
+    <dimen name="size_37dip">37dp</dimen>
+    <dimen name="size_38dip">38dp</dimen>
+    <dimen name="size_39dip">39dp</dimen>
+    <dimen name="size_40dip">40dp</dimen>
+    <dimen name="size_42dip">42dp</dimen>
+    <dimen name="size_43dip">43dp</dimen>
+    <dimen name="size_44dip">44dp</dimen>
+    <dimen name="size_45dip">45dp</dimen>
+    <dimen name="size_46dip">46dp</dimen>
+    <dimen name="size_47dip">47dp</dimen>
+    <dimen name="size_48dip">48dp</dimen>
+    <dimen name="size_49dip">49dp</dimen>
+    <dimen name="size_50dip">50dp</dimen>
+    <dimen name="size_51dip">51dp</dimen>
+    <dimen name="size_52dip">52dp</dimen>
+    <dimen name="size_53dip">53dp</dimen>
+    <dimen name="size_54dip">54dp</dimen>
+    <dimen name="size_55dip">55dp</dimen>
+    <dimen name="size_56dip">56dp</dimen>
+    <dimen name="size_57dip">57dp</dimen>
+    <dimen name="size_60dip">60dp</dimen>
+    <dimen name="size_62dip">62dp</dimen>
+    <dimen name="size_65dip">65dp</dimen>
+    <dimen name="size_66dip">66dp</dimen>
+    <dimen name="size_67dip">67dp</dimen>
+    <dimen name="size_70dip">70dp</dimen>
+    <dimen name="size_75dip">75dp</dimen>
+    <dimen name="size_76dip">76dp</dimen>
+    <dimen name="size_78dip">78dp</dimen>
+    <dimen name="size_80dip">80dp</dimen>
+    <dimen name="size_85dip">85dp</dimen>
+    <dimen name="size_90dip">90dp</dimen>
+    <dimen name="size_94dip">94dp</dimen>
+    <dimen name="size_97dip">97dp</dimen>
+    <dimen name="size_100dip">100dp</dimen>
+    <dimen name="size_102dip">102dp</dimen>
+    <dimen name="size_103dip">103dp</dimen>
+    <dimen name="size_105dip">105dp</dimen>
+    <dimen name="size_110dip">110dp</dimen>
+    <dimen name="size_114dip">114dp</dimen>
+    <dimen name="size_115dip">115dp</dimen>
+    <dimen name="size_119dip">119dp</dimen>
+    <dimen name="size_120dip">120dp</dimen>
+    <dimen name="size_121dip">121dp</dimen>
+    <dimen name="size_123dip">123dp</dimen>
+    <dimen name="size_125dip">125dp</dimen>
+    <dimen name="size_130dip">130dp</dimen>
+    <dimen name="size_138dip">138dp</dimen>
+    <dimen name="size_140dip">140dp</dimen>
+    <dimen name="size_142dip">142dp</dimen>
+    <dimen name="size_150dip">150dp</dimen>
+    <dimen name="size_154dip">154dp</dimen>
+    <dimen name="size_160dip">160dp</dimen>
+    <dimen name="size_165dip">165dp</dimen>
+    <dimen name="size_170dip">170dp</dimen>
+    <dimen name="size_175dip">175dp</dimen>
+    <dimen name="size_180dip">180dp</dimen>
+    <dimen name="size_183dip">183dp</dimen>
+    <dimen name="size_190dip">190dp</dimen>
+    <dimen name="size_192dip">192dp</dimen>
+    <dimen name="size_194dip">194dp</dimen>
+    <dimen name="size_200dip">200dp</dimen>
+    <dimen name="size_201dip">201dp</dimen>
+    <dimen name="size_210dip">210dp</dimen>
+    <dimen name="size_212dip">212dp</dimen>
+    <dimen name="size_215dip">215dp</dimen>
+    <dimen name="size_220dip">220dp</dimen>
+    <dimen name="size_225dip">225dp</dimen>
+    <dimen name="size_230dip">230dp</dimen>
+    <dimen name="size_240dip">240dp</dimen>
+    <dimen name="size_245dip">245dp</dimen>
+    <dimen name="size_250dip">250dp</dimen>
+    <dimen name="size_255dip">255dp</dimen>
+    <!--250+85+85+48-->
+    <dimen name="size_260dip">260dp</dimen>
+    <dimen name="size_265dip">265dp</dimen>
+    <dimen name="size_270dip">270dp</dimen>
+    <dimen name="size_280dip">280dp</dimen>
+    <dimen name="size_285dip">285dp</dimen>
+    <dimen name="size_290dip">290dp</dimen>
+    <dimen name="size_300dip">300dp</dimen>
+    <dimen name="size_320dip">320dp</dimen>
+    <dimen name="size_331dip">331dp</dimen>
+    <dimen name="size_340dip">331dp</dimen>
+    <dimen name="size_350dip">350dp</dimen>
+    <dimen name="size_375dip">375dp</dimen>
+
+    <dimen name="feed_photo_size">@dimen/size_40dip</dimen>
+    <dimen name="feed_vip_size">@dimen/size_12dip</dimen>
+    <dimen name="chat_photo_size">@dimen/size_30dip</dimen>
+    <dimen name="chat_vip_size">@dimen/size_12dip</dimen>
+    <dimen name="mine_photo_size">@dimen/size_80dip</dimen>
+    <dimen name="mine_vip_size">@dimen/size_18dip</dimen>
+    <dimen name="profile_photo_size">@dimen/size_60dip</dimen>
+    <dimen name="profile_vip_size">@dimen/size_18dip</dimen>
+    <dimen name="mini_photo_size">@dimen/size_20dip</dimen>
+    <dimen name="mini_vip_size">@dimen/size_8dip</dimen>
+    <dimen name="theme_mini_photo_size">@dimen/size_30dip</dimen>
+    <dimen name="theme_mini_vip_size">@dimen/size_12dip</dimen>
+
+    <dimen name="bid_show_price">@dimen/size_100dip</dimen>
+    <dimen name="title_height">@dimen/size_50dip</dimen>
+
+    <dimen name="card_divider_height">@dimen/size_10dip</dimen>
+    <dimen name="line_divide_height">@dimen/size_1px</dimen>
+    
+    <!--拍卖预展、拍卖历史、机构页拍品列表中的倒计时标签高度和文字大小-->
+    <dimen name="auction_time_tagText">@dimen/size_11sp</dimen>
+    <dimen name="auction_time_tagHeight">@dimen/size_22dip</dimen>
+
+    <!--sp-->
+    <dimen name="size_9sp">9sp</dimen>
+    <dimen name="size_10sp">10sp</dimen>
+    <dimen name="size_11sp">11sp</dimen>
+    <dimen name="size_12sp">12sp</dimen>
+    <dimen name="size_13sp">13sp</dimen>
+    <dimen name="size_14sp">14sp</dimen>
+    <dimen name="size_15sp">15sp</dimen>
+    <dimen name="size_16sp">16sp</dimen>
+    <dimen name="size_17sp">17sp</dimen>
+    <dimen name="size_18sp">18sp</dimen>
+    <dimen name="size_19sp">19sp</dimen>
+    <dimen name="size_20sp">20sp</dimen>
+    <dimen name="size_21sp">21sp</dimen>
+    <dimen name="size_22sp">22sp</dimen>
+    <dimen name="size_23sp">23sp</dimen>
+    <dimen name="size_25sp">25sp</dimen>
+    <dimen name="size_26sp">26sp</dimen>
+    <dimen name="size_30sp">30sp</dimen>
+    <dimen name="size_34sp">34sp</dimen>
+    <dimen name="size_36sp">36sp</dimen>
+    <dimen name="size_38sp">38sp</dimen>
+    <dimen name="size_40sp">40sp</dimen>
+    <dimen name="size_49sp">49sp</dimen>
+    <dimen name="size_85sp">85sp</dimen>
+
+    <!--px-->
+    <dimen name="size_1px">1px</dimen>
+    <dimen name="size_2px">2px</dimen>
+</resources>

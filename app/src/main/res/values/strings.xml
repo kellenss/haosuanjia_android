@@ -1,0 +1,59 @@
+<resources>
+    <string name="app_name">蒜来蒜去</string>
+    <string name="network_error">网络不给力，请检查您的网络设置</string>
+    <string name="request_json_parse_exception">JSON解析异常。</string>
+    <string name="refreshview_head_chat">查看更多消息</string>
+    <string name="xlistview_header_hint_normal">下拉刷新</string>
+    <string name="xlistview_header_hint_ready">松开刷新数据</string>
+    <string name="xlistview_header_hint_loading">正在加载……</string>
+    <string name="xlistview_header_last_time">上次更新时间：</string>
+    <string name="xlistview_footer_hint_normal">查看更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+    <string name="pull_to_refresh">下拉刷新</string>
+    <string name="release_to_refresh">松开刷新数据</string>
+    <string name="refreshing">正在刷新……</string>
+    <string name="refresh_succeed">刷新成功</string>
+    <string name="refresh_fail">刷新失败</string>
+    <string name="pullup_to_load">上拉加载更多</string>
+    <string name="release_to_load">释放立即加载</string>
+    <string name="loading">正在加载……</string>
+    <string name="load_succeed">加载成功</string>
+    <string name="load_fail">加载失败</string>
+
+    <!-- 上下拉刷新相关定义 -->
+    <string name="xrefreshview_footer_hint_click">点击加载更多</string>
+    <string name="xrefreshview_footer_hint_normal">加载完成</string>
+    <string name="xrefreshview_footer_hint_fail">加载失败，请重试</string>
+    <string name="xrefreshview_footer_hint_release">松开加载更多</string>
+    <string name="xrefreshview_footer_hint_complete">已无更多数据</string>
+    <string name="xrefreshview_footer_hint_ready">松开载入更多</string>
+    <string name="xrefreshview_header_hint_normal">下拉刷新</string>
+    <string name="xrefreshview_header_hint_ready">松开刷新数据</string>
+    <string name="xrefreshview_header_hint_loading">正在加载……</string>
+    <string name="xrefreshview_header_hint_loaded">加载完成</string>
+    <string name="requesting">正在请求数据……</string>
+    <string name="next_step">下一步</string>
+    <string name="pull_to_refresh_from_bottom_release_label">松开加载更多…</string>
+    <string name="pull_to_refresh_from_bottom_refreshing_label">@string/pull_to_refresh_refreshing_label</string>
+    <string name="pull_to_refresh_release_label" translatable="false">松开可以刷新</string>
+    <string name="pull_to_refresh_refreshing_label" translatable="false">正在加载&#8230;</string>
+    <string name="open_permission_contact">请打开联系人读写权限，才能使用此功能</string>
+    <string name="open_permission_storage">请打开手机存储器读写权限，才能使用此功能</string>
+    <string name="open_permission_calendar">请打开访问日历权限，才能使用此功能</string>
+    <string name="open_permission_camera">请打开相机权限，才能使用此功能</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确定</string>
+    <style name="MMTabButton">
+        <item name="android:textSize">10.0dip</item>
+        <item name="android:gravity">center_horizontal</item>
+        <item name="android:background">@drawable/bg_checkbox_menus</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:button">@null</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:layout_weight">1.0</item>
+        <item name="android:paddingBottom">1.0dip</item>
+        <item name="android:paddingTop">1.0dip</item>
+        <item name="android:drawablePadding">0dip</item>
+    </style>
+</resources>
