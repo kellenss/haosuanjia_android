@@ -19,6 +19,7 @@ import suanhang.jinan.com.suannihen.view.listviewload.XListView;
 
 /**
  * 论坛
+ * create by gc on 2018/05/23
  */
 public class ForumActivity extends StatisticsActivity implements  View.OnClickListener, XListView.IXListViewListener {
     private XListView lv_activity_main;
