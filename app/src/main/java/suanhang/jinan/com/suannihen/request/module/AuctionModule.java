@@ -63,6 +63,42 @@ public class AuctionModule extends BaseModule {
         mapParams.put("PhoneCode", PhoneCode);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
+    /**
+     * 获取劳务输出列表
+     */
+    public void getSupplyList(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSupplyList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("PhoneNumber", PhoneNumber);
+//        mapParams.put("PassWord", PassWord);
+//        mapParams.put("PhoneCode", PhoneCode);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取劳务输出列表
+     */
+    public void getBuyList(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getBuyList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("PhoneNumber", PhoneNumber);
+//        mapParams.put("PassWord", PassWord);
+//        mapParams.put("PhoneCode", PhoneCode);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取劳务输出列表
+     */
+    public void getSellList(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSellList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("PhoneNumber", PhoneNumber);
+//        mapParams.put("PassWord", PassWord);
+//        mapParams.put("PhoneCode", PhoneCode);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
 //    /**
 //     * 获取首页列表
 //     */

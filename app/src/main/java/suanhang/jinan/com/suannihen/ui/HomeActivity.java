@@ -196,29 +196,38 @@ private ViewPager view_pager;
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.ll_quotation:
-                Intent intents = new Intent();
-                ConstantString.index_tab = 1;
-                intents.setAction(ConstantString.MINE_LOGIN_ACTION);
-                context.sendBroadcast(intents);
-                break;
-            case R.id.ll_business:
                 Intent intent1 = new Intent();
-                ConstantString.index_tab = 2;
+                ConstantString.index_tab = 1;
                 intent1.setAction(ConstantString.MINE_LOGIN_ACTION);
                 context.sendBroadcast(intent1);
                 break;
+            case R.id.ll_business:
+                Intent intent2 = new Intent();
+                ConstantString.index_tab = 2;
+                intent2.setAction(ConstantString.MINE_LOGIN_ACTION);
+                context.sendBroadcast(intent2);
+                break;
             case R.id.ll_labour_services:
-                Intent  intent2 = new Intent().setClass(this, LabourServicesActivity.class);//ThemeFeedActivity
-                startActivity(intent2);
+                Intent  intent3 = new Intent().setClass(this, LabourServicesActivity.class);//ThemeFeedActivity
+                startActivity(intent3);
                 break;
             case R.id.ll_information_consultation:
             case R.id.ll_forum:
+                Intent intent5=new Intent(this,ForumActivity.class);
+                startActivity(intent5);
+                break;
             case R.id.ll_other:
             case R.id.ll_company:
+                Intent intent7=new Intent(this,CompanyEnterpriseActivity.class);
+                startActivity(intent7);
+                break;
             case R.id.ll_agent:
+                Intent intent8=new Intent(this,ForumActivity.class);
+                startActivity(intent8);
+                break;
             case R.id.ll_customer_service:
-            Intent intent=new Intent(this,ForumActivity.class);
-            startActivity(intent);
+                Intent intent9=new Intent(this,CustomerServiceActivity.class);
+                startActivity(intent9);
             break;
             default:
                 break;

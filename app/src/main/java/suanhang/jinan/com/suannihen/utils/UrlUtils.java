@@ -34,6 +34,19 @@ public class UrlUtils {
 		return getBaseUrl() + "getPhonecode.php";
 	}
 
+	//获取劳务输出列表
+	public static String getSupplyList() {
+		return getBaseUrl() + "labor/get_supply_list";
+	}
+	//获取买卖需求购买
+	public static String getBuyList() {
+		return getBaseUrl() + "business/get_buy_list";
+	}
+	//获取买卖需求出售
+	public static String getSellList() {
+		return getBaseUrl() + "business/get_sell_list";
+	}
+
 	/*//添加患者信息接口
 	public static String getAddpatient() {
 		return getBaseUrl() + "patient/add.action";

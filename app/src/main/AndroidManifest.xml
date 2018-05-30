@@ -61,6 +61,15 @@
         <activity android:name=".ui.SettingActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.CustomerServiceActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.CompanyEnterpriseActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.CompanyItemActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

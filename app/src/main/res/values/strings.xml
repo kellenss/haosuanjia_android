@@ -43,6 +43,8 @@
     <string name="open_permission_camera">请打开相机权限，才能使用此功能</string>
     <string name="cancel">取消</string>
     <string name="confirm">确定</string>
+    <string name="call_phone">400-6360-888</string>
+    <string name="call_phone_num">4006360888</string>
     <style name="MMTabButton">
         <item name="android:textSize">10.0dip</item>
         <item name="android:gravity">center_horizontal</item>

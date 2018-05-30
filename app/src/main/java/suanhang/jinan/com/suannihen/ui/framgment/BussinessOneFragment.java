@@ -1,28 +1,31 @@
 package suanhang.jinan.com.suannihen.ui.framgment;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
-import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.alibaba.fastjson.JSON;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
+import suanhang.jinan.com.suannihen.bean.BussinessListBean;
+import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
+import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
+import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
+import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
 import suanhang.jinan.com.suannihen.view.adapter.CommonAdapter;
 import suanhang.jinan.com.suannihen.view.listviewload.XListView;
@@ -37,16 +40,16 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
     private XListView lv_activity_main;
     private ViewPager view_pager;
     private TextView tv_zt_more;
-    List<BussinessFragmentBean> activityList; // 动态数组
+    List<BussinessListBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
-//    private int next=0;
+    //    private int next=0;
 //    private int limit=20;
 //    private String cityId="1";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
-//    String longitude="";
+    //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
 //    View v_default;
@@ -92,8 +95,8 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         }
         activityList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            BussinessFragmentBean bean=new BussinessFragmentBean();
-            bean.activityName=""+i;
+            BussinessListBean bean=new BussinessListBean();
+            bean.address=""+i;
             activityList.add(bean);
         }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
@@ -121,25 +124,22 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected void initData() {
+        initData(true);
 //        onRefresh();
     }
 
     @Override
     public void onRefresh() {
-
+        initData(true);
     }
 
-    @Override
-    public void onLoadMore() {
-
-    }
 //    @Override
 //    public void onRefresh() {
 //        next=0;
 //        initData(true);
 //    }
 
-    class BussinessFragmentAdapter extends CommonAdapter<BussinessFragmentBean> implements AbsListView.OnScrollListener {
+    class BussinessFragmentAdapter extends CommonAdapter<BussinessListBean> implements AbsListView.OnScrollListener {
         //        private String type;
         //屏幕宽
         int widthScreen;
@@ -147,7 +147,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         int collectionImgSize;
         int itemSpace;
 
-        BussinessFragmentAdapter(List<BussinessFragmentBean> data) {
+        BussinessFragmentAdapter(List<BussinessListBean> data) {
             super(data, 10);
         }
 
@@ -161,12 +161,12 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         final int VIEWTYPE_VEDIO = 2;//视频
 
         @Override
-        public AdapterItem<BussinessFragmentBean> getItemView(int itemViewType) {
+        public AdapterItem<BussinessListBean> getItemView(int itemViewType) {
             AdapterItem item = null;
 //            if (itemViewType == VIEWTYPE_VEDIO) {
 //                item = new ItemVedio();
 //            } else {
-                item = new ItemPicture();
+            item = new ItemBusinessFeed();
 //            }
             return item;
         }
@@ -193,7 +193,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         }
     }
 
-    class ItemPicture extends AdapterItem<BussinessFragmentBean> implements View.OnClickListener {
+    class ItemBusinessFeed extends AdapterItem<BussinessListBean> implements View.OnClickListener {
 
         @Override
         public int getLayoutResId() {
@@ -214,23 +214,84 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
 
 
         @Override
-        public void onUpdateViews(final BussinessFragmentBean auctionBean, final int position) {
-//            ((TextView)getView(R.id.tv_user_name)).setText(auctionBean.user.nick);
-
+        public void onUpdateViews(final BussinessListBean auctionBean, final int position) {
+            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
+            ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
+            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname+" | "+auctionBean.mobile);
+            ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
         }
     }
 
-    private void initData(boolean needclear) {
+    private void initData(final boolean needclear) {
 //        longitude=SPUtil.get("longitude");
 //        latitude=SPUtil.get("latitude");
 //        cityId= SPUtil.get("cityId");
-//        NetWorkModule.getInstance().getCityActivityList(context,cityId,classId,longitude,latitude,next,limit,mParam1, new VolleyCallBack() {
+        AuctionModule.getInstance().getBuyList(context, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						dialogtools.dismissDialog();
+                    }
+                    activityList = ParseJson.parseGetResultCollection(result, "data", BussinessListBean.class);
+                    if (needclear) {
+                        lv_activity_main.stopRefresh();
+                        feedAdapter.updateData(activityList);
+                    } else {
+                        feedAdapter.addListData(activityList);
+                        lv_activity_main.stopLoadMore();
+                    }
+
+//                if (activityEntities.size() >= limit) {
+//                    lv_activity_main.setPullLoadEnable(true);
+//                } else {
+//                    lv_activity_main.setPullLoadEnable(false);
+//                }
+                    activityList = feedAdapter.getDataList();
+                    if(activityList.size()>0){
+//                    v_default.setVisibility(View.GONE);
+//                    viewEmpty.setVisibility(View.GONE);
+                    }else{
+//                    v_default.setVisibility(View.VISIBLE);
+//                    viewEmpty.setVisibility(View.VISIBLE);
+//                    viewEmpty.setText(getString(R.string.no_content_activity));
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
 //            @Override
 //            public void success(String result, String method) {
-//                List<ActivityListBean> activityEntities = null;
+////                List<ActivityListBean> activityEntities = null;
+////                try {
+//                    JSONObject jSONObject;
 //                try {
-//                    JSONObject jSONObject=new JSONObject(result).getJSONObject("data");
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", ActivityListBean.class);
+//                    jSONObject = new JSONObject(result).getJSONObject("data");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
@@ -258,26 +319,26 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
 //                }
 //                onLoad();
 //            }
-//
+
 //            @Override
 //            public void failure(String error, String method, int type) {
-//                onLoad();
+////                onLoad();
 //            }
-//        });
+        });
     }
 
     @Override
     public void onClick(View view) {
 
     }
-//    @Override
-//    public void onLoadMore() {
-//        initData(false);
-//    }
-//    private void onLoad() {
-//        if (lv_activity_main != null) {
-//            lv_activity_main.stopRefresh();
-//            lv_activity_main.stopLoadMore();
-//        }
-//    }
+    @Override
+    public void onLoadMore() {
+        initData(false);
+    }
+    private void onLoad() {
+        if (lv_activity_main != null) {
+            lv_activity_main.stopRefresh();
+            lv_activity_main.stopLoadMore();
+        }
+    }
 }
