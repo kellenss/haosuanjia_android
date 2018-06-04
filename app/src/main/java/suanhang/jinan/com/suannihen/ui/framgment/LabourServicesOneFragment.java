@@ -196,7 +196,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
 
         @Override
         public int getLayoutResId() {
-            return R.layout.business_list_item;
+            return R.layout.labour_services_list_item;
         }
 
         @Override

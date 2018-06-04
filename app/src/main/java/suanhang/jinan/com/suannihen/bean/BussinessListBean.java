@@ -35,6 +35,7 @@ public class BussinessListBean implements Serializable {
    public String user_nickname;
    public String mobile;
    public String avatar;
+   public String sellDesc;
 
 
 }

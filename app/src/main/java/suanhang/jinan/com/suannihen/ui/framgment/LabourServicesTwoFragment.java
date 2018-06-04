@@ -9,12 +9,21 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
+import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
+import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
+import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
+import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
 import suanhang.jinan.com.suannihen.view.adapter.CommonAdapter;
 import suanhang.jinan.com.suannihen.view.listviewload.XListView;
@@ -29,16 +38,16 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
     private XListView lv_activity_main;
     private ViewPager view_pager;
     private TextView tv_zt_more;
-    List<BussinessFragmentBean> activityList; // 动态数组
+    List<LabourServicesBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
-//    private int next=0;
+    //    private int next=0;
 //    private int limit=20;
 //    private String cityId="1";
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
-//    String longitude="";
+    //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
 //    View v_default;
@@ -84,8 +93,8 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
         }
         activityList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            BussinessFragmentBean bean=new BussinessFragmentBean();
-            bean.activityName=""+i;
+            LabourServicesBean bean=new LabourServicesBean();
+            bean.startDate=""+i;
             activityList.add(bean);
         }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
@@ -113,25 +122,22 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 
     @Override
     protected void initData() {
+        initData(true);
 //        onRefresh();
     }
 
     @Override
     public void onRefresh() {
-
+        initData(true);
     }
 
-    @Override
-    public void onLoadMore() {
-
-    }
 //    @Override
 //    public void onRefresh() {
 //        next=0;
 //        initData(true);
 //    }
 
-    class BussinessFragmentAdapter extends CommonAdapter<BussinessFragmentBean> implements AbsListView.OnScrollListener {
+    class BussinessFragmentAdapter extends CommonAdapter<LabourServicesBean> implements AbsListView.OnScrollListener {
         //        private String type;
         //屏幕宽
         int widthScreen;
@@ -139,7 +145,7 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
         int collectionImgSize;
         int itemSpace;
 
-        BussinessFragmentAdapter(List<BussinessFragmentBean> data) {
+        BussinessFragmentAdapter(List<LabourServicesBean> data) {
             super(data, 10);
         }
 
@@ -153,12 +159,12 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
         final int VIEWTYPE_VEDIO = 2;//视频
 
         @Override
-        public AdapterItem<BussinessFragmentBean> getItemView(int itemViewType) {
+        public AdapterItem<LabourServicesBean> getItemView(int itemViewType) {
             AdapterItem item = null;
 //            if (itemViewType == VIEWTYPE_VEDIO) {
 //                item = new ItemVedio();
 //            } else {
-                item = new ItemPicture();
+            item = new ItemPicture();
 //            }
             return item;
         }
@@ -185,11 +191,11 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
         }
     }
 
-    class ItemPicture extends AdapterItem<BussinessFragmentBean> implements View.OnClickListener {
+    class ItemPicture extends AdapterItem<LabourServicesBean> implements View.OnClickListener {
 
         @Override
         public int getLayoutResId() {
-            return R.layout.business_list_item;
+            return R.layout.labour_services_list_item;
         }
 
         @Override
@@ -206,23 +212,85 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 
 
         @Override
-        public void onUpdateViews(final BussinessFragmentBean auctionBean, final int position) {
+        public void onUpdateViews(final LabourServicesBean auctionBean, final int position) {
 //            ((TextView)getView(R.id.tv_user_name)).setText(auctionBean.user.nick);
-
+//            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
+//            ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
+//            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.buyUnit+" | "+auctionBean.phone);
+//            ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
         }
     }
 
-    private void initData(boolean needclear) {
+    private void initData(final boolean needclear) {
 //        longitude=SPUtil.get("longitude");
 //        latitude=SPUtil.get("latitude");
 //        cityId= SPUtil.get("cityId");
-//        NetWorkModule.getInstance().getCityActivityList(context,cityId,classId,longitude,latitude,next,limit,mParam1, new VolleyCallBack() {
+        AuctionModule.getInstance().getDemandList(context, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						dialogtools.dismissDialog();
+                    }
+                    activityList = ParseJson.parseGetResultCollection(result, "data", LabourServicesBean.class);
+                    if (needclear) {
+                        lv_activity_main.stopRefresh();
+                        feedAdapter.updateData(activityList);
+                    } else {
+                        feedAdapter.addListData(activityList);
+                        lv_activity_main.stopLoadMore();
+                    }
+
+//                if (activityEntities.size() >= limit) {
+//                    lv_activity_main.setPullLoadEnable(true);
+//                } else {
+//                    lv_activity_main.setPullLoadEnable(false);
+//                }
+                    activityList = feedAdapter.getDataList();
+                    if(activityList.size()>0){
+//                    v_default.setVisibility(View.GONE);
+//                    viewEmpty.setVisibility(View.GONE);
+                    }else{
+//                    v_default.setVisibility(View.VISIBLE);
+//                    viewEmpty.setVisibility(View.VISIBLE);
+//                    viewEmpty.setText(getString(R.string.no_content_activity));
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
 //            @Override
 //            public void success(String result, String method) {
-//                List<ActivityListBean> activityEntities = null;
+////                List<ActivityListBean> activityEntities = null;
+////                try {
+//                    JSONObject jSONObject;
 //                try {
-//                    JSONObject jSONObject=new JSONObject(result).getJSONObject("data");
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", ActivityListBean.class);
+//                    jSONObject = new JSONObject(result).getJSONObject("data");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
 //                } catch (JSONException e) {
 //                    e.printStackTrace();
 //                }
@@ -250,26 +318,27 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 //                }
 //                onLoad();
 //            }
-//
+
 //            @Override
 //            public void failure(String error, String method, int type) {
-//                onLoad();
+////                onLoad();
 //            }
-//        });
+        });
     }
 
     @Override
     public void onClick(View view) {
 
     }
-//    @Override
-//    public void onLoadMore() {
-//        initData(false);
-//    }
-//    private void onLoad() {
-//        if (lv_activity_main != null) {
-//            lv_activity_main.stopRefresh();
-//            lv_activity_main.stopLoadMore();
-//        }
-//    }
+    @Override
+    public void onLoadMore() {
+        initData(false);
+    }
+    private void onLoad() {
+        if (lv_activity_main != null) {
+            lv_activity_main.stopRefresh();
+            lv_activity_main.stopLoadMore();
+        }
+    }
 }
+

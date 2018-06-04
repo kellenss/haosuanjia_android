@@ -243,7 +243,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
                         ShowToastUtil.Short(jsonObject.getString("msg"));
 //						dialogtools.dismissDialog();
                     }
-                    activityList = ParseJson.parseGetResultCollection(result, "data", BussinessListBean.class);
+                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", BussinessListBean.class);
                     if (needclear) {
                         lv_activity_main.stopRefresh();
                         feedAdapter.updateData(activityList);

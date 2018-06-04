@@ -21,6 +21,20 @@ public class LabourServicesBean implements Serializable {
    public String createTime;
 
 
+//   public int id;
+   public String unitName;
+   public String workContent;
+//   public String startDate;
+//   public String endDate;
+//   public String address;
+//   public String phone;
+   public String price;
+   public String amount;
+   public String workDays;
+   public int workers;
+   public int status;
+
+
 }
 
 

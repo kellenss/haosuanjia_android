@@ -45,16 +45,19 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:padding="@dimen/size_5dip">
-            <ImageView
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:background="@mipmap/icon_bzzx"/>
+                android:text="联系人"
+                android:gravity="center"
+                android:background="@mipmap/icon_yellow_bg"/>
             <TextView
                 android:id="@+id/tv_name_phone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/data_text"
+                android:layout_marginLeft="@dimen/size_5dip"
                 android:text="李先生|13863174538"/>
         </LinearLayout>
         <TextView

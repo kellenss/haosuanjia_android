@@ -64,7 +64,7 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取劳务输出列表
+     * 获取劳务供需劳务需求列表
      */
     public void getSupplyList(Context context,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getSupplyList();
@@ -76,7 +76,19 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取劳务输出列表
+     * 获取劳务供需劳务输出列表
+     */
+    public void getDemandList(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getDemandList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("PhoneNumber", PhoneNumber);
+//        mapParams.put("PassWord", PassWord);
+//        mapParams.put("PhoneCode", PhoneCode);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取买卖需求购买列表
      */
     public void getBuyList(Context context,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getBuyList();
@@ -88,7 +100,7 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取劳务输出列表
+     * 获取买卖需求出售列表
      */
     public void getSellList(Context context,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getSellList();

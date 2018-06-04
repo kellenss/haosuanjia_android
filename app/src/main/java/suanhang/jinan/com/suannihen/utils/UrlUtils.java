@@ -34,9 +34,13 @@ public class UrlUtils {
 		return getBaseUrl() + "getPhonecode.php";
 	}
 
-	//获取劳务输出列表
+	//获取劳务供需劳务需求列表
 	public static String getSupplyList() {
 		return getBaseUrl() + "labor/get_supply_list";
+	}
+	//获取劳务供需劳务输出列表
+	public static String getDemandList() {
+		return getBaseUrl() + "labor/get_demand_list";
 	}
 	//获取买卖需求购买
 	public static String getBuyList() {
