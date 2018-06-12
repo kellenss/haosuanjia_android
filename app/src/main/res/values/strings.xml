@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">蒜来蒜去</string>
+    <string name="app_name">好蒜价</string>
     <string name="network_error">网络不给力，请检查您的网络设置</string>
     <string name="request_json_parse_exception">JSON解析异常。</string>
     <string name="refreshview_head_chat">查看更多消息</string>

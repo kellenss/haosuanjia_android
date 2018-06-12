@@ -49,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/data_text"
-                    android:text="李先生|13863174538"/>
+                    android:text="李先生"/>
                 <TextView
                     android:id="@+id/tv_desc_text"
                     android:layout_width="wrap_content"
@@ -96,6 +96,7 @@
     android:orientation="horizontal"
     android:gravity="center">
     <TextView
+        android:id="@+id/tv_liuyan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="给他留言"
@@ -109,6 +110,7 @@
         android:background="@color/hint_gray"
         />
     <TextView
+        android:id="@+id/tv_baojia"
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

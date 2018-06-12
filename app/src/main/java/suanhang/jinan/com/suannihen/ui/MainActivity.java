@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TabHost;
@@ -30,6 +31,7 @@ public class MainActivity extends TabActivity  {
         setContentView(R.layout.activity_main);
         context=this;
         init();
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         registBoscast();
         initMainInfo();
     }

@@ -64,27 +64,21 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取劳务供需劳务需求列表
+     * 获取劳务供需劳务输出列表
      */
     public void getSupplyList(Context context,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getSupplyList();
 
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("PhoneNumber", PhoneNumber);
-//        mapParams.put("PassWord", PassWord);
-//        mapParams.put("PhoneCode", PhoneCode);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取劳务供需劳务输出列表
+     * 获取劳务供需劳务需求列表
      */
     public void getDemandList(Context context,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getDemandList();
 
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("PhoneNumber", PhoneNumber);
-//        mapParams.put("PassWord", PassWord);
-//        mapParams.put("PhoneCode", PhoneCode);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
@@ -94,9 +88,6 @@ public class AuctionModule extends BaseModule {
         String url = UrlUtils.getBuyList();
 
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("PhoneNumber", PhoneNumber);
-//        mapParams.put("PassWord", PassWord);
-//        mapParams.put("PhoneCode", PhoneCode);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
@@ -106,9 +97,16 @@ public class AuctionModule extends BaseModule {
         String url = UrlUtils.getSellList();
 
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("PhoneNumber", PhoneNumber);
-//        mapParams.put("PassWord", PassWord);
-//        mapParams.put("PhoneCode", PhoneCode);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+
+    /**
+     * 根据不同排序获取不同的公司列表
+     */
+    public void getCommpanyList(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getCommpanyList();
+
+        Map<String, String> mapParams = new HashMap<>();
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 //    /**

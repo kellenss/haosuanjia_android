@@ -2,11 +2,15 @@ package suanhang.jinan.com.suannihen.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import suanhang.jinan.com.suannihen.R;
+import suanhang.jinan.com.suannihen.utils.ConstantString;
+import suanhang.jinan.com.suannihen.utils.SPUtil;
 
 
 /**
@@ -14,6 +18,8 @@ import suanhang.jinan.com.suannihen.R;
  */
 public class MineActivity extends BaseActivity implements View.OnClickListener{
     private ImageView iv_setting;
+    private TextView tv_name;
+    private TextView tv_phone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,8 +28,22 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
 //        Toast.makeText(context,"我的",Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(!TextUtils.isEmpty( SPUtil.get(ConstantString.PHONENUM))){
+            tv_phone.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));
+            tv_name.setText(""+ SPUtil.get(ConstantString.USERNICKNAME));
+        }else{
+            tv_phone.setText("");
+            tv_name.setText("请登录");
+        }
+    }
+
     private void init() {
         iv_setting=(ImageView) findViewById(R.id.iv_setting);
+        tv_name=(TextView) findViewById(R.id.tv_name);
+        tv_phone=(TextView) findViewById(R.id.tv_phone);
         iv_setting.setOnClickListener(this);
     }
 

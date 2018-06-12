@@ -2,6 +2,8 @@ package suanhang.jinan.com.suannihen.ui;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,11 +35,36 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        //隐藏标题栏
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //隐藏状态栏
+//        //定义全屏参数
+//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        //获得当前窗体对象
+//        Window window=ForumActivity.this.getWindow();
+//        //设置当前窗体为全屏显示
+//        window.setFlags(flag, flag);
         setContentView(R.layout.activity_forum);
         inits();
         initdata();
+        setTop();
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        //定义全屏参数
+//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
+//        //获得当前窗体对象
+//        Window window=ForumActivity.this.getWindow();
+//        //设置当前窗体为全屏显示
+//        window.setFlags(flag, flag);
     }
-
+    public void setTop()
+    {
+        setTopFluTranslate();
+    }
+    protected void setTopFluTranslate()
+    {
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+    }
     private void initdata() {
         lv_activity_main.setPullLoadEnable(true);
         lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);

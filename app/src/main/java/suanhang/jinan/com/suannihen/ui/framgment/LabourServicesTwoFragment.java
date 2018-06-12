@@ -213,11 +213,11 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 
         @Override
         public void onUpdateViews(final LabourServicesBean auctionBean, final int position) {
-//            ((TextView)getView(R.id.tv_user_name)).setText(auctionBean.user.nick);
-//            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
-//            ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
-//            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.buyUnit+" | "+auctionBean.phone);
-//            ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
+            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.workType);
+            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.workType+" | 家庭住址："+auctionBean.address);
+            ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" 下午"+auctionBean.endDate);
+            ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
+            ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.GONE);
         }
     }
 
@@ -225,19 +225,19 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 //        longitude=SPUtil.get("longitude");
 //        latitude=SPUtil.get("latitude");
 //        cityId= SPUtil.get("cityId");
-        AuctionModule.getInstance().getDemandList(context, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getSupplyList(context, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
+
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.get//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+////													Toast.LENGTH_SHORT).show();
+////						dialogtools.dismissDialog();
+////                        ShowToastUtil.Short(jsonObject.getString("msg"));
+////						finish();String("msg"),
 //													Toast.LENGTH_SHORT).show();
                         ShowToastUtil.Short(jsonObject.getString("msg"));
 //						dialogtools.dismissDialog();

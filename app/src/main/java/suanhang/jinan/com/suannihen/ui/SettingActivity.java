@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,6 +25,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 import suanhang.jinan.com.suannihen.R;
+import suanhang.jinan.com.suannihen.utils.ConstantString;
+import suanhang.jinan.com.suannihen.utils.DataCleanManager;
+import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 
 /**
  * 设置界面activity
@@ -34,6 +38,9 @@ public class SettingActivity extends StatisticsActivity implements
         OnClickListener {
     private static final String TAG = "SettingActivity";
     private TextView tv_clear_memory;
+    private TextView tv_title_head;
+    private ImageView iv_right_head;
+    private ImageView iv_back_head;
     private Gson gson;
     TextView tv_page_title;
 
@@ -42,19 +49,24 @@ public class SettingActivity extends StatisticsActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-//        init();
+        init();
     }
 
-//    private void init() {
+    private void init() {
 //        gson = new Gson();
 //        tv_page_title = (TextView) findViewById(R.id.tv_page_title);
-//        tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
-//        try {
-//            tv_clear_memory
-//                    .setText(DataCleanManager.getTotalCacheSize(context));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
+        iv_back_head = (ImageView) findViewById(R.id.iv_back_head);
+        iv_right_head.setVisibility(View.GONE);
+        tv_title_head = (TextView) findViewById(R.id.tv_title_head);
+        tv_title_head.setText("设置");
+        tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
+        try {
+            tv_clear_memory
+                    .setText(DataCleanManager.getTotalCacheSize(context));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 //        // 设置字体
 //        tv_page_title.setText(getString(R.string.setting));
 //        ((TextView) findViewById(R.id.tv_text10)).setText("当前版本：v"
@@ -67,7 +79,8 @@ public class SettingActivity extends StatisticsActivity implements
 //        findViewById(R.id.tv_address).setOnClickListener(this);
 //        findViewById(R.id.tv_kefu).setOnClickListener(this);
 //        findViewById(R.id.layout_notify).setOnClickListener(this);
-//        findViewById(R.id.layout_clear_cache).setOnClickListener(this);
+        findViewById(R.id.layout_clear_cache).setOnClickListener(this);
+        findViewById(R.id.iv_back_head).setOnClickListener(this);
 //        findViewById(R.id.tv_aboutus).setOnClickListener(this);
 //        findViewById(R.id.layout_update).setOnClickListener(this);
 //        findViewById(R.id.layout_top_5).setOnClickListener(this);
@@ -89,7 +102,7 @@ public class SettingActivity extends StatisticsActivity implements
 //        } else {
 //            sbt_ispush.setChecked(true);
 //        }
-//    }
+    }
 
 //    /****
 //     * 滑动按钮监听事件
@@ -204,6 +217,9 @@ public class SettingActivity extends StatisticsActivity implements
 //            case R.id.iv_left_img:
 //                onBack();
 //                break;
+            case R.id.iv_back_head:
+                onBack();
+                break;
 //            case R.id.tv_edit_info:
 //                if (userInfo == null) {
 //                    requestServerPostThread();
@@ -219,16 +235,16 @@ public class SettingActivity extends StatisticsActivity implements
 //                        AccountActivity.class);
 //                startActivity(intent);
 //                break;
-//            case R.id.layout_clear_cache:
-//                try {
-//                    DataCleanManager.clearAllCache(context);
-//                    tv_clear_memory.setText(DataCleanManager
-//                            .getTotalCacheSize(context));
-//                    ShowToastUtil.Short("清除缓存成功");
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                }
-//                break;
+            case R.id.layout_clear_cache:
+                try {
+                    DataCleanManager.clearAllCache(context);
+                    tv_clear_memory.setText(DataCleanManager
+                            .getTotalCacheSize(context));
+                    ShowToastUtil.Short("清除缓存成功");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                break;
 //            case R.id.tv_supplier_send:
 //                String supplierTypes = SPUtil.get(this, "supplierType");
 //
@@ -546,12 +562,12 @@ public class SettingActivity extends StatisticsActivity implements
 //    /**
 //     * 返回操作
 //     */
-//    private void onBack() {
+    private void onBack() {
 //        Intent intent = new Intent();
 //        intent.putExtra(ConstantString.PROFILEUSERINFO, userInfo);
 //        setResult(ConstantString.RESULTCODE_UPDATEUSERINFO, intent);
-//        finish();
-//    }
+        finish();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {

@@ -1,6 +1,8 @@
 package suanhang.jinan.com.suannihen.ui.framgment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -20,6 +22,8 @@ import java.util.List;
 import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
 import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
+import suanhang.jinan.com.suannihen.commons.LogX;
+import suanhang.jinan.com.suannihen.dialog.CustomDialogEditText;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
@@ -202,11 +206,58 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
         @Override
         public void onClick(View v) {
             int i = v.getId();
+            if(i==R.id.tv_baojia){
+                                new CustomDialogEditText.Builder(context)
+                        .setMessage("向他报价")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        LogX.d("setPagePath",
+                                                "" +
+                                                        "报价");
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+            }else if(i==R.id.tv_liuyan){
+                new CustomDialogEditText.Builder(context)
+                        .setMessage("给他留言")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        LogX.d("setPagePath",
+                                                "" +
+                                                        "报价");
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+            }
 
         }
 
         @Override
         public void onSetViews() {
+            getView(R.id.tv_baojia).setOnClickListener(this);
+            getView(R.id.tv_liuyan).setOnClickListener(this);
 //            getView(R.id.tv_user_name).setOnClickListener(this);
 
         }
@@ -214,11 +265,12 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
 
         @Override
         public void onUpdateViews(final LabourServicesBean auctionBean, final int position) {
-//            ((TextView)getView(R.id.tv_user_name)).setText(auctionBean.user.nick);
-//            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
-//            ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
-//            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.buyUnit+" | "+auctionBean.phone);
-//            ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
+            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.unitName);
+            ((TextView)getView(R.id.tv_name_phone)).setText("电话："+auctionBean.phone);
+            ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" 下午"+auctionBean.endDate);
+            ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
+            ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.amount+"人，工资"+auctionBean.price+"元/天");
+            ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.VISIBLE);
         }
     }
 
@@ -226,7 +278,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
 //        longitude=SPUtil.get("longitude");
 //        latitude=SPUtil.get("latitude");
 //        cityId= SPUtil.get("cityId");
-        AuctionModule.getInstance().getSupplyList(context, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getDemandList(context, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {

@@ -8,7 +8,8 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -73,6 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_5dip"
         android:background="@color/gray_d6"
+        android:visibility="gone"
         />
     <suanhang.jinan.com.suannihen.view.listviewload.XListView
         android:id="@+id/lv_bussiness_main"

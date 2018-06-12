@@ -209,13 +209,15 @@
                         android:id="@+id/iv_home_icon6"
                         android:layout_width="@dimen/size_60dip"
                         android:layout_height="@dimen/size_60dip"
-                        android:background="@mipmap/icon_qita"/>
+                        android:background="@mipmap/icon_qita"
+                        android:visibility="gone"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/iv_home_icon6"
                         android:text="其他"
+                        android:visibility="gone"
                         android:layout_marginTop="15dp"
                         android:textColor="@color/black" />
                 </LinearLayout>
@@ -459,6 +461,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:hint="请输入关键字"
+            android:visibility="gone"
             android:textColorHint="@color/gray_temp_detail"
             android:singleLine="true"
             android:ellipsize="middle"

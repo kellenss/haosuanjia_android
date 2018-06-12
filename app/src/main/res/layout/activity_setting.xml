@@ -5,9 +5,9 @@
     android:background="@color/color_common_bg"
     android:orientation="vertical">
 
-    <!--<include-->
-        <!--android:id="@+id/inc"-->
-        <!--layout="@layout/head" />-->
+    <include
+        android:id="@+id/inc"
+        layout="@layout/include_title" />
 
     <ScrollView
         android:id="@+id/scrollview"
@@ -21,33 +21,94 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tv_input_code"
+                android:id="@+id/tv_item_one"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_15dip"
                 android:paddingRight="@dimen/size_15dip"
-                android:text="个"
+                android:drawableRight="@mipmap/hasd_15"
+                android:text="当前版本号1.0"
+                android:background="@color/white"
                 android:textColor="@color/black"
                 android:textSize="@dimen/size_14sp"
-                android:visibility="gone" />
+                android:visibility="visible" />
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="2px" />
             <!--android:background="@drawable/background_change"-->
             <!--android:drawableRight="@drawable/hasd_15"-->
             <TextView
-                android:id="@+id/tv_edit_info"
+                android:id="@+id/tv_item_two"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/size_15dip"
                 android:paddingRight="@dimen/size_15dip"
-                android:text="方法"
+                android:text="关于我们"
+                android:background="@color/white"
                 android:textColor="@color/black"
+                android:drawableRight="@mipmap/hasd_15"
                 android:textSize="@dimen/size_14sp" />
 
             <Space
                 android:layout_width="fill_parent"
                 android:layout_height="2px" />
+            <TextView
+                android:id="@+id/tv_item_three"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/size_15dip"
+                android:paddingRight="@dimen/size_15dip"
+                android:text="版本介绍"
+                android:background="@color/white"
+                android:drawableRight="@mipmap/hasd_15"
+                android:textColor="@color/black"
+                android:textSize="@dimen/size_14sp" />
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="2px" />
 
+            <RelativeLayout
+                android:id="@+id/layout_clear_cache"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
+
+                <TextView
+                    android:id="@+id/tv_item_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="15dp"
+                    android:text="清空缓存"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/size_14sp" />
+
+                <TextView
+                    android:id="@+id/tv_clear_memory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="20dp"
+                    android:text="2.3M"
+                    android:textColor="@color/gray_setting" />
+            </RelativeLayout>
+            <Space
+                android:layout_width="fill_parent"
+                android:layout_height="20px" />
+            <TextView
+                android:id="@+id/layout_top_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="退出登录"
+                android:textColor="@color/color_666666"
+                android:textSize="@dimen/size_16sp" />
         </LinearLayout>
     </ScrollView>
 

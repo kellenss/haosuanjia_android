@@ -20,6 +20,7 @@
     <color name="product_options_passive">#ff999999</color>
     <color name="limit_buy_text_bg">#ff666666</color>
     <color name="transparent">#00000000</color>
+    <color name="black_overlay">#66000000</color>
     <color name="WHITE">#ffffff</color>
     <color name="BLACK">#ff000000</color>
     <color name="setting_listview_bg">#00000000</color>

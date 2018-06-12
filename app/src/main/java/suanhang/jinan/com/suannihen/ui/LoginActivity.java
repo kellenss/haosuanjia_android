@@ -26,7 +26,7 @@ import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
  * @author admin
  *
  */
-public class LoginActivity extends Activity implements OnClickListener {
+public class LoginActivity extends StatisticsActivity implements OnClickListener {
 
 	private AlertDialog alertDialog;
 	private EditText et_username,et_password;
@@ -118,10 +118,13 @@ public class LoginActivity extends Activity implements OnClickListener {
 							SPUtil.set(ConstantString.PHONENUM, username);
 							SPUtil.set(ConstantString.PASSWORD, password);
 
+
 							Intent intent = new Intent(getApplicationContext(),MainActivity.class);
 							startActivity(intent);
 						}
 							if(jsonObject.getInteger("status")==1){
+								SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
+								SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();
 //						dialogtools.dismissDialog();

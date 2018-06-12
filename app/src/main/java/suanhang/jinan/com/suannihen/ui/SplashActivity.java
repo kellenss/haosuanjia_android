@@ -3,6 +3,7 @@ package suanhang.jinan.com.suannihen.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.EditText;
 
 import suanhang.jinan.com.suannihen.R;
