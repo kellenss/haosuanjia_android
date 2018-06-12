@@ -55,6 +55,14 @@ public class UrlUtils {
 	public static String getCommpanyList() {
 		return getBaseUrl() + "company/get_company_list";
 	}
+	//新闻页重点企业列表
+	public static String getNewsCommpanyList() {
+		return getBaseUrl() + "news/get_news_list";
+	}
+	//获取所有经纪人
+	public static String getAgentList() {
+		return getBaseUrl() + "common/get_all_agent";
+	}
 	/*//添加患者信息接口
 	public static String getAddpatient() {
 		return getBaseUrl() + "patient/add.action";

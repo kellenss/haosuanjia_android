@@ -70,6 +70,9 @@
         <activity android:name=".ui.CompanyItemActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.AgentActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>

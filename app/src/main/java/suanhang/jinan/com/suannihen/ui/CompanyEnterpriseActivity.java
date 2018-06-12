@@ -2,8 +2,10 @@ package suanhang.jinan.com.suannihen.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,6 +22,7 @@ import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
 import suanhang.jinan.com.suannihen.bean.CompanyEnterpriseBean;
 import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
+import suanhang.jinan.com.suannihen.bean.NewsCompanyBean;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.utils.ParseJson;
@@ -34,7 +37,7 @@ import suanhang.jinan.com.suannihen.view.listviewload.XListView;
  */
 public class CompanyEnterpriseActivity extends StatisticsActivity implements  View.OnClickListener, XListView.IXListViewListener {
     private XListView lv_activity_main;
-    List<CompanyEnterpriseBean> activityList; // 动态数组
+    List<NewsCompanyBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
     private ImageView iv_back_head;
     private ImageView iv_right_head;
@@ -52,6 +55,8 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
     private LinearLayout ll_lkzlj_company;
     private LinearLayout ll_xhsgj_company;
     private LinearLayout ll_xhckj_company;
+    int page=0;
+    String class_id ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,8 +93,8 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         }
         activityList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            CompanyEnterpriseBean bean=new CompanyEnterpriseBean();
-            bean.company_name=""+i;
+            NewsCompanyBean bean=new NewsCompanyBean();
+            bean.title=""+i;
             activityList.add(bean);
         }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
@@ -136,7 +141,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
     }
     private void initDataPost(final boolean needclear) {
 
-        AuctionModule.getInstance().getCommpanyList(context, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getNewsCommpanyList(context,class_id,page, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
@@ -153,7 +158,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                         ShowToastUtil.Short(jsonObject.getString("msg"));
 //						dialogtools.dismissDialog();
                     }
-                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", CompanyEnterpriseBean.class);
+                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", NewsCompanyBean.class);
                     if (needclear) {
                         lv_activity_main.stopRefresh();
                         feedAdapter.updateData(activityList);
@@ -249,16 +254,19 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                 titleNama="";
                 Intent intent1=new Intent(this,CompanyItemActivity.class);
                 intent1.putExtra("title_name","最新企业");
+                intent1.putExtra("class_id","new_order");
                 startActivity(intent1);
                 break;
             case R.id.ll_tj_company:
                 Intent intent2=new Intent(this,CompanyItemActivity.class);
                 intent2.putExtra("title_name","推荐企业");
+                intent2.putExtra("class_id","extension_order");
                 startActivity(intent2);
                 break;
             case R.id.ll_rm_company:
                 Intent intent3=new Intent(this,CompanyItemActivity.class);
                 intent3.putExtra("title_name","热门企业");
+                intent3.putExtra("class_id","hot_order");
                 startActivity(intent3);
                 break;
             case R.id.ll_lkzlj_company:
@@ -291,7 +299,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         initDataPost(false);
     }
 
-    class BussinessFragmentAdapter extends CommonAdapter<CompanyEnterpriseBean> implements AbsListView.OnScrollListener {
+    class BussinessFragmentAdapter extends CommonAdapter<NewsCompanyBean> implements AbsListView.OnScrollListener {
         //        private String type;
         //屏幕宽
         int widthScreen;
@@ -299,7 +307,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         int collectionImgSize;
         int itemSpace;
 
-        BussinessFragmentAdapter(List<CompanyEnterpriseBean> data) {
+        BussinessFragmentAdapter(List<NewsCompanyBean> data) {
             super(data, 10);
         }
 
@@ -313,7 +321,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         final int VIEWTYPE_VEDIO = 2;//视频
 
         @Override
-        public AdapterItem<CompanyEnterpriseBean> getItemView(int itemViewType) {
+        public AdapterItem<NewsCompanyBean> getItemView(int itemViewType) {
             AdapterItem item = null;
 //            if (itemViewType == VIEWTYPE_VEDIO) {
 //                item = new ItemVedio();
@@ -345,7 +353,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         }
     }
 
-    class ItemFeed extends AdapterItem<CompanyEnterpriseBean> implements View.OnClickListener {
+    class ItemFeed extends AdapterItem<NewsCompanyBean> implements View.OnClickListener {
 
         @Override
         public int getLayoutResId() {
@@ -374,8 +382,10 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
 
 
         @Override
-        public void onUpdateViews(final CompanyEnterpriseBean auctionBean, final int position) {
-            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.company_name+"  公司地址："+auctionBean.address);
+        public void onUpdateViews(final NewsCompanyBean auctionBean, final int position) {
+            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
+//            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
+            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);
         }
     }
     private void onLoad() {

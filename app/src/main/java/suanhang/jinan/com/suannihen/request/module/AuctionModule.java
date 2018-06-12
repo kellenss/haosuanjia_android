@@ -103,10 +103,34 @@ public class AuctionModule extends BaseModule {
     /**
      * 根据不同排序获取不同的公司列表
      */
-    public void getCommpanyList(Context context,BaseHandlerJsonObject responseHandler) {
+    public void getCommpanyList(Context context,String class_id,int page,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getCommpanyList();
 
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("class_id", class_id);
+        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取公司企业重点企业
+     */
+    public void getNewsCommpanyList(Context context,String class_id,int page,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getNewsCommpanyList();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("class_id", class_id);
+        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取所有经纪人
+     */
+    public void getAgentList(Context context,String class_id,int page,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAgentList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("class_id", class_id);
+//        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 //    /**

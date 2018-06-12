@@ -222,7 +222,7 @@ private ViewPager view_pager;
                 startActivity(intent7);
                 break;
             case R.id.ll_agent:
-                Intent intent8=new Intent(this,ForumActivity.class);
+                Intent intent8=new Intent(this,AgentActivity.class);
                 startActivity(intent8);
                 break;
             case R.id.ll_customer_service:
