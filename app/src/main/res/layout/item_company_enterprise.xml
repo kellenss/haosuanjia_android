@@ -29,6 +29,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_head_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="重点企业"
@@ -47,10 +48,11 @@
             </LinearLayout>
 
             <ImageView
+                android:id="@+id/iv_commpany_logo"
                 android:layout_width="match_parent"
-                android:layout_height="195dip"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/icon_company_defoult"/>
+                android:background="@mipmap/icon_commpany_zd"/>
         </LinearLayout>
 
 </LinearLayout>
@@ -72,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="详细地址：合肥市高新区工业南路120号详细地址：合肥市高新区工业南路120号详细地址：合肥市高新区工业南路120号详细地址：合肥市高新区工业南路120号详细地址：合肥市高新区工业南路120号"
+            android:text="详细地址：合肥市高新区工业南路120号详细地址：合肥市高新区工业南路120号"
             android:gravity="left"
             android:lineSpacingExtra="@dimen/size_5dip"
             android:ellipsize="end"
@@ -87,6 +89,8 @@
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
+            android:layout_below="@+id/tv_shoucang"
+            android:visibility="visible"
             tools:ignore="WebViewLayout" />
     </RelativeLayout>
     <View

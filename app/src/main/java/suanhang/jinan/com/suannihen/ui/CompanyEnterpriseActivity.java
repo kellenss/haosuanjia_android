@@ -1,6 +1,7 @@
 package suanhang.jinan.com.suannihen.ui;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
 import suanhang.jinan.com.suannihen.bean.NewsCompanyBean;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
+import suanhang.jinan.com.suannihen.utils.BitmapUtil;
 import suanhang.jinan.com.suannihen.utils.ParseJson;
 import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
@@ -383,15 +385,32 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
 
         @Override
         public void onUpdateViews(final NewsCompanyBean auctionBean, final int position) {
-            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
-//            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
-            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);
+            if (position==0){
+                ((TextView)getView(R.id.tv_head_title)).setVisibility(View.VISIBLE);
+            }else {
+                ((TextView)getView(R.id.tv_head_title)).setVisibility(View.GONE);
+            }
+                String htmlData = auctionBean.content;
+                htmlData = htmlData.replaceAll("&amp;", "")
+                                                  .replaceAll("&quot;", "\"")
+                                                  .replaceAll("&lt;", "<")
+                                                  .replaceAll("&gt;", ">");
+//                htmlData = htmlData.;
+//                htmlData = htmlData;
+//                htmlData = htmlData;
+//            ((WebView)getView(R.id.wv_shoucang)).loadData(htmlData, "text/html" , "utf-8");
+//            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(htmlData, null, "text/html", "utf-8", null);
+//            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(htmlData));
+            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+            Bitmap bitmap;
+            bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
         }
     }
     private void onLoad() {
         if (lv_activity_main != null) {
             lv_activity_main.stopRefresh();
             lv_activity_main.stopLoadMore();
+
         }
     }
 }

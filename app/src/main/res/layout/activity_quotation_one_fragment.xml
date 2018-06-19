@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/color_common_bg"
+    >
+    <RelativeLayout
+        android:id="@+id/layout_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/rl_zoushi_one"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/size_10dip"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_zoushi_one"
+                    android:layout_width="80dp"
+                    android:layout_height="3dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/color_main" />
+
+                <TextView
+                    android:id="@+id/tv_zoushi_one"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="金乡走势"
+                    android:textColor="@color/color_main"
+                    android:textSize="14sp" />
+
+                <!-- <ImageView
+                     android:id="@+id/exhibit_message"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+
+                     android:layout_marginTop="14dp"
+                     android:background="@drawable/index_item_small"
+                     android:visibility="invisible"
+                     android:layout_alignParentTop="true"
+                     android:layout_toRightOf="@+id/tv_recommend"
+                     android:layout_toEndOf="@+id/tv_recommend" />-->
+            </RelativeLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/size_20dip"
+                android:background="@color/color_common_bg"
+                />
+            <RelativeLayout
+                android:id="@+id/rl_zoushi_two"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/size_10dip"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_zoushi_two"
+                    android:layout_width="80dp"
+                    android:layout_height="3dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible"
+                    android:background="@color/color_main" />
+
+                <TextView
+                    android:id="@+id/tv_zoushi_two"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="邳州走势"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <!-- <ImageView
+                     android:id="@+id/exhibit_message"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+
+                     android:layout_marginTop="14dp"
+                     android:background="@drawable/index_item_small"
+                     android:visibility="invisible"
+                     android:layout_alignParentTop="true"
+                     android:layout_toRightOf="@+id/tv_recommend"
+                     android:layout_toEndOf="@+id/tv_recommend" />-->
+            </RelativeLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/size_20dip"
+                android:background="@color/color_common_bg"
+                />
+            <RelativeLayout
+                android:id="@+id/rl_zoushi_three"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/size_10dip"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_zoushi_three"
+                    android:layout_width="80dp"
+                    android:layout_height="3dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible"
+                    android:background="@color/color_main" />
+
+                <TextView
+                    android:id="@+id/tv_zoushi_three"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="莱芜走势"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <!-- <ImageView
+                     android:id="@+id/exhibit_message"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+
+                     android:layout_marginTop="14dp"
+                     android:background="@drawable/index_item_small"
+                     android:visibility="invisible"
+                     android:layout_alignParentTop="true"
+                     android:layout_toRightOf="@+id/tv_recommend"
+                     android:layout_toEndOf="@+id/tv_recommend" />-->
+            </RelativeLayout>
+            <View
+                android:layout_width="1dp"
+                android:layout_marginTop="10dp"
+                android:layout_height="@dimen/size_20dip"
+                android:background="@color/color_common_bg"
+                />
+            <RelativeLayout
+                android:id="@+id/rl_zoushi_four"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="@dimen/size_10dip"
+                android:gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_zoushi_four"
+                    android:layout_width="80dp"
+                    android:layout_height="3dp"
+                    android:layout_centerInParent="true"
+                    android:layout_alignParentBottom="true"
+                    android:visibility="invisible"
+                    android:background="@color/color_main" />
+
+                <TextView
+                    android:id="@+id/tv_zoushi_four"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="沧州走势"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <!-- <ImageView
+                     android:id="@+id/exhibit_message"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+
+                     android:layout_marginTop="14dp"
+                     android:background="@drawable/index_item_small"
+                     android:visibility="invisible"
+                     android:layout_alignParentTop="true"
+                     android:layout_toRightOf="@+id/tv_recommend"
+                     android:layout_toEndOf="@+id/tv_recommend" />-->
+            </RelativeLayout>
+        </LinearLayout>
+
+       <!-- <ImageView
+            android:id="@+id/iv_right_img"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/size_10dip"/>-->
+    </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1dip"
+        android:background="@color/color_common_bg"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        <com.github.mikephil.charting.charts.LineChart
+            android:id="@+id/chart"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="200dp" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_10dip"
+        android:background="@color/color_common_bg"
+        />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="价格走势"
+        android:background="@color/white"
+        android:layout_margin="@dimen/size_10dip"
+        android:textColor="@color/black"/>
+    </FrameLayout>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/chart2"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+    </FrameLayout>
+</LinearLayout>

@@ -5,6 +5,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
@@ -358,4 +359,11 @@ public class BitmapUtil {
     public static int getShowHeight(double showWidth, double imgRealWidth, double imgRealHight){
         return (int) (showWidth/imgRealWidth * imgRealHight);
     }
+	public static Bitmap convertViewToBitmap(View view){
+		view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+		view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+		view.buildDrawingCache();
+		Bitmap bitmap = view.getDrawingCache();
+		return bitmap;
+	}
 }
