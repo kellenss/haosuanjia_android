@@ -1,5 +1,6 @@
 package suanhang.jinan.com.suannihen.ui.framgment;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -21,10 +22,14 @@ import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
 import suanhang.jinan.com.suannihen.bean.BussinessListBean;
 import suanhang.jinan.com.suannihen.bean.LabourServicesBean;
+import suanhang.jinan.com.suannihen.commons.LogX;
+import suanhang.jinan.com.suannihen.dialog.CustomDialogEditText;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
+import suanhang.jinan.com.suannihen.utils.ConstantString;
 import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.SPUtil;
 import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
 import suanhang.jinan.com.suannihen.view.adapter.CommonAdapter;
@@ -203,12 +208,69 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onClick(View v) {
             int i = v.getId();
+            if(i==R.id.tv_baojia){
+                new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                    @Override
+                    public void setActivityText(String content) {
+                        getBuyOffer(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                    }
+                })
+                        .setMessage("向他报价")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        LogX.d("setPagePath",
+                                                "" +
+                                                        "报价");
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+            }else if(i==R.id.tv_liuyan){
+                new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                    @Override
+                    public void setActivityText(String content) {
+                        getBuyComment(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                    }
+                })
+                        .setMessage("给他留言")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        LogX.d("setPagePath",
+                                                "" +
+                                                        "报价");
+
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+            }
+
 
         }
 
         @Override
         public void onSetViews() {
-//            getView(R.id.tv_user_name).setOnClickListener(this);
+            getView(R.id.tv_baojia).setOnClickListener(this);
+            getView(R.id.tv_liuyan).setOnClickListener(this);
 
         }
 
@@ -219,6 +281,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
             ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
             ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname+" | "+auctionBean.mobile);
             ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
+            ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
         }
     }
 
@@ -326,7 +389,83 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
 //            }
         });
     }
+    private void getBuyComment(String buy_id,String user_id,String content) {
+//        longitude=SPUtil.get("longitude");
+//        latitude=SPUtil.get("latitude");
+//        cityId= SPUtil.get("cityId");
+        AuctionModule.getInstance().getAddBuyComment(context,buy_id,user_id,content, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
 
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+        });
+    }
+    private void getBuyOffer(String buy_id,String user_id,String price) {
+//        longitude=SPUtil.get("longitude");
+//        latitude=SPUtil.get("latitude");
+//        cityId= SPUtil.get("cityId");
+        AuctionModule.getInstance().getAddBuyOffer(context, buy_id,user_id,price,new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+
+//						dialogtools.dismissDialog();
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+        });
+    }
     @Override
     public void onClick(View view) {
 

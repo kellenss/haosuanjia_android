@@ -125,6 +125,7 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 							if(jsonObject.getInteger("status")==1){
 								SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
 								SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
+								SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();
 //						dialogtools.dismissDialog();

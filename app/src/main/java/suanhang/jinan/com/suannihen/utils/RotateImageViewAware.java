@@ -43,7 +43,7 @@ public class RotateImageViewAware implements ImageAware {
 
 	/**
 	 * Constructor. <br />
-	 * References {@link #ImageViewAware(ImageView, boolean) ImageViewAware(imageView, true)}.
+	 * References .
 	 *
 	 * @param imageView {@link ImageView ImageView} to work with
 	 */

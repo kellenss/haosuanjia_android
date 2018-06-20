@@ -82,6 +82,98 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 添加劳务供需劳务需求留言
+     */
+    public void getAddDemandComment(Context context,String demand_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getDemandComment();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("demand_id", demand_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加买卖需求留言
+     */
+    public void getAddBuyComment(Context context,String buy_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getBuyComment();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("buy_id", buy_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加买卖供应留言
+     */
+    public void getAddSellComment(Context context,String sell_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSellComment();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("sell_id", sell_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加劳务供需劳务输出留言
+     */
+    public void getAddSupplyComment(Context context,String supply_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSupplyComment();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("supply_id", supply_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加劳务供需劳务需求报价
+     */
+    public void getAddDemandOffer(Context context,String demand_id,String user_id,String price,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getDemandOffer();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("demand_id", demand_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("price", price);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加买卖需求报价
+     */
+    public void getAddBuyOffer(Context context,String buy_id,String user_id,String price,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getBuyOffer();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("buy_id", buy_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("price", price);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加买卖供应报价
+     */
+    public void getAddSellOffer(Context context,String sell_id,String user_id,String price,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSellOffer();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("sell_id", sell_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("price", price);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加劳务供需劳务输出报价
+     */
+    public void getAddSupplyOffer(Context context,String supply_id,String user_id,String price,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getSupplyOffer();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("supply_id", supply_id);
+        mapParams.put("user_id", user_id);
+        mapParams.put("price", price);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
      * 获取买卖需求购买列表
      */
     public void getBuyList(Context context,BaseHandlerJsonObject responseHandler) {
@@ -131,6 +223,17 @@ public class AuctionModule extends BaseModule {
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("class_id", class_id);
 //        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取所有经纪人
+     */
+    public void getForumList(Context context, int page, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getForumList();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("class_id", class_id);
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 //    /**

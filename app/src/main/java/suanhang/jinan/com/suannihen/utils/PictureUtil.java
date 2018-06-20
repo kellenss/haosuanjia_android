@@ -73,7 +73,7 @@ public class PictureUtil {
 	/**
 	 * 根据路径获得突破并压缩返回bitmap用于显示
 	 * 
-	 * @param imagesrc
+	 * @param filePath
 	 * @return
 	 */
 	public static Bitmap getSmallBitmap(String filePath) {

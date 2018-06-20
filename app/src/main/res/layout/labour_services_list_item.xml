@@ -68,6 +68,7 @@
                         android:layout_height="wrap_content"
                         android:textColor="@color/data_text"
                         android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
                         android:text="工作时间：8：00-12：00下午13：00-18：00"/>
 
                 <TextView

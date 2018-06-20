@@ -32,6 +32,8 @@ public class BussinessListBean implements Serializable {
    public String createDate;
    public int user_id;
    public int sex;
+   public int comments_count;
+   public int offer_count;
    public String user_nickname;
    public String mobile;
    public String avatar;

@@ -48,7 +48,7 @@ private ViewPager view_pager;
         setContentView(R.layout.activity_home);
         initUi();
         registerLin();
-        tipslist=new ArrayList<TipsList>();
+        tipslist= new ArrayList<>();
         viewPageInit();
 //        Toast.makeText(context,"首页",Toast.LENGTH_SHORT).show();
     }

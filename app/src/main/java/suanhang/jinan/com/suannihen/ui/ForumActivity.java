@@ -9,12 +9,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSON;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import suanhang.jinan.com.suannihen.R;
+import suanhang.jinan.com.suannihen.bean.AgentListBean;
 import suanhang.jinan.com.suannihen.bean.BussinessFragmentBean;
+import suanhang.jinan.com.suannihen.bean.ForumListBean;
+import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
+import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.framgment.BussinessOneFragment;
+import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
 import suanhang.jinan.com.suannihen.view.adapter.CommonAdapter;
 import suanhang.jinan.com.suannihen.view.listviewload.XListView;
@@ -25,46 +35,23 @@ import suanhang.jinan.com.suannihen.view.listviewload.XListView;
  */
 public class ForumActivity extends StatisticsActivity implements  View.OnClickListener, XListView.IXListViewListener {
     private XListView lv_activity_main;
-    List<BussinessFragmentBean> activityList; // 动态数组
+    List<ForumListBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
     private ImageView iv_back_head;
     private ImageView iv_right_head;
     private TextView tv_left_head;
     private TextView tv_title_head;
     private TextView tv_right_head;
+    int page=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        //隐藏标题栏
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        //隐藏状态栏
-//        //定义全屏参数
-//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-//        //获得当前窗体对象
-//        Window window=ForumActivity.this.getWindow();
-//        //设置当前窗体为全屏显示
-//        window.setFlags(flag, flag);
         setContentView(R.layout.activity_forum);
         inits();
         initdata();
-        setTop();
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-//        //定义全屏参数
-//        int flag= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-//        //获得当前窗体对象
-//        Window window=ForumActivity.this.getWindow();
-//        //设置当前窗体为全屏显示
-//        window.setFlags(flag, flag);
     }
-    public void setTop()
-    {
-        setTopFluTranslate();
-    }
-    protected void setTopFluTranslate()
-    {
-//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-    }
+
+
     private void initdata() {
         lv_activity_main.setPullLoadEnable(true);
         lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);
@@ -74,8 +61,8 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         }
         activityList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            BussinessFragmentBean bean=new BussinessFragmentBean();
-            bean.activityName=""+i;
+            ForumListBean bean=new ForumListBean();
+            bean.user_nickname=""+i;
             activityList.add(bean);
         }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
@@ -99,6 +86,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 //                lastVisibleItem = lv_community_main.getLastVisiblePosition();
             }
         });
+        initDataPost(true);
     }
 
     private void inits() {
@@ -119,7 +107,107 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 //
 
     }
+    private void initDataPost(final boolean needclear) {
 
+        AuctionModule.getInstance().getForumList(context,page, new BaseHandlerJsonObject() {
+            @Override            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						dialogtools.dismissDialog();
+                    }
+                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", ForumListBean.class);
+                    if (needclear) {
+                        lv_activity_main.stopRefresh();
+                        feedAdapter.updateData(activityList);
+                    } else {
+                        feedAdapter.addListData(activityList);
+                        lv_activity_main.stopLoadMore();
+                    }
+
+//                if (activityEntities.size() >= limit) {
+//                    lv_activity_main.setPullLoadEnable(true);
+//                } else {
+//                    lv_activity_main.setPullLoadEnable(false);
+//                }
+                    activityList = feedAdapter.getDataList();
+                    if(activityList.size()>0){
+//                    v_default.setVisibility(View.GONE);
+//                    viewEmpty.setVisibility(View.GONE);
+                    }else{
+//                    v_default.setVisibility(View.VISIBLE);
+//                    viewEmpty.setVisibility(View.VISIBLE);
+//                    viewEmpty.setText(getString(R.string.no_content_activity));
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+//            @Override
+//            public void success(String result, String method) {
+////                List<ActivityListBean> activityEntities = null;
+////                try {
+//                    JSONObject jSONObject;
+//                try {
+//                    jSONObject = new JSONObject(result).getJSONObject("data");
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                if (next == 0) {
+//                    lv_activity_main.stopRefresh();
+//                    feedAdapter.updateData(activityEntities);
+//                } else {
+//                    feedAdapter.addListData(activityEntities);
+//                    lv_activity_main.stopLoadMore();
+//                }
+//
+//                if (activityEntities.size() >= limit) {
+//                    lv_activity_main.setPullLoadEnable(true);
+//                } else {
+//                    lv_activity_main.setPullLoadEnable(false);
+//                }
+//                activityList = feedAdapter.getDataList();
+//                if(activityList.size()>0){
+//                    v_default.setVisibility(View.GONE);
+//                    viewEmpty.setVisibility(View.GONE);
+//                }else{
+//                    v_default.setVisibility(View.VISIBLE);
+//                    viewEmpty.setVisibility(View.VISIBLE);
+//                    viewEmpty.setText(getString(R.string.no_content_activity));
+//                }
+//                onLoad();
+//            }
+
+//            @Override
+//            public void failure(String error, String method, int type) {
+////                onLoad();
+//            }
+        });
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -135,15 +223,15 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
     @Override
     public void onRefresh() {
-
+        initDataPost(true);
     }
 
     @Override
     public void onLoadMore() {
-
+        initDataPost(false);
     }
 
-    class BussinessFragmentAdapter extends CommonAdapter<BussinessFragmentBean> implements AbsListView.OnScrollListener {
+    class BussinessFragmentAdapter extends CommonAdapter<ForumListBean> implements AbsListView.OnScrollListener {
         //        private String type;
         //屏幕宽
         int widthScreen;
@@ -151,7 +239,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         int collectionImgSize;
         int itemSpace;
 
-        BussinessFragmentAdapter(List<BussinessFragmentBean> data) {
+        BussinessFragmentAdapter(List<ForumListBean> data) {
             super(data, 10);
         }
 
@@ -165,7 +253,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         final int VIEWTYPE_VEDIO = 2;//视频
 
         @Override
-        public AdapterItem<BussinessFragmentBean> getItemView(int itemViewType) {
+        public AdapterItem<ForumListBean> getItemView(int itemViewType) {
             AdapterItem item = null;
 //            if (itemViewType == VIEWTYPE_VEDIO) {
 //                item = new ItemVedio();
@@ -197,7 +285,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         }
     }
 
-    class ItemFeed extends AdapterItem<BussinessFragmentBean> implements View.OnClickListener {
+    class ItemFeed extends AdapterItem<ForumListBean> implements View.OnClickListener {
 
         @Override
         public int getLayoutResId() {
@@ -226,9 +314,20 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
 
         @Override
-        public void onUpdateViews(final BussinessFragmentBean auctionBean, final int position) {
-//            ((TextView)getView(R.id.tv_user_name)).setText(auctionBean.user.nick);
+        public void onUpdateViews(final ForumListBean auctionBean, final int position) {
+            ((TextView)getView(R.id.tv_username)).setText(auctionBean.user_nickname);
+            ((TextView)getView(R.id.tv_create_time)).setText(auctionBean.createtime);
+            ((TextView)getView(R.id.tv_item_title)).setText(auctionBean.title);
+            ((TextView)getView(R.id.tv_item_content)).setText(auctionBean.content);
+            ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.statu+"");
+            ((TextView)getView(R.id.tv_pinglun)).setText(auctionBean.collection+"");
 
+        }
+    }
+    private void onLoad() {
+        if (lv_activity_main != null) {
+            lv_activity_main.stopRefresh();
+            lv_activity_main.stopLoadMore();
         }
     }
 }

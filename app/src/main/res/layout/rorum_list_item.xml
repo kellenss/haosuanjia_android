@@ -39,6 +39,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_username"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="李先生"
@@ -46,6 +47,7 @@
                     android:textSize="16sp" />
 
                 <TextView
+                    android:id="@+id/tv_name_tag"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/size_5dip"
@@ -63,6 +65,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_create_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -70,7 +73,7 @@
                     android:textColor="@color/color_666666"
                     android:textSize="14sp" />
 
-                <TextView
+                <TextView android:id="@+id/tv_item_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -78,7 +81,7 @@
                     android:textColor="@color/color_405db4"
                     android:textSize="16sp" />
 
-                <TextView
+                <TextView android:id="@+id/tv_item_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"

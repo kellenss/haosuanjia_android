@@ -47,9 +47,20 @@ public class CustomDialogEditText extends Dialog {
 		private OnClickListener listenerRight,
 				listenerLeft;
 		private boolean isSetMessgeColor = false;
+		/**
+		 * 自定义Dialog监听器
+		 */
+		public interface PriorityListener {
+			/**
+			 * 回调函数，用于在Dialog的监听事件触发后刷新Activity的UI显示
+			 */
+			void setActivityText(String string);
+		}
 
-		public Builder(Context context) {
+		private PriorityListener listener;
+		public Builder(Context context,PriorityListener listener) {
 			this.context = context;
+			this.listener = listener;
 		}
 
 		/**
@@ -171,8 +182,11 @@ public class CustomDialogEditText extends Dialog {
 			View layout = inflater.inflate(R.layout.custom_dialog_edit_text, null);
 			int screenWidth = context.getResources().getDisplayMetrics().widthPixels ;
 			dialog.addContentView(layout, new LayoutParams((int) (screenWidth * 0.8), LayoutParams.MATCH_PARENT));
-			EditText et_content;
+			final EditText et_content;
 			et_content=(EditText)  layout.findViewById(R.id.et_content);
+			if(message.equals("向他报价")){
+				et_content.setHint("请输入您的报价");
+			}
 			// set the confirm button
 			if (positiveButtonText != null) {
 				TextView negativeButton = ((TextView) layout.findViewById(R.id.positiveButton));
@@ -182,7 +196,8 @@ public class CustomDialogEditText extends Dialog {
                             public void onClick(View v) {
                                 if(listenerRight != null)
                                     listenerRight.onClick(dialog, DialogInterface.BUTTON_POSITIVE);
-                                dialog.dismiss();
+								listener.setActivityText(et_content.getText().toString());
+								dialog.dismiss();
                             }
                         });
 

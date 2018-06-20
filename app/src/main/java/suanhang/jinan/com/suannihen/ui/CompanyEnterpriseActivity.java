@@ -55,8 +55,8 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
     private LinearLayout ll_tj_company;
     private LinearLayout ll_rm_company;
     private LinearLayout ll_lkzlj_company;
-    private LinearLayout ll_xhsgj_company;
-    private LinearLayout ll_xhckj_company;
+//    private LinearLayout ll_xhsgj_company;
+//    private LinearLayout ll_xhckj_company;
     int page=0;
     String class_id ="";
     @Override
@@ -73,14 +73,14 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         ll_tj_company=view_head_sublist.findViewById(R.id.ll_tj_company);
         ll_rm_company=view_head_sublist.findViewById(R.id.ll_rm_company);
         ll_lkzlj_company=view_head_sublist.findViewById(R.id.ll_lkzlj_company);
-        ll_xhsgj_company=view_head_sublist.findViewById(R.id.ll_xhsgj_company);
-        ll_xhckj_company=view_head_sublist.findViewById(R.id.ll_xhckj_company);
+//        ll_xhsgj_company=view_head_sublist.findViewById(R.id.ll_xhsgj_company);
+//        ll_xhckj_company=view_head_sublist.findViewById(R.id.ll_xhckj_company);
         ll_zx_company.setOnClickListener(this);
         ll_tj_company.setOnClickListener(this);
         ll_rm_company.setOnClickListener(this);
         ll_lkzlj_company.setOnClickListener(this);
-        ll_xhsgj_company.setOnClickListener(this);
-        ll_xhckj_company.setOnClickListener(this);
+//        ll_xhsgj_company.setOnClickListener(this);
+//        ll_xhckj_company.setOnClickListener(this);
         lv_activity_main.removeHeaderView(view_head_sublist);
         lv_activity_main.addHeaderView(view_head_sublist);
 
@@ -276,16 +276,16 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                 intent4.putExtra("title_name","冷库租赁价");
                 startActivity(intent4);
                 break;
-            case R.id.ll_xhsgj_company:
-                Intent intent5=new Intent(this,CompanyItemActivity.class);
-                intent5.putExtra("title_name","现货收购价");
-                startActivity(intent5);
-                break;
-            case R.id.ll_xhckj_company:
-                Intent intent6=new Intent(this,CompanyItemActivity.class);
-                intent6.putExtra("title_name","现货出库价");
-                startActivity(intent6);
-                break;
+//            case R.id.ll_xhsgj_company:
+//                Intent intent5=new Intent(this,CompanyItemActivity.class);
+//                intent5.putExtra("title_name","现货收购价");
+//                startActivity(intent5);
+//                break;
+//            case R.id.ll_xhckj_company:
+//                Intent intent6=new Intent(this,CompanyItemActivity.class);
+//                intent6.putExtra("title_name","现货出库价");
+//                startActivity(intent6);
+//                break;
             default:
                 break;
         }

@@ -27,7 +27,9 @@ import suanhang.jinan.com.suannihen.dialog.CustomDialogEditText;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
+import suanhang.jinan.com.suannihen.utils.ConstantString;
 import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.SPUtil;
 import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
 import suanhang.jinan.com.suannihen.view.adapter.AdapterItem;
 import suanhang.jinan.com.suannihen.view.adapter.CommonAdapter;
@@ -207,7 +209,13 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
         public void onClick(View v) {
             int i = v.getId();
             if(i==R.id.tv_baojia){
-                                new CustomDialogEditText.Builder(context)
+                                new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                                    @Override
+                                    public void setActivityText(String content) {
+//                                     ShowToastUtil.toastShow(content);
+                                        getDemandOffer(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                                    }
+                                })
                         .setMessage("向他报价")
                         .setCancelable(false)
                         .setPositiveButton(R.string.confirm,
@@ -229,7 +237,13 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
                                 })
                         .show();
             }else if(i==R.id.tv_liuyan){
-                new CustomDialogEditText.Builder(context)
+                new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                    @Override
+                    public void setActivityText(String content) {
+                        ShowToastUtil.toastShow(content);
+                        getDemandComment(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                    }
+                })
                         .setMessage("给他留言")
                         .setCancelable(false)
                         .setPositiveButton(R.string.confirm,
@@ -270,6 +284,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
             ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" 下午"+auctionBean.endDate);
             ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
             ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.amount+"人，工资"+auctionBean.price+"元/天");
+            ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
             ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.VISIBLE);
         }
     }
@@ -295,7 +310,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
                         ShowToastUtil.Short(jsonObject.getString("msg"));
 //						dialogtools.dismissDialog();
                     }
-                    activityList = ParseJson.parseGetResultCollection(result, "data", LabourServicesBean.class);
+                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", LabourServicesBean.class);
                     if (needclear) {
                     lv_activity_main.stopRefresh();
                     feedAdapter.updateData(activityList);
@@ -333,52 +348,85 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
                 onLoad();
             }
 
-//            @Override
-//            public void success(String result, String method) {
-////                List<ActivityListBean> activityEntities = null;
-////                try {
-//                    JSONObject jSONObject;
-//                try {
-//                    jSONObject = new JSONObject(result).getJSONObject("data");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                if (next == 0) {
-//                    lv_activity_main.stopRefresh();
-//                    feedAdapter.updateData(activityEntities);
-//                } else {
-//                    feedAdapter.addListData(activityEntities);
-//                    lv_activity_main.stopLoadMore();
-//                }
-//
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-//                activityList = feedAdapter.getDataList();
-//                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-//                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-//                }
-//                onLoad();
-//            }
-
-//            @Override
-//            public void failure(String error, String method, int type) {
-////                onLoad();
-//            }
         });
     }
+    private void getDemandComment(String demand_id,String user_id,String content) {
+//        longitude=SPUtil.get("longitude");
+//        latitude=SPUtil.get("latitude");
+//        cityId= SPUtil.get("cityId");
+        AuctionModule.getInstance().getAddDemandComment(context,demand_id,user_id,content, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
 
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+        });
+    }
+    private void getDemandOffer(String demand_id,String user_id,String price) {
+//        longitude=SPUtil.get("longitude");
+//        latitude=SPUtil.get("latitude");
+//        cityId= SPUtil.get("cityId");
+        AuctionModule.getInstance().getAddDemandOffer(context, demand_id,user_id,price,new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+//						dialogtools.dismissDialog();
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+//						finish();
+                    }else{
+//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+//													Toast.LENGTH_SHORT).show();
+
+//						dialogtools.dismissDialog();
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+        });
+    }
     @Override
     public void onClick(View view) {
 

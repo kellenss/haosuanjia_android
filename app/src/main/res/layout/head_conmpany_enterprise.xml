@@ -67,6 +67,18 @@
                 android:background="@mipmap/icon_tj_company"/>
 
         </LinearLayout>
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal"
+        android:background="@color/color_common_bg"
+        android:layout_marginTop="@dimen/size_1dip"
+        android:layout_marginBottom="@dimen/size_1dip"
+        >
         <LinearLayout
             android:id="@+id/ll_rm_company"
             android:layout_width="match_parent"
@@ -76,6 +88,7 @@
             android:orientation="vertical"
             android:layout_weight="1"
             android:background="@color/white"
+            android:layout_marginRight="@dimen/size_1dip"
             android:paddingBottom="@dimen/size_15dip"
             >
             <TextView
@@ -92,17 +105,6 @@
                 android:layout_marginTop="15dp"
                 android:background="@mipmap/icon_rm_company"/>
         </LinearLayout>
-
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_horizontal"
-        android:background="@color/color_common_bg"
-        android:layout_marginTop="@dimen/size_1dip"
-        android:layout_marginBottom="@dimen/size_1dip"
-        >
         <LinearLayout
             android:id="@+id/ll_lkzlj_company"
             android:layout_width="match_parent"
@@ -111,8 +113,8 @@
             android:layout_gravity="center_horizontal"
             android:orientation="vertical"
             android:layout_weight="1"
-            android:background="@color/white"
             android:layout_marginRight="@dimen/size_1dip"
+            android:background="@color/white"
             android:paddingBottom="@dimen/size_15dip"
             >
             <TextView
@@ -130,7 +132,7 @@
                 android:background="@mipmap/icon_lkzlj_company"/>
 
         </LinearLayout>
-        <LinearLayout
+     <!--   <LinearLayout
             android:id="@+id/ll_xhsgj_company"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -182,7 +184,7 @@
                 android:layout_height="40dp"
                 android:layout_marginTop="15dp"
                 android:background="@mipmap/icon_xhckj_company"/>
-        </LinearLayout>
+        </LinearLayout>-->
 
     </LinearLayout>
 </LinearLayout>

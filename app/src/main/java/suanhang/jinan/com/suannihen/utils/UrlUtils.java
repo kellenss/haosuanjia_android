@@ -42,6 +42,38 @@ public class UrlUtils {
 	public static String getDemandList() {
 		return getBaseUrl() + "labor/get_demand_list";
 	}
+	//获取劳务供需劳务需求留言
+	public static String getDemandComment() {
+		return getBaseUrl() + "labor/add_demand_comment";
+	}
+	//添加买卖需求留言
+	public static String getBuyComment() {
+		return getBaseUrl() + "business/add_buy_comments";
+	}
+	//添加买卖供应留言
+	public static String getSellComment() {
+		return getBaseUrl() + "business/add_sell_comments";
+	}
+	//获取劳务供需劳务输出留言
+	public static String getSupplyComment() {
+		return getBaseUrl() + "labor/add_supply_comment";
+	}
+	//获取劳务供需劳务需求报价
+	public static String getDemandOffer() {
+		return getBaseUrl() + "labor/add_demand_offer";
+	}
+	//添加买卖需求报价
+	public static String getBuyOffer() {
+		return getBaseUrl() + "business/add_buy_offer";
+	}
+	//添加买卖供应报价
+	public static String getSellOffer() {
+		return getBaseUrl() + "business/add_sell_offer";
+	}
+	//获取劳务供需劳务输出报价
+	public static String getSupplyOffer() {
+		return getBaseUrl() + "labor/add_supply_offer";
+	}
 	//获取买卖需求购买
 	public static String getBuyList() {
 		return getBaseUrl() + "business/get_buy_list";
@@ -62,6 +94,10 @@ public class UrlUtils {
 	//获取所有经纪人
 	public static String getAgentList() {
 		return getBaseUrl() + "common/get_all_agent";
+	}
+	//获取论坛列表
+	public static String getForumList() {
+		return getBaseUrl() + "circle/get_circle_list";
 	}
 	/*//添加患者信息接口
 	public static String getAddpatient() {

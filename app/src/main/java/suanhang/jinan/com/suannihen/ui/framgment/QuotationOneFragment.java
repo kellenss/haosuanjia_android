@@ -236,7 +236,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     }
     private LineData generateDataLine(int cnt,int index) {
 
-        ArrayList<Entry> e1 = new ArrayList<Entry>();
+        ArrayList<Entry> e1 = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             e1.add(new Entry(i, (int) (Math.random() * 5) + 10));
@@ -257,7 +257,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d1.setHighLightColor(Color.rgb(244, 117, 117));
         d1.setDrawValues(false);
 
-        ArrayList<Entry> e2 = new ArrayList<Entry>();
+        ArrayList<Entry> e2 = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             e2.add(new Entry(i, e1.get(i).getY() - 2));
@@ -271,7 +271,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
         d2.setDrawValues(false);
 
-        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
+        ArrayList<ILineDataSet> sets = new ArrayList<>();
         sets.add(d1);
 //        sets.add(d2);
 
@@ -280,7 +280,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     }
     private LineData generateDataLine2(int cnt,int index) {
 
-        ArrayList<Entry> e1 = new ArrayList<Entry>();
+        ArrayList<Entry> e1 = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             e1.add(new Entry(i, (int) (Math.random() * 5) + 10));
@@ -301,7 +301,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d1.setHighLightColor(Color.rgb(244, 117, 117));
         d1.setDrawValues(false);
 
-        ArrayList<Entry> e2 = new ArrayList<Entry>();
+        ArrayList<Entry> e2 = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             e2.add(new Entry(i, e1.get(i).getY() - 2));
@@ -314,7 +314,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         d2.setDrawValues(false);
-        ArrayList<Entry> e3 = new ArrayList<Entry>();
+        ArrayList<Entry> e3 = new ArrayList<>();
 
         for (int i = 0; i < 10; i++) {
             e3.add(new Entry(i, e2.get(i).getY() - 2));
@@ -331,7 +331,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d3.setCircleColor(getActivity().getResources().getColor(R.color.red));
         d3.setDrawValues(false);
 
-        ArrayList<ILineDataSet> sets = new ArrayList<ILineDataSet>();
+        ArrayList<ILineDataSet> sets = new ArrayList<>();
         sets.add(d1);
         sets.add(d2);
         sets.add(d3);
