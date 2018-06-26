@@ -354,4 +354,20 @@
     <!--px-->
     <dimen name="size_1px">1px</dimen>
     <dimen name="size_2px">2px</dimen>
+
+    <dimen name="indicator_size">8dp</dimen>
+    <dimen name="indicator_margin">5dp</dimen>
+    <dimen name="bar_height">35dp</dimen>
+    <dimen name="verticalspit_view_width">0.6dp</dimen>
+    <dimen name="horizontalspit_view_height">0.6dp</dimen>
+    <dimen name="media_item_size">50dp</dimen>
+    <dimen name="size_34dp">34dp</dimen>
+    <dimen name="size_30dp">28dp</dimen>
+    <dimen name="size_5dp">5dp</dimen>
+    <dimen name="size_10dp">10dp</dimen>
+    <dimen name="size_19dp">19dp</dimen>
+    <dimen name="size_21dp">21dp</dimen>
+    <dimen name="size_80dp">80dp</dimen>
+    <dimen name="size_35dp">35dp</dimen>
+    <dimen name="size_4dp">4dp</dimen>
 </resources>

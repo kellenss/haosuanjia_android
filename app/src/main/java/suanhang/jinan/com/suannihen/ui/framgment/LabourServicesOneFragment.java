@@ -1,6 +1,7 @@
 package suanhang.jinan.com.suannihen.ui.framgment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.provider.SyncStateContract;
 import android.support.annotation.Nullable;
@@ -26,6 +27,8 @@ import suanhang.jinan.com.suannihen.commons.LogX;
 import suanhang.jinan.com.suannihen.dialog.CustomDialogEditText;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
 import suanhang.jinan.com.suannihen.request.module.AuctionModule;
+import suanhang.jinan.com.suannihen.ui.AddDemandActivity;
+import suanhang.jinan.com.suannihen.ui.AddSupplyActivity;
 import suanhang.jinan.com.suannihen.ui.base.BaseFragment;
 import suanhang.jinan.com.suannihen.utils.ConstantString;
 import suanhang.jinan.com.suannihen.utils.ParseJson;
@@ -45,6 +48,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
     private XListView lv_activity_main;
     private ViewPager view_pager;
     private TextView tv_zt_more;
+    private TextView tv_send_labour_services;
     List<LabourServicesBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
 //    private int next=0;
@@ -54,6 +58,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
+    private int page;
 //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
@@ -72,8 +77,8 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            classId = getArguments().getString(ARG_CLASSID);
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            classId = getArguments().getString(ARG_CLASSID);
         }
     }
 
@@ -91,6 +96,19 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
         context=getActivity();
         inflater = LayoutInflater.from(context);
         lv_activity_main = (XListView) view.findViewById(R.id.lv_bussiness_main);
+        tv_send_labour_services = (TextView) view.findViewById(R.id.tv_send_labour_services);
+        tv_send_labour_services.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                if(mParam1.equals("0")){
+                    Intent intent=new Intent(getActivity(), AddDemandActivity.class);
+                    startActivity(intent);
+//                }else{
+//                    Intent intent=new Intent(getActivity(), AddSupplyActivity.class);
+//                    startActivity(intent);
+//                }
+            }
+        });
 //
         lv_activity_main.setPullLoadEnable(true);
         lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);
@@ -135,14 +153,9 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onRefresh() {
+        page=1;
         initData(true);
     }
-
-//    @Override
-//    public void onRefresh() {
-//        next=0;
-//        initData(true);
-//    }
 
     class BussinessFragmentAdapter extends CommonAdapter<LabourServicesBean> implements AbsListView.OnScrollListener {
         //        private String type;
@@ -290,59 +303,36 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
     }
 
     private void initData(final boolean needclear) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
-        AuctionModule.getInstance().getDemandList(context, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getDemandList(context, page,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
+                        page++;
+                        try{
+                            activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", LabourServicesBean.class);
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+                        if (needclear) {
+                            feedAdapter.updateData(activityList);
+                        } else {
+                            feedAdapter.addListData(activityList);
+                        }
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
                         ShowToastUtil.Short(jsonObject.getString("msg"));
-//						dialogtools.dismissDialog();
                     }
-                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", LabourServicesBean.class);
-                    if (needclear) {
+                    activityList = feedAdapter.getDataList();
                     lv_activity_main.stopRefresh();
-                    feedAdapter.updateData(activityList);
-                } else {
-                    feedAdapter.addListData(activityList);
                     lv_activity_main.stopLoadMore();
-                }
-
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-                activityList = feedAdapter.getDataList();
-                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-                }
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
@@ -351,41 +341,25 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
         });
     }
     private void getDemandComment(String demand_id,String user_id,String content) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
         AuctionModule.getInstance().getAddDemandComment(context,demand_id,user_id,content, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
                     }
                     ShowToastUtil.Short(jsonObject.getString("msg"));
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
             }
-
         });
     }
     private void getDemandOffer(String demand_id,String user_id,String price) {

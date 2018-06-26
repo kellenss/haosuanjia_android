@@ -40,9 +40,9 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		init();
-		if (SPUtil.get(getApplicationContext(), ConstantString.USERNAME) == "") {
+		if (SPUtil.get(getApplicationContext(), ConstantString.USERNICKNAME) == "") {
 		} else {
-			et_username.setText(SPUtil.get(getApplicationContext(), ConstantString.USERNAME));
+			et_username.setText(SPUtil.get(getApplicationContext(), ConstantString.USERNICKNAME));
 //			et_password.setText(SPUtil.get(getApplicationContext(), "PsWord"));
 		}
 		findViewById(R.id.back).setOnClickListener(new OnClickListener() {
@@ -50,7 +50,7 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if (SPUtil.get(getApplicationContext(), ConstantString.USERNAME) == "") {
+				if (SPUtil.get(getApplicationContext(), ConstantString.USERNICKNAME) == "") {
 					LoginActivity.this.finish();
 					Intent intent= new Intent(getApplicationContext(), MainActivity.class);
 					startActivity(intent);	

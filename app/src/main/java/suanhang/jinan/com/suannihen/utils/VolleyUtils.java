@@ -293,11 +293,11 @@ public class VolleyUtils {
     public static boolean doJudgeStatus(String response, final Context context, VolleyCallBack v, String url) throws JSONException {
         JSONObject jsonObject = new JSONObject(response);
 
-        if (jsonObject.getBoolean("status")) {
+        if (jsonObject.optInt("status")!=1) {
             return false;
         }
 
-        String status = jsonObject.getString("code");
+//        String status = jsonObject.getString("code");
 
         return false;
     }

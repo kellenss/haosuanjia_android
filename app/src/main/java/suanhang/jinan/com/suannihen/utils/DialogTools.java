@@ -28,6 +28,7 @@ public class DialogTools {
 	}
 	//关闭加载对话框
 	public void dismissDialog(){
+		if (alertDialog!=null)
 		alertDialog.dismiss();
 	}
 }

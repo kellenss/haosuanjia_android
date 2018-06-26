@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_radius_4dp_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/color_333333"
+        android:textSize="17sp"
+        android:text="是否确认收货"
+        android:textStyle="bold"
+        />
+   <!-- android:textStyle="bold"-->
+
+    <include layout="@layout/divide_one_px_height" />
+
+    <ScrollView
+        android:id="@+id/scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:scrollbars="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/tv_message_scroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingMultiplier="1.3"
+            android:padding="16dp"
+            android:text="取消"
+            android:textColor="@color/color_333333"
+            android:textSize="15sp" />
+    </ScrollView>
+
+    <TextView
+        android:id="@+id/tv_message_noscroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lineSpacingMultiplier="1.3"
+        android:gravity="center"
+        android:padding="16dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:visibility="gone"/>
+
+    <include layout="@layout/divide_one_px_height" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/negativeButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="取消"
+            android:textColor="@color/color_666666"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/v_divider"
+            android:layout_width="@dimen/line_divide_height"
+            android:layout_height="match_parent"
+            android:background="@color/color_divider_line" />
+
+        <TextView
+            android:id="@+id/positiveButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="确定"
+            android:textColor="@color/color_main"
+            android:textSize="17sp" />
+    </LinearLayout>
+
+</LinearLayout>

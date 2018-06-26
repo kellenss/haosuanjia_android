@@ -122,16 +122,8 @@ public class CompanyItemActivity extends StatisticsActivity implements  View.OnC
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
                         page++;
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
                         ShowToastUtil.Short(jsonObject.getString("msg"));
-//						dialogtools.dismissDialog();
                     }
                     activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", CompanyEnterpriseBean.class);
                     if (needclear) {
@@ -142,26 +134,14 @@ public class CompanyItemActivity extends StatisticsActivity implements  View.OnC
                         lv_activity_main.stopLoadMore();
                     }
 
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
                     activityList = feedAdapter.getDataList();
                     if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
                     }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
                     }
                 } catch (Exception e) {
 
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
@@ -170,50 +150,6 @@ public class CompanyItemActivity extends StatisticsActivity implements  View.OnC
             public void onGotError(String code, String error) {
                 onLoad();
             }
-
-//            @Override
-//            public void success(String result, String method) {
-////                List<ActivityListBean> activityEntities = null;
-////                try {
-//                    JSONObject jSONObject;
-//                try {
-//                    jSONObject = new JSONObject(result).getJSONObject("data");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                if (next == 0) {
-//                    lv_activity_main.stopRefresh();
-//                    feedAdapter.updateData(activityEntities);
-//                } else {
-//                    feedAdapter.addListData(activityEntities);
-//                    lv_activity_main.stopLoadMore();
-//                }
-//
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-//                activityList = feedAdapter.getDataList();
-//                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-//                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-//                }
-//                onLoad();
-//            }
-
-//            @Override
-//            public void failure(String error, String method, int type) {
-////                onLoad();
-//            }
         });
     }
     @Override

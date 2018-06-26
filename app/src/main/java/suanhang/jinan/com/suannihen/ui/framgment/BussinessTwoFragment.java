@@ -19,6 +19,7 @@ import java.util.List;
 
 import suanhang.jinan.com.suannihen.R;
 import suanhang.jinan.com.suannihen.bean.BussinessListBean;
+import suanhang.jinan.com.suannihen.bean.ForumListBean;
 import suanhang.jinan.com.suannihen.commons.LogX;
 import suanhang.jinan.com.suannihen.dialog.CustomDialogEditText;
 import suanhang.jinan.com.suannihen.request.BaseHandlerJsonObject;
@@ -51,6 +52,7 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
+    private int page=1;
     //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
@@ -127,19 +129,13 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
     @Override
     protected void initData() {
         initData(true);
-//        onRefresh();
     }
 
     @Override
     public void onRefresh() {
+        page=1;
         initData(true);
     }
-
-//    @Override
-//    public void onRefresh() {
-//        next=0;
-//        initData(true);
-//    }
 
     class BussinessFragmentAdapter extends CommonAdapter<BussinessListBean> implements AbsListView.OnScrollListener {
         //        private String type;
@@ -221,7 +217,6 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
                                         LogX.d("setPagePath",
                                                 "" +
                                                         "报价");
-
                                     }
                                 })
                         .setNegativeButton(R.string.cancel,
@@ -248,7 +243,6 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
                                         LogX.d("setPagePath",
                                                 "" +
                                                         "报价");
-
                                     }
                                 })
                         .setNegativeButton(R.string.cancel,
@@ -260,11 +254,7 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
                                 })
                         .show();
             }
-
-
-
         }
-
         @Override
         public void onSetViews() {
             getView(R.id.tv_baojia).setOnClickListener(this);
@@ -285,189 +275,88 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void initData(final boolean needclear) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
-        AuctionModule.getInstance().getSellList(context, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getSellList(context, page,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
+                        page++;
+                        try{
+                            activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", BussinessListBean.class);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            ShowToastUtil.toastShow("没有更多数据");
+                        }
+                        if (needclear) {
+                            feedAdapter.updateData(activityList);
+                        } else {
+                            feedAdapter.addListData(activityList);
+                        }
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
                         ShowToastUtil.Short(jsonObject.getString("msg"));
-//						dialogtools.dismissDialog();
                     }
-                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", BussinessListBean.class);
-                    if (needclear) {
-                        lv_activity_main.stopRefresh();
-                        feedAdapter.updateData(activityList);
-                    } else {
-                        feedAdapter.addListData(activityList);
-                        lv_activity_main.stopLoadMore();
-                    }
-
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
+                    lv_activity_main.stopRefresh();
+                    lv_activity_main.stopLoadMore();
                     activityList = feedAdapter.getDataList();
-                    if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-                    }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-                    }
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
             }
-
-//            @Override
-//            public void success(String result, String method) {
-////                List<ActivityListBean> activityEntities = null;
-////                try {
-//                    JSONObject jSONObject;
-//                try {
-//                    jSONObject = new JSONObject(result).getJSONObject("data");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                if (next == 0) {
-//                    lv_activity_main.stopRefresh();
-//                    feedAdapter.updateData(activityEntities);
-//                } else {
-//                    feedAdapter.addListData(activityEntities);
-//                    lv_activity_main.stopLoadMore();
-//                }
-//
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-//                activityList = feedAdapter.getDataList();
-//                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-//                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-//                }
-//                onLoad();
-//            }
-
-//            @Override
-//            public void failure(String error, String method, int type) {
-////                onLoad();
-//            }
         });
     }
     private void getSellComment(String buy_id,String user_id,String content) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
         AuctionModule.getInstance().getAddSellComment(context,buy_id,user_id,content, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
                     }
                     ShowToastUtil.Short(jsonObject.getString("msg"));
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
             }
-
         });
     }
     private void getSellOffer(String buy_id,String user_id,String price) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
         AuctionModule.getInstance().getAddSellOffer(context, buy_id,user_id,price,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-
-//						dialogtools.dismissDialog();
                     }
                     ShowToastUtil.Short(jsonObject.getString("msg"));
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
             }
-
         });
     }
     @Override
     public void onClick(View view) {
-
     }
     @Override
     public void onLoadMore() {

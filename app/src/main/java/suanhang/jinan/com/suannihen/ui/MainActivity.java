@@ -1,29 +1,69 @@
 package suanhang.jinan.com.suannihen.ui;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.Service;
 import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RemoteViews;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.callback.FileCallback;
+import com.lzy.okgo.model.Progress;
+import com.lzy.okgo.model.Response;
+import com.lzy.okgo.request.Request;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
+
 import suanhang.jinan.com.suannihen.R;
+import suanhang.jinan.com.suannihen.bean.AppVersionDomain;
+import suanhang.jinan.com.suannihen.commons.LogX;
+import suanhang.jinan.com.suannihen.dialog.CustomDialog;
+import suanhang.jinan.com.suannihen.dialog.CustomDialogBack;
+import suanhang.jinan.com.suannihen.interfac.VolleyCallBack;
 import suanhang.jinan.com.suannihen.utils.Constant;
 import suanhang.jinan.com.suannihen.utils.ConstantString;
+import suanhang.jinan.com.suannihen.utils.FileUtils;
+import suanhang.jinan.com.suannihen.utils.FileUtils_new;
+import suanhang.jinan.com.suannihen.utils.NetworkUtils;
+import suanhang.jinan.com.suannihen.utils.ParseJson;
+import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
+import suanhang.jinan.com.suannihen.utils.UrlUtils;
+import suanhang.jinan.com.suannihen.utils.VolleyUtils;
+import suanhang.jinan.com.suannihen.utils.okgo.OKhttpUtil;
 
 public class MainActivity extends TabActivity  {
     private TabHost tabHost;
     private RadioButton main_tab_main, main_tab_quotation, main_tab_business,  main_tab_mine;// main_tab_forum,
     RadioGroup radioGroup;
 
+    private NotificationManager nManager = null;
+    private Notification mNotification = null;
+    AppVersionDomain versionDomain;
+    private final int NOTIFY_ID = 0;
+    private boolean isDownloadFinished = true;
     private Activity context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +78,7 @@ public class MainActivity extends TabActivity  {
 
     private void registBoscast() {
         IntentFilter filter = new IntentFilter();
+        filter.addAction(ConstantString.updateAction);
         filter.addAction(Constant.ACTION.ACTION_CHANGE_TAB);
         filter.addAction(ConstantString.MINE_LOGIN_ACTION);
         registerReceiver(commonReceiver, filter);
@@ -49,7 +90,16 @@ public class MainActivity extends TabActivity  {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getAction().equals(Constant.ACTION.ACTION_CHANGE_TAB))
+            if(intent.getAction().equals(ConstantString.updateAction))
+                if (!isDownloadFinished) {
+                    Toast.makeText(context, "正在下载", Toast.LENGTH_LONG).show();
+                } else {
+                    Bundle bundle = intent.getExtras();
+                    String url = UrlUtils.getBaseUrlYu()+bundle.getString("url");
+                    String versionName = bundle.getString("versionName");
+                    startDownloadService(url, versionName);
+                }
+            else if(intent.getAction().equals(Constant.ACTION.ACTION_CHANGE_TAB))
                 changeTabsReceiver(ConstantString.index_tab);
             else if(intent.getAction().equals(ConstantString.MINE_LOGIN_ACTION))
                 changeTabsReceiver(ConstantString.index_tab);
@@ -61,8 +111,257 @@ public class MainActivity extends TabActivity  {
 //                changeTabsReceiver(BaokuStatic.index_tab);
         }
     };
+    /**
+     * 开启线程请求“我的状态”的列表数据
+     */
+    private void requestUpdate() {
+
+        Map<String, String> params = new HashMap<String, String>();
+
+        VolleyUtils.sendPostMethod(UrlUtils.getAndroidVersiont(), params,
+                volleyCallBack, true, this);
+    }
+
+    private void checkUPdate(String json) throws JSONException {
+        try {
+            // 成功
+            JSONObject jsonObject = new JSONObject(json);
+            String data = jsonObject.getString("data");
+            versionDomain=new AppVersionDomain();
+            versionDomain = ParseJson.parseConvertResultObject(jsonObject.optJSONObject("data"),
+                    AppVersionDomain.class);
+            if (versionDomain.flag == 0) { // 0不需要更新，1需要更新
+                new CustomDialog.Builder(context)
+                        .setTitle(getString(R.string.version_refresh_message, versionDomain.version_code+""))
+                        .setMessage(versionDomain.version_desc)
+                        // .setMessage("宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦")
+                        .setPositiveButton(R.string.version_refresh_rightnow,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        if (TextUtils.isEmpty(versionDomain
+                                                .url)) {
+                                            ShowToastUtil.Short(getString(R.string.version_refresh_urlerror));
+                                            return;
+                                        }
+                                        if (!NetworkUtils
+                                                .isNetworkConnected(context)) {
+                                            ShowToastUtil.Short(getString(R.string.network_broken));
+                                            return;
+                                        }
+                                        if (NetworkUtils.isWifi(context)) {
+
+                                            startDownloadService(
+                                                    UrlUtils.getBaseUrlYu()+versionDomain.url,
+                                                    versionDomain.version_name);
+                                        } else {
+                                            // TODO 测试
+                                            showDownloadDialog(versionDomain);
+                                        }
+                                    }
+                                }).setNegativeButton(R.string.version_refresh_keep, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+//                    if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
+//                        BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
+//                    }
+                    }
+                }).show();
+            } else if (versionDomain.flag == 0) {
+                ShowToastUtil.Short("已是最新版本");
+//            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
+//                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
+//            }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showDownloadDialog(final AppVersionDomain versionDomain) {
+        new CustomDialogBack.Builder(context)
+                .setMessage(R.string.download_message)
+                .setPositiveButton(
+                        R.string.download,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    DialogInterface dialog,
+                                    int which) {
+//                                String chanleNum = JinChaoUtils.getChanelNom(context);
+//                                if (BaokuStatic.isBelongList(chanleNum)) {
+//                                    startDownloadService(BaokuStatic.baseStaticUrl+"/app/" + chanleNum + ".apk",
+//                                            versionDomain.getAppVersion());
+//                                } else {
+                                startDownloadService(
+                                        versionDomain.url,
+                                        versionDomain.version_name);
+//                                }
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+//    private void startDownloadService(String url, String versionName) {
+//        Intent intent = new Intent();
+//        intent.setAction(ConstantString.updateAction);
+//        Bundle bundle = new Bundle();
+//        bundle.putString("url", url);
+//        bundle.putString("versionName", versionName);
+//        intent.putExtras(bundle);
+//        sendBroadcast(intent);
+//    }
+
+    private void startDownloadService(String url, String versionName) {
+        String apkName = url.substring(url.lastIndexOf('/') + 1,
+                url.lastIndexOf('.'))
+                + "_v" + versionName + ".apk";
+
+        if (apkName.substring(apkName.lastIndexOf('.')).equals(".apk")) {
+            startDownload(apkName, url);
+        } else {
+            Uri uri = Uri.parse(url);
+            Intent uriIntent = new Intent(Intent.ACTION_VIEW, uri);
+            uriIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(uriIntent);
+        }
+
+    }
+
+    private void startDownload(String apkName, String url) {
+        String apkPath = FileUtils_new.getFilesDir("download/") + apkName;
+        String apkTempPath = apkPath.substring(0, apkPath.lastIndexOf('.')) + "_temp";
+
+        final File apkFile = new File(apkPath);
+        final File apkTempFile = new File(apkTempPath);
+        if (apkFile.exists()) {
+            installApk(apkFile);
+        } else {
+            isDownloadFinished = false;
+            startDownload(apkTempPath, apkFile, apkTempFile, url);
+        }
+    }
+
+    private void startDownload(final String apkTempPath, final File apkFile, final File apkTempFile, String url) {
+        OKhttpUtil.initOkGo();
+        OkGo.<File>get(url)//
+                .tag(this)//
+                .execute(new FileCallback(apkTempPath) {
+
+                    @Override
+                    public void onStart(Request<File, ? extends Request> request) {
+                        LogX.e("download", "onStart");
+                        if (apkFile.exists()) {
+                            LogX.e("download", "onStartExist");
+                        } else {
+                            LogX.e("download", "onStartNotExist");
+                            initNotification();
+                            Toast.makeText(context, "开始下载",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(Response<File> response) {
+                        LogX.e("download", "onSuccess");
+                        if (mNotification != null) {
+                            mNotification.contentView.setTextViewText(
+                                    R.id.tvStatus, "app下载完成");
+                            mNotification.contentView.setTextViewText(
+                                    R.id.tvProgress,
+                                    String.format("%s%%", 100));
+                            mNotification.flags = Notification.FLAG_AUTO_CANCEL;
+                            nManager.notify(NOTIFY_ID, mNotification);
+                            nManager.cancel(NOTIFY_ID);
+                            apkTempFile.renameTo(apkFile);
+                            installApk(apkFile);
+                            ShowToastUtil.toastShow("下载完成: "
+                                    + response.message());
+                            isDownloadFinished = true;
+                        }
+                    }
+
+                    @Override
+                    public void onError(Response<File> response) {
+                        LogX.e("download", "onFailure");
+                        if (mNotification != null) {
+                            mNotification.contentView.setTextViewText(
+                                    R.id.tvStatus, "下载失败");
+                            mNotification.flags = Notification.FLAG_AUTO_CANCEL;
+                            nManager.notify(NOTIFY_ID, mNotification);
+                            nManager.cancel(NOTIFY_ID);
+                            isDownloadFinished = true;
+                        }
+                    }
+
+                    @Override
+                    public void downloadProgress(Progress progress) {
+                        LogX.e("download", "onLoading");
+                        if (mNotification == null) {
+                            initNotification();
+                        }
+                        int pro = (int) (100 * progress.currentSize / progress.totalSize);
+                        mNotification.contentView.setTextViewText(
+                                R.id.tvProgress,
+                                String.format("%s%%", pro));
+                        mNotification.contentView.setProgressBar(
+                                R.id.proBar, 100, pro, false);
+                        nManager.notify(NOTIFY_ID, mNotification);
+                    }
+                });
+    }
+
+    private void initNotification() {
+        mNotification = new Notification(R.mipmap.ic_launcher, "库拍正在下载...",
+                System.currentTimeMillis());
+        mNotification.contentView = new RemoteViews(getPackageName(),
+                R.layout.notification_download);
+
+        mNotification.flags = Notification.FLAG_ONGOING_EVENT;
+        nManager.notify(NOTIFY_ID, mNotification);
+    }
+
+    /**
+     * 安装apk
+     */
+    private void installApk(File apkFile) {
+        if (!apkFile.exists()) {
+            return;
+        }
+        Intent i = new Intent(Intent.ACTION_VIEW);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Uri apkUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", apkFile);
+            i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            i.setDataAndType(apkUri, "application/vnd.android.package-archive");
+        } else {
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.setDataAndType(Uri.fromFile(apkFile),
+                    "application/vnd.android.package-archive");
+        }
+        startActivity(i);
+    }
+    VolleyCallBack volleyCallBack = new VolleyCallBack() {
+        @Override
+        public void success(String result, String method) {
+            try {
+                if (method.equals(UrlUtils.getAndroidVersiont())) {
+                    checkUPdate(result);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void failure(String error, String method, int type) {
+
+        }
+    };
     private void init() {
 
+        nManager = (NotificationManager) getSystemService(Service.NOTIFICATION_SERVICE);
         main_tab_main = (RadioButton) findViewById(R.id.main_tab_main);
         main_tab_quotation = (RadioButton) findViewById(R.id.main_tab_quotation);
         main_tab_business = (RadioButton) findViewById(R.id.main_tab_business);
@@ -182,7 +481,7 @@ public class MainActivity extends TabActivity  {
 
                 }
             });
-//            requestUpdate();
+            requestUpdate();
 //            String apkName = "/patch_signed_7zip.apk1";
 //            String apkPath = FileUtils.getFilesDir("download") + apkName;
 //            String apkTempPath = apkPath.substring(0, apkPath.lastIndexOf('.')) + "_temp";
@@ -262,5 +561,17 @@ public class MainActivity extends TabActivity  {
         main_tab_business.setTextColor(color);
 //        main_tab_forum.setTextColor(color);
         main_tab_mine.setTextColor(color);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        try {
+            unregisterReceiver(commonReceiver);
+            OkGo.getInstance().cancelTag(this);
+            nManager.cancel(NOTIFY_ID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 }

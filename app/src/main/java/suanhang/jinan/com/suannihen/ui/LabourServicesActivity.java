@@ -101,36 +101,8 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
         }
     }
 
-//    private void showPublishChoosePopup() {
-////        if(!ARouterUtils.IsLogin()) return;
-//        SPUtil.set("activityId", "");// 设置默认活动id为空
-//        SPUtil.set("activityName", "");// 设置默认活动name为空
-//        SPUtil.set("topicId", "");// 设置默认话题id为空
-//        SPUtil.set("topicName", "");// 设置默认话题name为空
-//        Intent intent = new Intent(CommunityActivity.this, PublishChooseActivity.class);
-//        startActivity(intent);
-//    }
-
-//    public void backgroundAlpha(float bgAlpha) {
-//        WindowManager.LayoutParams lp = getWindow().getAttributes();
-//        lp.alpha = bgAlpha; //0.0-1.0
-//        getWindow().setAttributes(lp);
-//    }
-
     @Override
     protected void onResume() {
         super.onResume();
-        //userID不为空，并且fragmentList不包含AttentionFragment
-//        if (!TextUtils.isEmpty(SPUtil.get(Constants.USERID)) && fragmentList.size() == 1) {
-//            fragmentList.add(AttentionFragment.newInstance("1",""));
-//            initViewPager();
-//        } else if (TextUtils.isEmpty(SPUtil.get(Constants.USERID)) && fragmentList.size() == 2) {
-//            fragmentList.remove(1);
-//            initViewPager();
-//            tv_attention.setTextColor(ContextCompat.getColor(context, R.color.color_orange_main));
-//            tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.black));
-//            iv_attention.setVisibility(View.INVISIBLE);
-//            iv_recommend.setVisibility(View.VISIBLE);
-//        }
     }
 }

@@ -76,13 +76,33 @@
         android:background="@color/gray_d6"
         android:visibility="gone"
         />
-    <suanhang.jinan.com.suannihen.view.listviewload.XListView
-        android:id="@+id/lv_bussiness_main"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:cacheColorHint="@android:color/transparent"
-        android:divider="@color/color_divider_line"
-        android:dividerHeight="@dimen/size_0dip"
-        android:listSelector="@android:color/transparent" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <suanhang.jinan.com.suannihen.view.listviewload.XListView
+            android:id="@+id/lv_bussiness_main"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:cacheColorHint="@android:color/transparent"
+            android:divider="@color/color_divider_line"
+            android:dividerHeight="@dimen/size_0dip"
+            android:listSelector="@android:color/transparent" />
+
+        <TextView
+            android:id="@+id/tv_send_labour_services"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="78dp"
+            android:layout_marginEnd="13dp"
+            android:background="@color/white"
+            android:padding="@dimen/size_3dip"
+            android:text="我要发布"
+            android:textColor="@color/black"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="13dp"></TextView>
+    </RelativeLayout>
+
 
 </LinearLayout>

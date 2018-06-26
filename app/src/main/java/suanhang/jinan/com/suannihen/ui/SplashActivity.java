@@ -37,7 +37,7 @@ public class SplashActivity extends StatisticsActivity {
 			super.run();
 			try {
 				Thread.sleep(2000);
-				if(SPUtil.get(getApplicationContext(), ConstantString.USERNAME).equals("")){
+				if(SPUtil.get(getApplicationContext(), ConstantString.USERNICKNAME).equals("")){
 					Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
 					startActivity(intent);
 				} else {

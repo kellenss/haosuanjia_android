@@ -60,6 +60,7 @@
         android:layout_marginEnd="@dimen/title_left_margin"
         android:layout_marginRight="@dimen/title_left_margin"
         android:text="发布"
+        android:gravity="center"
         android:visibility="gone"
         android:textColor="@color/white"
         android:textSize="16sp" />

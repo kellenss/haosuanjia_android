@@ -56,7 +56,6 @@ public class AuctionModule extends BaseModule {
      */
     public void getRegister(Context context,String PhoneNumber, String PassWord,String PhoneCode,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getRegist();
-
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("PhoneNumber", PhoneNumber);
         mapParams.put("PassWord", PassWord);
@@ -66,19 +65,19 @@ public class AuctionModule extends BaseModule {
     /**
      * 获取劳务供需劳务输出列表
      */
-    public void getSupplyList(Context context,BaseHandlerJsonObject responseHandler) {
+    public void getSupplyList(Context context,int page, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getSupplyList();
-
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
      * 获取劳务供需劳务需求列表
      */
-    public void getDemandList(Context context,BaseHandlerJsonObject responseHandler) {
+    public void getDemandList(Context context,int page, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getDemandList();
-
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
@@ -176,19 +175,21 @@ public class AuctionModule extends BaseModule {
     /**
      * 获取买卖需求购买列表
      */
-    public void getBuyList(Context context,BaseHandlerJsonObject responseHandler) {
+    public void getBuyList(Context context,int page,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getBuyList();
 
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
      * 获取买卖需求出售列表
      */
-    public void getSellList(Context context,BaseHandlerJsonObject responseHandler) {
+    public void getSellList(Context context,int page,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getSellList();
 
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 
@@ -222,14 +223,69 @@ public class AuctionModule extends BaseModule {
 
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("class_id", class_id);
-//        mapParams.put("page", page+"");
+        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
-     * 获取所有经纪人
+     * 添加论坛朋友圈
      */
-    public void getForumList(Context context, int page, BaseHandlerJsonObject responseHandler) {
-        String url = UrlUtils.getForumList();
+    public void getAddCircle(Context context,String user_id,String title, String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAddCircle();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("user_id", user_id);
+        mapParams.put("title", title);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加劳务需求
+     */
+    public void getAddDemand(Context context,String unitName,String address,String phone,String workContent,String startDate,
+                             String endDate,String workDays,String workers,String price,String amount,String status,String user_id,String user_nickname, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.AddDemand ();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("unitName", unitName);
+        mapParams.put("address", address);
+        mapParams.put("phone", phone);
+        mapParams.put("workContent", workContent);
+        mapParams.put("startDate", startDate);
+        mapParams.put("endDate", endDate);
+        mapParams.put("workDays", workDays);
+        mapParams.put("workers", workers);
+        mapParams.put("price", price);
+        mapParams.put("amount", amount);
+//        mapParams.put("status", status);
+        mapParams.put("user_id", user_id);
+//        mapParams.put("user_nickname", user_nickname);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加劳务输出
+     */
+    public void getAddSupply(Context context,String user_nickname,String supplyNum,String workType,String startDate,
+                             String endDate,String address,String phone,String flag,String createTime,String user_id, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.AddSupply();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("user_nickname", user_nickname);
+        mapParams.put("supplyNum", supplyNum);
+        mapParams.put("workType", workType);
+        mapParams.put("startDate", startDate);
+        mapParams.put("endDate", endDate);
+        mapParams.put("address", address);
+        mapParams.put("phone", phone);
+//        mapParams.put("flag", flag);
+//        mapParams.put("createTime", createTime);
+        mapParams.put("user_id", user_id);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取论坛朋友圈列表
+     */
+    public void getCircleList(Context context, int page, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getCircleList();
 
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("class_id", class_id);

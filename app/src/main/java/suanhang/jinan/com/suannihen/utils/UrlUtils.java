@@ -9,6 +9,10 @@ public class UrlUtils {
 	public static String getBaseUrl() {
 		return HMApplication.KP_BASE_URL+"/";
 	}
+	//获取服务器域名地址url
+	public static String getBaseUrlYu() {
+		return HMApplication.KP_BASE_URL_YU;
+	}
 
 	//注册接口
 	public static String getRegist() {
@@ -41,6 +45,10 @@ public class UrlUtils {
 	//获取劳务供需劳务需求列表
 	public static String getDemandList() {
 		return getBaseUrl() + "labor/get_demand_list";
+	}
+	//版本更新接口
+	public static String getAndroidVersiont() {
+		return getBaseUrl() + "common/get_android_version";
 	}
 	//获取劳务供需劳务需求留言
 	public static String getDemandComment() {
@@ -95,8 +103,20 @@ public class UrlUtils {
 	public static String getAgentList() {
 		return getBaseUrl() + "common/get_all_agent";
 	}
-	//获取论坛列表
-	public static String getForumList() {
+	//添加论坛朋友圈
+	public static String getAddCircle() {
+		return getBaseUrl() + "circle/add_circle";
+	}
+	//添加劳务需求
+	public static String AddDemand() {
+		return getBaseUrl() + "labor/add_demand";
+	}
+	//添加劳务输出
+	public static String AddSupply() {
+		return getBaseUrl() + "labor/add_supply";
+	}
+	//获取论坛朋友圈列表
+	public static String getCircleList() {
 		return getBaseUrl() + "circle/get_circle_list";
 	}
 	/*//添加患者信息接口

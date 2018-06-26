@@ -1,5 +1,6 @@
 package suanhang.jinan.com.suannihen.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -42,7 +43,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
     private TextView tv_left_head;
     private TextView tv_title_head;
     private TextView tv_right_head;
-    int page=0;
+    int page=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,103 +110,42 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
     }
     private void initDataPost(final boolean needclear) {
 
-        AuctionModule.getInstance().getForumList(context,page, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getCircleList(context,page, new BaseHandlerJsonObject() {
             @Override            public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//                        ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
+                        page++;
+                        try{
+                            activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", ForumListBean.class);
+                        }catch (Exception e){
+                            e.printStackTrace();
+                            ShowToastUtil.toastShow("没有更多数据");
+                        }
+
+                        if (needclear) {
+                            feedAdapter.updateData(activityList);
+                        } else {
+                            feedAdapter.addListData(activityList);
+                        }
                     }else{
-//											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-//													Toast.LENGTH_SHORT).show();
                         ShowToastUtil.Short(jsonObject.getString("msg"));
-//						dialogtools.dismissDialog();
-                    }
-                    activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", ForumListBean.class);
-                    if (needclear) {
-                        lv_activity_main.stopRefresh();
-                        feedAdapter.updateData(activityList);
-                    } else {
-                        feedAdapter.addListData(activityList);
-                        lv_activity_main.stopLoadMore();
                     }
 
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
+                    lv_activity_main.stopRefresh();
+                    lv_activity_main.stopLoadMore();
                     activityList = feedAdapter.getDataList();
-                    if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-                    }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-                    }
                 } catch (Exception e) {
-
                     e.printStackTrace();
                     ShowToastUtil.Short("解析异常！");
-//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
                 }
                 onLoad();
             }
-
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
             }
 
-//            @Override
-//            public void success(String result, String method) {
-////                List<ActivityListBean> activityEntities = null;
-////                try {
-//                    JSONObject jSONObject;
-//                try {
-//                    jSONObject = new JSONObject(result).getJSONObject("data");
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", LabourServicesBean.class);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                if (next == 0) {
-//                    lv_activity_main.stopRefresh();
-//                    feedAdapter.updateData(activityEntities);
-//                } else {
-//                    feedAdapter.addListData(activityEntities);
-//                    lv_activity_main.stopLoadMore();
-//                }
-//
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-//                activityList = feedAdapter.getDataList();
-//                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-//                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-//                }
-//                onLoad();
-//            }
-
-//            @Override
-//            public void failure(String error, String method, int type) {
-////                onLoad();
-//            }
         });
     }
     @Override
@@ -215,6 +155,8 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                 finish();
                 break;
             case R.id.tv_right_head:
+                Intent intent=new Intent(ForumActivity.this,AddCircleActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;
@@ -223,6 +165,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
     @Override
     public void onRefresh() {
+        page=1;
         initDataPost(true);
     }
 
@@ -266,14 +209,6 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         @Override
         public int getItemViewType(int position) {
             int itemType = 0;
-
-//            if (attentionList_merge != null && position < attentionList_merge.size()) {
-//                if (attentionList_merge.get(position).moment.type == 1) {
-//                    itemType = VIEWTYPE_PICTURE;
-//                } else {
-//                    itemType = VIEWTYPE_VEDIO;
-//                }
-//            }
             return itemType;
         }
 

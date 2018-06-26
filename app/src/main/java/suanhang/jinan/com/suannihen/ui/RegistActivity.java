@@ -226,48 +226,6 @@ public class RegistActivity extends StatisticsActivity implements OnClickListene
 
 			}
 		});
-		//请求参数
-//		RequestParams params=new RequestParams();
-//		params.put("PhoneNumber", phone);
-//		params.put("PassWord", pwd);
-//		params.put("PhoneCode", yanzhengma);
-//		new AsyncHttpClient().post(UrlUtils.getRegist(),params,new AsyncHttpResponseHandler(){
-//			@Override
-//			public void onSuccess(String data) {
-//
-//				super.onSuccess(data);
-//				try {
-//					JSONObject jsonObject = JSON.parseObject(data);
-//					if(jsonObject.getBoolean("success")){
-////											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-////													Toast.LENGTH_SHORT).show();
-//						dialogtools.dismissDialog();
-//						ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
-//					}else{
-////											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
-////													Toast.LENGTH_SHORT).show();
-//						ShowToastUtil.Short(jsonObject.getString("msg"));
-//						dialogtools.dismissDialog();
-//					}
-//				} catch (Exception e) {
-//
-//					e.printStackTrace();
-//					ShowToastUtil.Short("解析异常！");
-////										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
-//					dialogtools.dismissDialog();
-//				}
-//
-//			}
-//
-//			@Override
-//			public void onFailure(Throwable arg0,
-//								  String arg1) {
-//				ShowToastUtil.Short("服务器异常！");
-//				dialogtools.dismissDialog();
-//				super.onFailure(arg0, arg1);
-//			}
-//		});
 	}
 	private void findPassword(){
 		//请求参数
@@ -301,7 +259,10 @@ public class RegistActivity extends StatisticsActivity implements OnClickListene
 								  String arg1) {
 
 //									Toast.makeText(ZhuCeActivity.this, "服务器异常！", Toast.LENGTH_LONG).show();
-				dialogtools.dismissDialog();
+				if(dialogtools!=null){
+					dialogtools.dismissDialog();
+				}
+
 				super.onFailure(arg0, arg1);
 			}
 		});

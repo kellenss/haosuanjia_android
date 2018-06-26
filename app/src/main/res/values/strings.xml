@@ -45,6 +45,14 @@
     <string name="confirm">确定</string>
     <string name="call_phone">400-6360-888</string>
     <string name="call_phone_num">4006360888</string>
+
+    <string name="download">下载</string>
+    <string name="download_message">您正在使用移动网络，是否下载更新？</string>
+    <string name="version_refresh_message">『App』%s更新啦</string>
+    <string name="version_refresh_rightnow">立即更新</string>
+    <string name="version_refresh_keep">稍后更新</string>
+    <string name="version_refresh_urlerror">获取下载链接失败</string>
+    <string name="network_broken">网络连接已断开</string>
     <style name="MMTabButton">
         <item name="android:textSize">10.0dip</item>
         <item name="android:gravity">center_horizontal</item>

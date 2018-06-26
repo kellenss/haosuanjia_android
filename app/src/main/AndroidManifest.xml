@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="suanhang.jinan.com.suannihen">
 
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
@@ -74,6 +76,26 @@
         <activity android:name=".ui.AgentActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.AddCircleActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.AddDemandActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.AddSupplyActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <!-- FileProvider共享文件、缓存 -->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.jinan.haosuanjia.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                tools:replace="android:resource"
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/apk_file_paths" />
+        </provider>
     </application>
 
 </manifest>

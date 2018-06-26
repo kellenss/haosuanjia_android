@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.webkit.URLUtil;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
@@ -25,9 +26,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import suanhang.jinan.com.suannihen.R;
+import suanhang.jinan.com.suannihen.bean.AppVersionDomain;
+import suanhang.jinan.com.suannihen.dialog.CustomDialog;
+import suanhang.jinan.com.suannihen.dialog.CustomDialogBack;
+import suanhang.jinan.com.suannihen.interfac.VolleyCallBack;
 import suanhang.jinan.com.suannihen.utils.ConstantString;
 import suanhang.jinan.com.suannihen.utils.DataCleanManager;
+import suanhang.jinan.com.suannihen.utils.JinChaoUtils;
+import suanhang.jinan.com.suannihen.utils.NetworkUtils;
+import suanhang.jinan.com.suannihen.utils.ParseJson;
 import suanhang.jinan.com.suannihen.utils.ShowToastUtil;
+import suanhang.jinan.com.suannihen.utils.UrlUtils;
+import suanhang.jinan.com.suannihen.utils.VolleyUtils;
 
 /**
  * 设置界面activity
@@ -43,6 +53,8 @@ public class SettingActivity extends StatisticsActivity implements
     private ImageView iv_back_head;
     private Gson gson;
     TextView tv_page_title;
+    TextView tv_item_one;
+    AppVersionDomain versionDomain;
 
 
     @Override
@@ -59,6 +71,7 @@ public class SettingActivity extends StatisticsActivity implements
         iv_back_head = (ImageView) findViewById(R.id.iv_back_head);
         iv_right_head.setVisibility(View.GONE);
         tv_title_head = (TextView) findViewById(R.id.tv_title_head);
+        tv_item_one = (TextView) findViewById(R.id.tv_item_one);
         tv_title_head.setText("设置");
         tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
         try {
@@ -81,6 +94,7 @@ public class SettingActivity extends StatisticsActivity implements
 //        findViewById(R.id.layout_notify).setOnClickListener(this);
         findViewById(R.id.layout_clear_cache).setOnClickListener(this);
         findViewById(R.id.iv_back_head).setOnClickListener(this);
+        findViewById(R.id.tv_item_one).setOnClickListener(this);
 //        findViewById(R.id.tv_aboutus).setOnClickListener(this);
 //        findViewById(R.id.layout_update).setOnClickListener(this);
 //        findViewById(R.id.layout_top_5).setOnClickListener(this);
@@ -296,9 +310,9 @@ public class SettingActivity extends StatisticsActivity implements
 //                        .show();
 //
 //                break;
-//            case R.id.layout_update:
-//                requestUpdate();
-//                break;
+            case R.id.tv_item_one:
+                requestUpdate();
+                break;
 //            case R.id.tv_address://收货地址列表
 //                Intent lacationIntent = new Intent(this, LocationListActivity.class);
 //                lacationIntent.putExtra("from", 1);//1是从设置进入，2是从物流界面进入
@@ -377,106 +391,105 @@ public class SettingActivity extends StatisticsActivity implements
     /**
      * 开启线程请求“我的状态”的列表数据
      */
-//    private void requestUpdate() {
-//
-//        Map<String, String> params = new HashMap<String, String>();
-//
-//        VolleyUtils.sendPostMethod(URLUtil.checkUpdate(), params,
-//                volleyCallBack, true, this);
-//    }
+    private void requestUpdate() {
 
-//    private void checkUPdate(String json) throws JSONException {
-//        // 成功
-//        JSONObject jsonObject = new JSONObject(json);
-//        String data = jsonObject.getString("data");
-//        final AppVersionDomain versionDomain = gson.fromJson(data,
-//                AppVersionDomain.class);
-//        if (versionDomain.getNeedUpdate() == 1) { // 0不需要更新，1需要更新
-//            new CustomDialog.Builder(SettingActivity.this)
-//                    .setTitle(getString(R.string.version_refresh_message, versionDomain.getAppVersion()))
-//                    .setMessage(versionDomain.getAppDescription())
-//                    // .setMessage("宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦")
-//                    .setPositiveButton(R.string.version_refresh_rightnow,
-//                            new DialogInterface.OnClickListener() {
-//                                @Override
-//                                public void onClick(DialogInterface dialog,
-//                                                    int which) {
-//                                    if (TextUtils.isEmpty(versionDomain
-//                                            .getDownloadUrl())) {
-//                                        ShowToastUtil.Short(getString(R.string.version_refresh_urlerror));
-//                                        return;
-//                                    }
-//                                    if (!NetworkUtils
-//                                            .isNetworkConnected(context)) {
-//                                        ShowToastUtil.Short(getString(R.string.network_broken));
-//                                        return;
-//                                    }
-//                                    if (NetworkUtils.isWifi(context)) {
-//                                        String chanleNum = JinChaoUtils.getChanelNom(context);
-//                                        if (BaokuStatic.isBelongList(chanleNum)) {
-//                                            startDownloadService(BaokuStatic.baseStaticUrl+"/app/" + chanleNum + ".apk",
-//                                                    versionDomain.getAppVersion());
-//                                        } else {
-//                                            startDownloadService(
-//                                                    versionDomain.getDownloadUrl(),
-//                                                    versionDomain.getAppVersion());
-//                                        }
-//                                    } else {
-//                                        // TODO 测试
-//                                        showDownloadDialog(versionDomain);
-//                                    }
-//                                }
-//                            }).setNegativeButton(R.string.version_refresh_keep, new DialogInterface.OnClickListener() {
-//                @Override
-//                public void onClick(DialogInterface dialog, int which) {
+        Map<String, String> params = new HashMap<String, String>();
+
+        VolleyUtils.sendPostMethod(UrlUtils.getAndroidVersiont(), params,
+                volleyCallBack, true, this);
+    }
+
+    private void checkUPdate(String json) throws JSONException {
+        try {
+            // 成功
+            JSONObject jsonObject = new JSONObject(json);
+            String data = jsonObject.getString("data");
+            versionDomain=new AppVersionDomain();
+             versionDomain = ParseJson.parseConvertResultObject(jsonObject.optJSONObject("data"),
+                    AppVersionDomain.class);
+            if (versionDomain.flag == 0) { // 0不需要更新，1需要更新
+                new CustomDialog.Builder(SettingActivity.this)
+                        .setTitle(getString(R.string.version_refresh_message, versionDomain.version_code+""))
+                        .setMessage(versionDomain.version_desc)
+                        // .setMessage("宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦宝库发布新版本啦")
+                        .setPositiveButton(R.string.version_refresh_rightnow,
+                                new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                                        int which) {
+                                        if (TextUtils.isEmpty(versionDomain
+                                                .url)) {
+                                            ShowToastUtil.Short(getString(R.string.version_refresh_urlerror));
+                                            return;
+                                        }
+                                        if (!NetworkUtils
+                                                .isNetworkConnected(context)) {
+                                            ShowToastUtil.Short(getString(R.string.network_broken));
+                                            return;
+                                        }
+                                        if (NetworkUtils.isWifi(context)) {
+
+                                            startDownloadService(
+                                                    UrlUtils.getBaseUrlYu()+versionDomain.url,
+                                                    versionDomain.version_name);
+                                        } else {
+                                            // TODO 测试
+                                            showDownloadDialog(versionDomain);
+                                        }
+                                    }
+                                }).setNegativeButton(R.string.version_refresh_keep, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
 //                    if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
 //                        BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
 //                    }
-//                }
-//            }).show();
-//        } else if (versionDomain.getNeedUpdate() == 0) {
-//            ShowToastUtil.Short("已是最新版本");
+                    }
+                }).show();
+            } else if (versionDomain.flag == 0) {
+                ShowToastUtil.Short("已是最新版本");
 //            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
 //                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
 //            }
-//        }
-//
-//    }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
-//    private void showDownloadDialog(final AppVersionDomain versionDomain) {
-//        new CustomDialogBack.Builder(SettingActivity.this)
-//                .setMessage(R.string.download_message)
-//                .setPositiveButton(
-//                        R.string.download,
-//                        new DialogInterface.OnClickListener() {
-//                            @Override
-//                            public void onClick(
-//                                    DialogInterface dialog,
-//                                    int which) {
+    private void showDownloadDialog(final AppVersionDomain versionDomain) {
+        new CustomDialogBack.Builder(SettingActivity.this)
+                .setMessage(R.string.download_message)
+                .setPositiveButton(
+                        R.string.download,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(
+                                    DialogInterface dialog,
+                                    int which) {
 //                                String chanleNum = JinChaoUtils.getChanelNom(context);
 //                                if (BaokuStatic.isBelongList(chanleNum)) {
 //                                    startDownloadService(BaokuStatic.baseStaticUrl+"/app/" + chanleNum + ".apk",
 //                                            versionDomain.getAppVersion());
 //                                } else {
-//                                    startDownloadService(
-//                                            versionDomain.getDownloadUrl(),
-//                                            versionDomain.getAppVersion());
+                                    startDownloadService(
+                                            versionDomain.url,
+                                            versionDomain.version_name);
 //                                }
-//                            }
-//                        })
-//                .setNegativeButton(R.string.cancel, null)
-//                .show();
-//    }
+                            }
+                        })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
 
-//    private void startDownloadService(String url, String versionName) {
-//        Intent intent = new Intent();
-//        intent.setAction(Constants_umeng.updateAction);
-//        Bundle bundle = new Bundle();
-//        bundle.putString("url", url);
-//        bundle.putString("versionName", versionName);
-//        intent.putExtras(bundle);
-//        sendBroadcast(intent);
-//    }
+    private void startDownloadService(String url, String versionName) {
+        Intent intent = new Intent();
+        intent.setAction(ConstantString.updateAction);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", url);
+        bundle.putString("versionName", versionName);
+        intent.putExtras(bundle);
+        sendBroadcast(intent);
+    }
 
 //    private void nateworkIspush(String isPush) {
 //        Map<String, String> params = new HashMap<String, String>();
@@ -487,23 +500,23 @@ public class SettingActivity extends StatisticsActivity implements
 //                true, this);
 //    }
 
-//    VolleyCallBack volleyCallBack = new VolleyCallBack() {
-//        @Override
-//        public void success(String result, String method) {
-//            try {
-//                if (method.equals(URLUtil.checkUpdate())) {
-//                    checkUPdate(result);
-//                }
-//            } catch (JSONException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-//        @Override
-//        public void failure(String error, String method, int type) {
-//
-//        }
-//    };
+    VolleyCallBack volleyCallBack = new VolleyCallBack() {
+        @Override
+        public void success(String result, String method) {
+            try {
+                if (method.equals(UrlUtils.getAndroidVersiont())) {
+                    checkUPdate(result);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void failure(String error, String method, int type) {
+
+        }
+    };
 
     @Override
     protected void onDestroy() {
