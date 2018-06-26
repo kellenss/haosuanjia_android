@@ -79,7 +79,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <suanhang.jinan.com.suannihen.view.listviewload.XListView
+        <com.jinan.haosuanjia.view.listviewload.XListView
             android:id="@+id/lv_bussiness_main"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"

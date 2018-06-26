@@ -1,4 +1,4 @@
-package suanhang.jinan.com.suannihen;
+package com.jinan.haosuanjia;
 
 import org.junit.Test;
 

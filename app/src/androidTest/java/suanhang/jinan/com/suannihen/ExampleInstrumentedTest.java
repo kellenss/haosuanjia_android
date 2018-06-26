@@ -1,4 +1,4 @@
-package suanhang.jinan.com.suannihen;
+package com.jinan.haosuanjia;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("suanhang.jinan.com.suannihen", appContext.getPackageName());
+        assertEquals("com.jinan.haosuanjia", appContext.getPackageName());
     }
 }

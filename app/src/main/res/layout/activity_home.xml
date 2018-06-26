@@ -40,7 +40,7 @@
                         android:paddingLeft="16.5dip"
                         android:visibility="visible">
                     </LinearLayout>
-                    <suanhang.jinan.com.suannihen.view.TipsPageIndicator
+                    <com.jinan.haosuanjia.view.TipsPageIndicator
                         android:id="@+id/indicator"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/size_32dip"
