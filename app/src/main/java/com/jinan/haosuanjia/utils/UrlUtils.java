@@ -82,6 +82,14 @@ public class UrlUtils {
 	public static String getSupplyOffer() {
 		return getBaseUrl() + "labor/add_supply_offer";
 	}
+	//添加论坛评论
+	public static String getAddComments() {
+		return getBaseUrl() + "circle/add_circle_comments";
+	}
+	//添加论坛收藏
+	public static String getAddCollection() {
+		return getBaseUrl() + "circle/add_circle_collection";
+	}
 	//获取买卖需求购买
 	public static String getBuyList() {
 		return getBaseUrl() + "business/get_buy_list";
@@ -110,6 +118,10 @@ public class UrlUtils {
 	//添加劳务需求
 	public static String AddDemand() {
 		return getBaseUrl() + "labor/add_demand";
+	}
+	//关于我们
+	public static String getAboutUs() {
+		return getBaseUrl() + "common/get_about";
 	}
 	//添加劳务输出
 	public static String AddSupply() {

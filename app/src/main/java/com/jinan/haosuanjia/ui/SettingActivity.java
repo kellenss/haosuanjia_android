@@ -48,6 +48,8 @@ public class SettingActivity extends StatisticsActivity implements
     private Gson gson;
     TextView tv_page_title;
     TextView tv_item_one;
+    TextView tv_item_two;
+    TextView tv_item_three;
     AppVersionDomain versionDomain;
 
 
@@ -66,6 +68,8 @@ public class SettingActivity extends StatisticsActivity implements
         iv_right_head.setVisibility(View.GONE);
         tv_title_head = (TextView) findViewById(R.id.tv_title_head);
         tv_item_one = (TextView) findViewById(R.id.tv_item_one);
+        tv_item_two = (TextView) findViewById(R.id.tv_item_two);
+        tv_item_three = (TextView) findViewById(R.id.tv_item_three);
         tv_title_head.setText("设置");
         tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
         try {
@@ -89,6 +93,8 @@ public class SettingActivity extends StatisticsActivity implements
         findViewById(R.id.layout_clear_cache).setOnClickListener(this);
         findViewById(R.id.iv_back_head).setOnClickListener(this);
         findViewById(R.id.tv_item_one).setOnClickListener(this);
+        findViewById(R.id.tv_item_two).setOnClickListener(this);
+        findViewById(R.id.tv_item_three).setOnClickListener(this);
 //        findViewById(R.id.tv_aboutus).setOnClickListener(this);
 //        findViewById(R.id.layout_update).setOnClickListener(this);
 //        findViewById(R.id.layout_top_5).setOnClickListener(this);
@@ -217,32 +223,17 @@ public class SettingActivity extends StatisticsActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-//            case R.id.tv_input_code://邀请好友
-////                Intent codeIntent = new Intent(this, InvitationCodeInputActivity.class);
-////                startActivityForResult(codeIntent, 0);
-//
-//                break;
-//            case R.id.iv_left_img:
-//                onBack();
-//                break;
+            case R.id.tv_item_two:
+                Intent intent =new Intent(context,AboutUsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.tv_item_three:
+                Intent intent1 =new Intent(context,VersionShowActivity.class);
+                startActivity(intent1);
+                break;
             case R.id.iv_back_head:
                 onBack();
                 break;
-//            case R.id.tv_edit_info:
-//                if (userInfo == null) {
-//                    requestServerPostThread();
-//                    return;
-//                }
-//                Intent intent2 = new Intent(getBaseContext(),
-//                        UserInfoActivity.class);
-//                intent2.putExtra(ConstantString.PROFILEUSERINFO, userInfo);
-//                startActivityForResult(intent2, 0);
-//                break;
-//            case R.id.tv_account_safety:
-//                Intent intent = new Intent(getApplicationContext(),
-//                        AccountActivity.class);
-//                startActivity(intent);
-//                break;
             case R.id.layout_clear_cache:
                 try {
                     DataCleanManager.clearAllCache(context);
@@ -253,80 +244,9 @@ public class SettingActivity extends StatisticsActivity implements
                     e.printStackTrace();
                 }
                 break;
-//            case R.id.tv_supplier_send:
-//                String supplierTypes = SPUtil.get(this, "supplierType");
-//
-//                if (!TextUtils.isEmpty(supplierTypes) && supplierTypes.equals("1")) {
-//                    ShowToastUtil.Short("已是合作机构");
-//                } else if (SPUtil.getInt(ConstantString.ISBINDSUPPLIER) == 1) {
-//                    ShowToastUtil.Short("已是合作机构");
-//                } else {
-//                    Intent i = new Intent(this, PolicyActivity.class);
-//                    i.putExtra("type", 5);
-//                    i.putExtra("titleName", "合作机构申请");
-//                    startActivity(i);
-//                }
-//                break;
-//            case R.id.tv_aboutus:
-//                Intent intent4 = new Intent(getApplicationContext(),
-//                        AboutUsActivity.class);
-//                startActivity(intent4);
-//
-//                break;
-//            case R.id.layout_top_5:
-//                new CustomDialogBack.Builder(SettingActivity.this)
-//                        .setMessage("您是否确认退出当前账号？")
-//                        .setCancelable(false)
-//                        .setPositiveButton(R.string.confirm,
-//                                new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog,
-//                                                        int id) {
-//                                        LogX.d("setPagePath",
-//                                                "登出Setingctivity");
-//                                        Constants.ISEXIT_MAIN = true;
-//                                        Constants.ISEXIT_YSQ = true;
-//                                        WeiMiCountUtil.recordLogout(false);
-//
-//                                        logout();
-//                                        doExit();
-//                                        WeiMiCountUtil.recordClientEvent("Logout",
-//                                                "{\"describe\":\"点击退出登录"+"\"}");
-//                                        Constants.EXIT_STIT = true;
-//                                    }
-//                                })
-//                        .setNegativeButton(R.string.cancel,
-//                                new DialogInterface.OnClickListener() {
-//                                    public void onClick(DialogInterface dialog,
-//                                                        int id) {
-//                                        dialog.cancel();
-//                                    }
-//                                })
-//                        .show();
-//
-//                break;
             case R.id.tv_item_one:
                 requestUpdate();
                 break;
-//            case R.id.tv_address://收货地址列表
-//                Intent lacationIntent = new Intent(this, LocationListActivity.class);
-//                lacationIntent.putExtra("from", 1);//1是从设置进入，2是从物流界面进入
-//                startActivity(lacationIntent);
-////
-////                Intent lacationIntent = new Intent(this, AuctionMapActivity.class);
-////                lacationIntent.putExtra(ConstantString.SUPPLIERID,"4133066448643712");
-////                startActivity(lacationIntent);
-//
-//                break;
-//            case R.id.tv_kefu://客服
-//                if(TextUtils.isEmpty(SPUtil.get(getApplicationContext(),
-//                        ConstantString.USERID))){
-//                    JinChaoUtils.goLoginPage(this, 1);
-//                }else {
-//                    String fromData = "queryId=" + SPUtil.get(this, ConstantString.USERID) + "&type=1";
-//                    CallServiceActivity.startActivity(this,fromData,"3");
-////                    CsChatActivity.startActivity(this,fromData);
-//                }
-//                break;
             default:
                 break;
 

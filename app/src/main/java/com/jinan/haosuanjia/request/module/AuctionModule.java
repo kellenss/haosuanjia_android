@@ -173,6 +173,32 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 添加论坛评论
+     */
+    public void getAddComments(Context context,String circle_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAddComments();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("circle_id", circle_id);
+        mapParams.put("user_id", user_id);
+//        mapParams.put("status", status);
+        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加论坛收藏
+     */
+    public void getAddCollection(Context context,String circle_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAddCollection();
+
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("circle_id", circle_id);
+        mapParams.put("user_id", user_id);
+//        mapParams.put("status", status);
+//        mapParams.put("content", content);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
      * 获取买卖需求购买列表
      */
     public void getBuyList(Context context,int page,BaseHandlerJsonObject responseHandler) {
@@ -290,6 +316,16 @@ public class AuctionModule extends BaseModule {
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("class_id", class_id);
         mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+
+    /**
+     * 关于我们
+     */
+    public void getAboutUs(Context context, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAboutUs ();
+
+        Map<String, String> mapParams = new HashMap<>();
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 //    /**

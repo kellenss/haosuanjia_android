@@ -85,6 +85,18 @@
         <activity android:name=".ui.AddSupplyActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.AboutUsActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.VersionShowActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.HelpCenterActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.FeedbackActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- FileProvider共享文件、缓存 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

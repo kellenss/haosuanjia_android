@@ -1,5 +1,6 @@
 package com.jinan.haosuanjia.ui;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,9 +11,13 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.ForumListBean;
+import com.jinan.haosuanjia.commons.LogX;
+import com.jinan.haosuanjia.dialog.CustomDialogEditText;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
+import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.ParseJson;
+import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.adapter.AdapterItem;
 import com.jinan.haosuanjia.view.adapter.CommonAdapter;
@@ -141,6 +146,55 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
         });
     }
+    private void getAddComments(String circle_id,String user_id,String content) {
+
+        AuctionModule.getInstance().getAddComments(context, circle_id ,user_id ,content ,new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                    }else{
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+
+                }
+                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+
+        });
+    }
+    private void getAddCollection(String circle_id,String user_id,String status) {
+
+        AuctionModule.getInstance().getAddCollection(context, circle_id ,user_id ,status ,new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                    }else{
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+                onLoad();
+            }
+            @Override
+            public void onGotError(String code, String error) {
+                onLoad();
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){
@@ -223,10 +277,37 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         @Override
         public void onClick(View v) {
             switch (v.getId()){
-                case R.id.iv_back_head:
-                    finish();
+                case R.id.tv_pinglun:
+                    new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                        @Override
+                        public void setActivityText(String content) {
+                            getAddComments(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                        }
+                    })
+                            .setMessage("我要评论")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.confirm,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,
+                                                            int id) {
+                                            LogX.d("setPagePath",
+                                                    "" +
+                                                            "评论");
+
+                                        }
+                                    })
+                            .setNegativeButton(R.string.cancel,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,
+                                                            int id) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                            .show();
+//                    getAddComments();
                     break;
-                case R.id.tv_right_head:
+                case R.id.tv_shoucang:
+                    getAddCollection(getModel().id+"", SPUtil.get(ConstantString.USERID),"");
                     break;
                 default:
                     break;
@@ -236,7 +317,8 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
         @Override
         public void onSetViews() {
-//            getView(R.id.tv_user_name).setOnClickListener(this);
+            getView(R.id.tv_pinglun).setOnClickListener(this);
+            getView(R.id.tv_shoucang).setOnClickListener(this);
 
         }
 

@@ -19,6 +19,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
     private ImageView iv_setting;
     private TextView tv_name;
     private TextView tv_phone;
+    private TextView tv_yjfk;
+    private TextView tv_bzzx;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,15 +45,27 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         iv_setting=(ImageView) findViewById(R.id.iv_setting);
         tv_name=(TextView) findViewById(R.id.tv_name);
         tv_phone=(TextView) findViewById(R.id.tv_phone);
+        tv_yjfk=(TextView) findViewById(R.id.tv_yjfk);
+        tv_bzzx=(TextView) findViewById(R.id.tv_bzzx);
         iv_setting.setOnClickListener(this);
+        tv_yjfk.setOnClickListener(this);
+        tv_bzzx.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.iv_setting:
-                Intent intent =new Intent(this,SettingActivity.class);
+            case R.id.tv_yjfk:
+                Intent intent =new Intent(this,FeedbackActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.tv_bzzx:
+                Intent intent1 =new Intent(this,HelpCenterActivity.class);
+                startActivity(intent1);
+                break;
+            case R.id.iv_setting:
+                Intent intent2 =new Intent(this,SettingActivity.class);
+                startActivity(intent2);
                 break;
             default:
                     break;
