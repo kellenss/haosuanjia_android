@@ -39,6 +39,7 @@
                    android:layout_height="@dimen/size_160dip"
                    android:background="@color/color_19d472">
                    <LinearLayout
+                       android:id="@+id/ll_mine_info"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:orientation="vertical"
@@ -134,6 +135,23 @@
                     android:paddingLeft="@dimen/size_12dip"
                     android:paddingRight="@dimen/size_12dip"
                     android:text="帮助中心"
+                    android:textColor="@color/color_333333"
+                    android:textSize="@dimen/size_14sp" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_2dip"
+                    android:background="@color/color_common_bg" />
+                <TextView
+                    android:id="@+id/tv_fabu_zulin"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/size_50dip"
+                    android:drawableLeft="@mipmap/icon_bzzx"
+                    android:drawablePadding="@dimen/size_6dip"
+                    android:drawableRight="@mipmap/hasd_15"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="@dimen/size_12dip"
+                    android:paddingRight="@dimen/size_12dip"
+                    android:text="发布租赁信息"
                     android:textColor="@color/color_333333"
                     android:textSize="@dimen/size_14sp" />
             </LinearLayout>

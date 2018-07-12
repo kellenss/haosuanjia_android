@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
-    <RelativeLayout
+   <!-- <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
@@ -23,7 +23,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@mipmap/ic_launcher"/>
-    </RelativeLayout>
+    </RelativeLayout>-->
 
         <LinearLayout
             android:id="@+id/ll_head_left"
@@ -31,20 +31,21 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_vertical"
+            android:layout_marginLeft="20dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/tv_name_phone_num"
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="李先生"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_405db4"
                     android:textSize="16sp" />
 
               <!--  <TextView
@@ -73,24 +74,40 @@
                     android:textSize="14sp" />-->
 
                 <TextView
-                    android:id="@+id/tv_qq_num"
+                    android:id="@+id/tv_content"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="吃大蒜对喂有好处吗？"
+                    android:text="吃大蒜对喂有好处吗吃大蒜对喂有好处吗吃大蒜对喂有好处吗吃大蒜对喂有好处吗？"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/rv_address"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="一级大蒜 |5000.00斤 |价"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:layout_marginTop="@dimen/size_8dip"
+                    android:gravity="center_vertical">
+                                <TextView
+                                    android:id="@+id/rv_address"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="2"
+                                    android:text="查看详情"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp" />
+
+                    <TextView
+                        android:id="@+id/tv_createtime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:text="2018-09-09 12:20:59"
+                        android:textColor="@color/gray_setting"
+                        android:textSize="15sp"
+                        android:layout_alignParentRight="true" />
+
+                </RelativeLayout>
+
             </LinearLayout>
         </LinearLayout>
 

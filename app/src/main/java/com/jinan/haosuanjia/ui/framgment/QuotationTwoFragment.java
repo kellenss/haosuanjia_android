@@ -49,7 +49,7 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
     private TextView tv_zoushi_three;
     private TextView tv_zoushi_four;
     LineChart chart;
-    LineChart chart2;
+//    LineChart chart2;
     private Typeface mTf;
     //    List<ActivityListBean> activityList; // 动态数组
 //    ActivityListAdapter feedAdapter;
@@ -64,8 +64,8 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
 //    String latitude="";
 //    TextView viewEmpty;
 //    View v_default;
-    public static QuotationOneFragment newInstance(String param1,String classId) {
-        QuotationOneFragment fragment = new QuotationOneFragment();
+    public static QuotationTwoFragment newInstance(String param1,String classId) {
+        QuotationTwoFragment fragment = new QuotationTwoFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_CLASSID, classId);
@@ -85,12 +85,12 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     protected View initView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_quotation_one_fragment, container, false);
+        View view = inflater.inflate(R.layout.activity_quotation_two_fragment, container, false);
         this.inflater = inflater;
         mTf = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
         init(view);
         loadData(1);
-        loadData2(1);
+//        loadData2(1);
 
 //        chartItem=new LineChartItem(generateDataLine(1), context);
 
@@ -139,47 +139,47 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
 
         chart.invalidate();
     }
-    private void loadData2(int index) {
-        chart2.getDescription().setEnabled(false);
-        chart2.setDrawGridBackground(true);
-
-        XAxis xAxis = chart2.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-        xAxis.setTypeface(mTf);
-        xAxis.setDrawGridLines(false);
-        xAxis.setDrawAxisLine(true);
-
-        YAxis leftAxis = chart2.getAxisLeft();
-        leftAxis.setTypeface(mTf);
-        leftAxis.setLabelCount(5, false);
-        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        YAxis rightAxis = chart2.getAxisRight();
-        rightAxis.setTypeface(mTf);
-        rightAxis.setLabelCount(5, false);
-        rightAxis.setDrawGridLines(false);
-        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
-
-        // set data
-        chart2.setData((LineData) generateDataLine2(1,index));
-
-        // do not forget to refresh the chart
-        // holder.chart.invalidate();
-        chart2.animateX(200);
-//        v_default.setVisibility(View.VISIBLE);
-//        viewEmpty.setVisibility(View.VISIBLE);
-//        viewEmpty.setText(getString(R.string.no_content_activity));
-        List<ILineDataSet> sets = chart2.getData()
-                .getDataSets();
-
-        for (ILineDataSet iSet : sets) {
-
-            LineDataSet set = (LineDataSet) iSet;
-            set.setDrawValues(!set.isDrawValuesEnabled());
-        }
-
-        chart2.invalidate();
-    }
+//    private void loadData2(int index) {
+//        chart2.getDescription().setEnabled(false);
+//        chart2.setDrawGridBackground(true);
+//
+//        XAxis xAxis = chart2.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTypeface(mTf);
+//        xAxis.setDrawGridLines(false);
+//        xAxis.setDrawAxisLine(true);
+//
+//        YAxis leftAxis = chart2.getAxisLeft();
+//        leftAxis.setTypeface(mTf);
+//        leftAxis.setLabelCount(5, false);
+//        leftAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        YAxis rightAxis = chart2.getAxisRight();
+//        rightAxis.setTypeface(mTf);
+//        rightAxis.setLabelCount(5, false);
+//        rightAxis.setDrawGridLines(false);
+//        rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
+//
+//        // set data
+//        chart2.setData((LineData) generateDataLine2(1,index));
+//
+//        // do not forget to refresh the chart
+//        // holder.chart.invalidate();
+//        chart2.animateX(200);
+////        v_default.setVisibility(View.VISIBLE);
+////        viewEmpty.setVisibility(View.VISIBLE);
+////        viewEmpty.setText(getString(R.string.no_content_activity));
+//        List<ILineDataSet> sets = chart2.getData()
+//                .getDataSets();
+//
+//        for (ILineDataSet iSet : sets) {
+//
+//            LineDataSet set = (LineDataSet) iSet;
+//            set.setDrawValues(!set.isDrawValuesEnabled());
+//        }
+//
+//        chart2.invalidate();
+//    }
 
     private void init(View view) {
         context=getActivity();
@@ -197,7 +197,7 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
         tv_zoushi_three = (TextView) view.findViewById(R.id.tv_zoushi_three);
         tv_zoushi_four = (TextView) view.findViewById(R.id.tv_zoushi_four);
         chart = (LineChart) view.findViewById(R.id.chart);
-        chart2 = (LineChart) view.findViewById(R.id.chart2);
+//        chart2 = (LineChart) view.findViewById(R.id.chart2);
         rl_zoushi_one.setOnClickListener(this);
         rl_zoushi_two.setOnClickListener(this);
         rl_zoushi_three.setOnClickListener(this);
@@ -394,22 +394,22 @@ public class QuotationTwoFragment extends BaseFragment implements View.OnClickLi
             case R.id.rl_zoushi_one:
                 setTextColor(1);
                 loadData(1);
-                loadData2(1);
+//                loadData2(1);
                 break;
             case R.id.rl_zoushi_two:
                 setTextColor(2);
                 loadData(2);
-                loadData2(2);
+//                loadData2(2);
                 break;
             case R.id.rl_zoushi_three:
                 setTextColor(3);
                 loadData(3);
-                loadData2(3);
+//                loadData2(3);
                 break;
             case R.id.rl_zoushi_four:
                 setTextColor(4);
                 loadData(4);
-                loadData2(4);
+//                loadData2(4);
                 break;
             default:
                 break;

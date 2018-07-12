@@ -39,7 +39,7 @@ public class CompanyItemActivity extends StatisticsActivity implements  View.OnC
     private TextView tv_right_head;
     private String  title_head="热门企业";
     private String class_id="";
-    private int page=0;
+    private int page=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -165,7 +165,7 @@ public class CompanyItemActivity extends StatisticsActivity implements  View.OnC
 
     @Override
     public void onRefresh() {
-        page=0;
+        page=1;
         initDataPost(true);
 
     }

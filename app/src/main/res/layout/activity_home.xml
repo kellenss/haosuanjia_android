@@ -172,7 +172,7 @@
                         android:layout_below="@+id/iv_home_icon4"
                         android:textColor="@color/black"
                         android:layout_marginTop="15dp"
-                        android:text="信息咨询" />
+                        android:text="信息资讯" />
                 </LinearLayout>
                 <LinearLayout
                     android:id="@+id/ll_forum"

@@ -90,16 +90,17 @@
 
         <TextView
             android:id="@+id/tv_send_labour_services"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:layout_marginBottom="78dp"
             android:layout_marginEnd="13dp"
-            android:background="@color/white"
+            android:gravity="center"
+            android:background="@drawable/bg_circle_green_6dp"
             android:padding="@dimen/size_3dip"
-            android:text="我要发布"
-            android:textColor="@color/black"
+            android:text="我要   发布"
+            android:textColor="@color/white"
             android:layout_alignParentRight="true"
             android:layout_marginRight="13dp"></TextView>
     </RelativeLayout>

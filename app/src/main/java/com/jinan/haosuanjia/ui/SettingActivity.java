@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AppVersionDomain;
+import com.jinan.haosuanjia.commons.LogX;
 import com.jinan.haosuanjia.dialog.CustomDialog;
 import com.jinan.haosuanjia.dialog.CustomDialogBack;
 import com.jinan.haosuanjia.interfac.VolleyCallBack;
@@ -22,6 +23,7 @@ import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.DataCleanManager;
 import com.jinan.haosuanjia.utils.NetworkUtils;
 import com.jinan.haosuanjia.utils.ParseJson;
+import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.utils.UrlUtils;
 import com.jinan.haosuanjia.utils.VolleyUtils;
@@ -45,6 +47,7 @@ public class SettingActivity extends StatisticsActivity implements
     private TextView tv_title_head;
     private ImageView iv_right_head;
     private ImageView iv_back_head;
+    private TextView tv_layout_logout;
     private Gson gson;
     TextView tv_page_title;
     TextView tv_item_one;
@@ -70,6 +73,7 @@ public class SettingActivity extends StatisticsActivity implements
         tv_item_one = (TextView) findViewById(R.id.tv_item_one);
         tv_item_two = (TextView) findViewById(R.id.tv_item_two);
         tv_item_three = (TextView) findViewById(R.id.tv_item_three);
+        tv_layout_logout = (TextView) findViewById(R.id.tv_layout_logout);
         tv_title_head.setText("设置");
         tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
         try {
@@ -95,6 +99,7 @@ public class SettingActivity extends StatisticsActivity implements
         findViewById(R.id.tv_item_one).setOnClickListener(this);
         findViewById(R.id.tv_item_two).setOnClickListener(this);
         findViewById(R.id.tv_item_three).setOnClickListener(this);
+        findViewById(R.id.tv_layout_logout).setOnClickListener(this);
 //        findViewById(R.id.tv_aboutus).setOnClickListener(this);
 //        findViewById(R.id.layout_update).setOnClickListener(this);
 //        findViewById(R.id.layout_top_5).setOnClickListener(this);
@@ -247,6 +252,36 @@ public class SettingActivity extends StatisticsActivity implements
             case R.id.tv_item_one:
                 requestUpdate();
                 break;
+            case R.id.tv_layout_logout:
+                new CustomDialogBack.Builder(SettingActivity.this)
+                        .setMessage("您是否确认退出当前账号？")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        LogX.d("setPagePath",
+                                                "登出Setingctivity");
+//                                        Constants.ISEXIT_MAIN = true;
+//                                        Constants.ISEXIT_YSQ = true;
+//                                        WeiMiCountUtil.recordLogout(false);
+//
+//                                        logout();
+                                        doExit();
+//                                        WeiMiCountUtil.recordClientEvent("Logout",
+//                                                "{\"describe\":\"点击退出登录"+"\"}");
+//                                        Constants.EXIT_STIT = true;
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+                break;
             default:
                 break;
 
@@ -290,17 +325,21 @@ public class SettingActivity extends StatisticsActivity implements
 
     
 
-//    private void doExit() {
+    private void doExit() {
 //        LoginOutUtil.doExit(this);
-//
+
 //        BaokuStatic.index_tab = 0;
 //        Intent intent = new Intent();
 //        intent.setAction(Constants_umeng.MINE_LOGIN_ACTION);
 //        context.sendBroadcast(intent);
-//
+
 //        setResult(RESULT_OK);
-//        finish();
-//    }
+        SPUtil.set(ConstantString.PHONENUM, "");
+        SPUtil.set(ConstantString.PASSWORD, "");
+        SPUtil.set(ConstantString.USERNICKNAME, "");
+        SPUtil.set(ConstantString.USERID, "");
+        finish();
+    }
 
     /**
      * 开启线程请求“我的状态”的列表数据

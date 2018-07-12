@@ -127,7 +127,7 @@ public class MainActivity extends TabActivity  {
             versionDomain=new AppVersionDomain();
             versionDomain = ParseJson.parseConvertResultObject(jsonObject.optJSONObject("data"),
                     AppVersionDomain.class);
-            if (versionDomain.flag == 0) { // 0不需要更新，1需要更新
+            if (versionDomain.flag == 1) { // 0不需要更新，1需要更新
                 new CustomDialog.Builder(context)
                         .setTitle(getString(R.string.version_refresh_message, versionDomain.version_code+""))
                         .setMessage(versionDomain.version_desc)

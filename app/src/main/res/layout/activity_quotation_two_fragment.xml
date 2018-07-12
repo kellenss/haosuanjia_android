@@ -212,69 +212,183 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <LinearLayout
-        android:id="@+id/ll_scrollview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@color/color_common_bg"
-        >
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-        <com.github.mikephil.charting.charts.LineChart
-            android:id="@+id/chart"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp" />
-    </FrameLayout>
+        <LinearLayout
+            android:id="@+id/ll_scrollview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/color_common_bg"
+            android:orientation="vertical">
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/size_10dip"
-        android:background="@color/color_common_bg"
-        />
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="价格走势"
-        android:background="@color/white"
-        android:layout_margin="@dimen/size_10dip"
-        android:textColor="@color/black"/>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            android:layout_marginLeft="80dp">
-            <Spinner
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_data"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                ></Spinner>
-        </RelativeLayout>
-    </FrameLayout>
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
-    <com.github.mikephil.charting.charts.LineChart
+                android:background="@color/white">
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp" />
+            </FrameLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_10dip"
+                android:background="@color/color_common_bg" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/size_10dip"
+                    android:background="@color/white"
+                    android:text="出售货物计算"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_1dip"
+                android:background="@color/color_common_bg" />
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white">
+                <!-- <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart2"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
-    </FrameLayout>
-    </LinearLayout>
+        android:layout_height="200dp" />-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/size_3dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="大蒜数量"
+                            android:textColor="@color/black" />
+
+                        <EditText
+                            android:id="@+id/et_quotation_count"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/size_10dp"
+                            android:background="@drawable/yes_bg"
+                            android:hint="请输入大蒜数量（单位：斤）"
+                            android:padding="3dp"
+                            android:textColorHint="@color/gray" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/size_3dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="大蒜规格"
+                            android:textColor="@color/black" />
+
+                        <Spinner
+                            android:id="@+id/spinner_crop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/size_10dp"
+                            android:background="@drawable/yes_bg"
+                            android:padding="3dp"
+                            android:textColorHint="@color/gray" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/size_3dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="理想价格"
+                            android:textColor="@color/black" />
+
+                        <EditText
+                            android:id="@+id/et_quotation_price"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/size_10dp"
+                            android:background="@drawable/yes_bg"
+                            android:hint="请输入理想价格（单位：元/斤）"
+                            android:padding="3dp"
+                            android:textColorHint="@color/gray" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center"
+                        android:padding="@dimen/size_3dip">
+
+                        <TextView
+                            android:id="@+id/tv_commodit_calculation"
+                            android:layout_width="match_parent"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:background="@color/red"
+                            android:gravity="center"
+                            android:text="商品计算"
+                            android:textColor="@color/white" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/size_3dip">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:text="计算结果"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_calculation_result"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/size_10dp"
+                            android:background="@drawable/yes_bg"
+                            android:padding="3dp"
+                            android:textColorHint="@color/gray" />
+                    </LinearLayout>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
 
 </ScrollView>
 </LinearLayout>

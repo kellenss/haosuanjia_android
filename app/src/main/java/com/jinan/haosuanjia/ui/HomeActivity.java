@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.jinan.haosuanjia.R;
@@ -34,6 +35,7 @@ private LinearLayout ll_company;
 private LinearLayout ll_agent;
 private LinearLayout ll_customer_service;
 private LinearLayout ll_zsq;
+private ImageView iv_right;
 private ViewPager view_pager;
 
 
@@ -85,7 +87,7 @@ private ViewPager view_pager;
         int height = View.MeasureSpec.makeMeasureSpec(0,
                 View.MeasureSpec.UNSPECIFIED);
         if (tipslist!=null)
-        tipslist.clear();
+            tipslist.clear();
         for (int i=0;i<3;i++){
             TipsList tips=new TipsList();
             tips.imageUrl="";
@@ -95,65 +97,65 @@ private ViewPager view_pager;
 //        tipslist.add()
 //        try {
 //            tipslist = ParseJson.parseGetResultCollection(new JSONObject(json), "data", TipsList.class);
-            if(tipslist.size()==0){
+        if(tipslist.size()==0){
 //                lv_community_main.removeHeaderView(view_head_sublist);
-            }else {
+        }else {
 //                lv_community_main.removeHeaderView(view_head_sublist);
 //                lv_community_main.addHeaderView(view_head_sublist);
-                try {
-                    for (int i = 0; i < tipslist.size(); i++) {
-//                list1.add(inflater.inflate(R.layout.community_item_recommend_head, null));
-                        if (tipslist.size() > 1) {
-                            ll_zsq.setVisibility(View.VISIBLE);
-                            View iv = new View(context);
-                            if (i == 0) {
-                                iv.setBackgroundResource(R.mipmap.icon_select_yes);
-                            } else {
-                                iv.setBackgroundResource(R.mipmap.icon_select_no);
-                            }
-                            iv.measure(width, height);
-                            LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
-                                    iv.getMeasuredWidth(), iv.getMeasuredHeight());
-                            ll.leftMargin = 10;
-                            ll.rightMargin = 10;
-                            iv.setLayoutParams(ll);
-                            ll_zsq.addView(iv);
-                        } else {
-                            ll_zsq.setVisibility(View.GONE);
-                        }
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
             try {
-                // 创建适配器， 把组装完的组件传递进去
-                if (tipsAdapter == null) {
-                    tipsAdapter = new TipsViewPagerAdapter(context,tipslist,R.layout.community_item_recommend_head);
-                    tipsAdapter.setData(tipslist);
-                    view_pager.setAdapter(tipsAdapter);
-                    view_pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-                        @Override
-                        public void onPageSelected(int position) {
-                            super.onPageSelected(position);
-                            for (int i = 0; i < ll_zsq.getChildCount(); i++) {
-                                if (ll_zsq.getChildAt(i) != null) {
-                                    ll_zsq.getChildAt(i).setBackgroundResource(
-                                            R.mipmap.icon_select_no);
-                                }
-                            }
-                            ll_zsq.getChildAt(position).setBackgroundResource(
-                                    R.mipmap.icon_select_yes);
-                            viewpagerHeaderIndex = position;
+                for (int i = 0; i < tipslist.size(); i++) {
+//                list1.add(inflater.inflate(R.layout.community_item_recommend_head, null));
+                    if (tipslist.size() > 1) {
+                        ll_zsq.setVisibility(View.VISIBLE);
+                        View iv = new View(context);
+                        if (i == 0) {
+                            iv.setBackgroundResource(R.mipmap.icon_select_yes);
+                        } else {
+                            iv.setBackgroundResource(R.mipmap.icon_select_no);
                         }
-                    });
-                } else {
-                    tipsAdapter.setData(tipslist);
-                    tipsAdapter.notifyDataSetChanged();
+                        iv.measure(width, height);
+                        LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
+                                iv.getMeasuredWidth(), iv.getMeasuredHeight());
+                        ll.leftMargin = 10;
+                        ll.rightMargin = 10;
+                        iv.setLayoutParams(ll);
+                        ll_zsq.addView(iv);
+                    } else {
+                        ll_zsq.setVisibility(View.GONE);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+        try {
+            // 创建适配器， 把组装完的组件传递进去
+            if (tipsAdapter == null) {
+                tipsAdapter = new TipsViewPagerAdapter(context,tipslist,R.layout.community_item_recommend_head);
+                tipsAdapter.setData(tipslist);
+                view_pager.setAdapter(tipsAdapter);
+                view_pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        for (int i = 0; i < ll_zsq.getChildCount(); i++) {
+                            if (ll_zsq.getChildAt(i) != null) {
+                                ll_zsq.getChildAt(i).setBackgroundResource(
+                                        R.mipmap.icon_select_no);
+                            }
+                        }
+                        ll_zsq.getChildAt(position).setBackgroundResource(
+                                R.mipmap.icon_select_yes);
+                        viewpagerHeaderIndex = position;
+                    }
+                });
+            } else {
+                tipsAdapter.setData(tipslist);
+                tipsAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if(tipsAdapter != null){
             tipsAdapter.notifyDataSetChanged();
             if (!openTimer) {
@@ -174,6 +176,7 @@ private ViewPager view_pager;
         ll_agent=(LinearLayout) findViewById(R.id.ll_agent);
         ll_customer_service=(LinearLayout) findViewById(R.id.ll_customer_service);
         ll_zsq=(LinearLayout) findViewById(R.id.ll_zsq);
+        iv_right=(ImageView) findViewById(R.id.iv_right);
         view_pager=(ViewPager) findViewById(R.id.view_pager);
 
     }
@@ -187,6 +190,7 @@ private ViewPager view_pager;
         ll_company.setOnClickListener(this);
         ll_agent.setOnClickListener(this);
         ll_customer_service.setOnClickListener(this);
+        iv_right.setOnClickListener(this);
     }
 
     @Override
@@ -209,6 +213,9 @@ private ViewPager view_pager;
                 startActivity(intent3);
                 break;
             case R.id.ll_information_consultation:
+                Intent intent4=new Intent(this,InformationConsultationActivity.class);
+                startActivity(intent4);
+                break;
             case R.id.ll_forum:
                 Intent intent5=new Intent(this,ForumActivity.class);
                 startActivity(intent5);
@@ -225,7 +232,11 @@ private ViewPager view_pager;
             case R.id.ll_customer_service:
                 Intent intent9=new Intent(this,CustomerServiceActivity.class);
                 startActivity(intent9);
-            break;
+                break;
+            case R.id.iv_right:
+                Intent intent10=new Intent(this,MessageListActivity.class);
+                startActivity(intent10);
+                break;
             default:
                 break;
 

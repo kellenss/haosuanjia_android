@@ -91,6 +91,15 @@
                     android:text="联系人：罗经理"
                     android:textColor="@color/color_666666"
                     android:textSize="15sp" />
+                <TextView
+                    android:id="@+id/tv_all_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="吃大蒜对喂有好处吗？"
+                    android:textColor="@color/color_666666"
+                    android:visibility="visible"
+                    android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
 

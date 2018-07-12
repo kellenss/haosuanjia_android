@@ -13,31 +13,22 @@ public class UrlUtils {
 	public static String getBaseUrlYu() {
 		return HMApplication.KP_BASE_URL_YU;
 	}
-
 	//注册接口
 	public static String getRegist() {
 		return getBaseUrl() + "user/register";
 	}
-//	//注册接口
-//	public static String getRegist() {
-////		return getBaseUrl() + "registerUser.php";
-//		return  "http://cmf.haosuanjia.com/android/user/register";
-//	}
 	//找回密码接口
 	public static String getfindpassword() {
 		return getBaseUrl() + "doctor/findPassword.action";
 	}
-
 	//登录接口
 	public static String getMemberLogin() {
 		return getBaseUrl() + "user/login";
 	}
-
 	//获取验证码
 	public static String getYanZhengMa() {
 		return getBaseUrl() + "getPhonecode.php";
 	}
-
 	//获取劳务供需劳务输出列表
 	public static String getSupplyList() {
 		return getBaseUrl() + "labor/get_supply_list";
@@ -98,26 +89,57 @@ public class UrlUtils {
 	public static String getSellList() {
 		return getBaseUrl() + "business/get_sell_list";
 	}
-
 	//根据不同排序获取不同的公司列表
 	public static String getCommpanyList() {
 		return getBaseUrl() + "company/get_company_list";
 	}
+	//获取冷库租赁列表
+	public static String getColdStorageList() {
+		return getBaseUrl() + "company/get_cold_lease";
+	}
 	//新闻页重点企业列表
 	public static String getNewsCommpanyList() {
+		return getBaseUrl() + "company/get_company_list";
+	}
+	//获取信息咨询列表
+	public static String getNewsInformationList() {
 		return getBaseUrl() + "news/get_news_list";
+	}
+	//获取信息咨询banner列表
+	public static String getBannerList() {
+		return getBaseUrl() + "news/get_banner_list";
 	}
 	//获取所有经纪人
 	public static String getAgentList() {
 		return getBaseUrl() + "common/get_all_agent";
 	}
+	//获取我的消息列表
+	public static String getMessageList() {
+		return getBaseUrl() + "message/get_message_list";
+	}
 	//添加论坛朋友圈
 	public static String getAddCircle() {
 		return getBaseUrl() + "circle/add_circle";
 	}
+	//添加意见反馈
+	public static String getAddFeedback() {
+		return getBaseUrl() + "common/add_feedback";
+	}
 	//添加劳务需求
 	public static String AddDemand() {
 		return getBaseUrl() + "labor/add_demand";
+	}
+	//添加购蒜需求
+	public static String AddBuy() {
+		return getBaseUrl() + "business/add_buy";
+	}
+	//行情根据省份获取平均价格列表
+	public static String getQuotationByCountry() {
+		return getBaseUrl() + "quotation/get_quotation_by_country";
+	}
+	//添加出售大蒜
+	public static String AddSell() {
+		return getBaseUrl() + "business/add_sell";
 	}
 	//关于我们
 	public static String getAboutUs() {
@@ -127,50 +149,13 @@ public class UrlUtils {
 	public static String AddSupply() {
 		return getBaseUrl() + "labor/add_supply";
 	}
+	//添加冷库租赁信息
+	public static String AddColdLease() {
+		return getBaseUrl() + "company/add_cold_lease";
+	}
 	//获取论坛朋友圈列表
 	public static String getCircleList() {
 		return getBaseUrl() + "circle/get_circle_list";
 	}
-	/*//添加患者信息接口
-	public static String getAddpatient() {
-		return getBaseUrl() + "patient/add.action";
-	}
-	//添加日程接口
-	public static String getAddschedule() {
-		return getBaseUrl() + "schedule/add.action";
-	}
-	//日程详情接口
-	public static String getScheduleDetail() {
-		return getBaseUrl() + "schedule/look.action";
-	}
-	//更新日程状态接口
-	public static String getUpdateIstatusSchedule() {
-		return getBaseUrl() + "schedule/updateIstatus.action";
-	}
-	//更新日程内容接口
-	public static String getUpdateSchedule() {
-		return getBaseUrl() + "schedule/update.action";
-	}
-	//删除患者信息接口
-	public static String getDeletepatient() {
-		return getBaseUrl() + "patient/falseDel.action";
-	}
 
-	//患者列表接口
-	public static String getAllpatient() {
-		return getBaseUrl() + "patient/all.action";
-	}
-
-	//患者列表接口
-	public static String getsearch() {
-		return getBaseUrl() + "patient/findBynameorcode.action";
-	}
-	//日程列表接口
-	public static String getScheduleList() {
-		return getBaseUrl() + "schedule/all.action";
-	}
-	//添加患者日程接口（上传图片）
-	public static String getUpLoadPhoto() {
-		return getBaseUrl() + "common/uploadImg.action";
-	}*/
 }

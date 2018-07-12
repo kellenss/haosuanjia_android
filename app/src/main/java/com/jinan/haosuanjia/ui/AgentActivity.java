@@ -12,6 +12,8 @@ import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AgentListBean;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
+import com.jinan.haosuanjia.utils.BitmapUtil;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.adapter.AdapterItem;
@@ -317,6 +319,7 @@ public class AgentActivity extends StatisticsActivity implements  View.OnClickLi
             ((TextView)getView(R.id.tv_name_phone_num)).setText(auctionBean.agent_name);
             ((TextView)getView(R.id.tv_qq_num)).setText("QQ : "+auctionBean.qq);
             ((TextView)getView(R.id.rv_address)).setText("地区 ："+auctionBean.province);
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);
         }

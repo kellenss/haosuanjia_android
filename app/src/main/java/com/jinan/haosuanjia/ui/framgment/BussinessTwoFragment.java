@@ -1,6 +1,7 @@
 package com.jinan.haosuanjia.ui.framgment;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -17,6 +18,7 @@ import com.jinan.haosuanjia.commons.LogX;
 import com.jinan.haosuanjia.dialog.CustomDialogEditText;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
+import com.jinan.haosuanjia.ui.AddSellActivity;
 import com.jinan.haosuanjia.ui.base.BaseFragment;
 import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.ParseJson;
@@ -88,7 +90,13 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
         context=getActivity();
         inflater = LayoutInflater.from(context);
         lv_activity_main = (XListView) view.findViewById(R.id.lv_bussiness_main);
-//
+        view.findViewById(R.id.tv_send_labour_services).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), AddSellActivity.class);
+                startActivity(intent);
+            }
+        });
         lv_activity_main.setPullLoadEnable(true);
         lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);
 //
@@ -265,7 +273,7 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
         public void onUpdateViews(final BussinessListBean auctionBean, final int position) {
             ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
             ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
-            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname+" | "+auctionBean.mobile);
+            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname);
             ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
             ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
 

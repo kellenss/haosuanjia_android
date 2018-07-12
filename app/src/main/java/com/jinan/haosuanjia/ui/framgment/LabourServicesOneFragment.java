@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -20,7 +21,9 @@ import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.ui.AddDemandActivity;
 import com.jinan.haosuanjia.ui.base.BaseFragment;
+import com.jinan.haosuanjia.utils.BitmapUtil;
 import com.jinan.haosuanjia.utils.ConstantString;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
@@ -293,6 +296,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
             ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
             ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.amount+"人，工资"+auctionBean.price+"元/天");
             ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
             ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.VISIBLE);
         }
     }

@@ -15,7 +15,9 @@ import com.jinan.haosuanjia.commons.LogX;
 import com.jinan.haosuanjia.dialog.CustomDialogEditText;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
+import com.jinan.haosuanjia.utils.BitmapUtil;
 import com.jinan.haosuanjia.utils.ConstantString;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
@@ -331,6 +333,9 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
             ((TextView)getView(R.id.tv_item_content)).setText(auctionBean.content);
             ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.statu+"");
             ((TextView)getView(R.id.tv_pinglun)).setText(auctionBean.collection+"");
+//            ((ImageView)getView(R.id.iv_user_photo)).setText(auctionBean.collection+"");
+//            String headPhotoUrl = ImageLoaderUtil.getPhotoUrl(auctionBean.bidInfo.bidGoods.supplier.supplierPic, 200);
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
 
         }
     }

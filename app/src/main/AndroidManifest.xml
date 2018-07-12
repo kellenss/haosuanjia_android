@@ -97,6 +97,24 @@
         <activity android:name=".ui.FeedbackActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.InformationConsultationActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.AddBuyActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.AddSellActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.MessageListActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.ColdStorageActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.AddColdStorageActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- FileProvider共享文件、缓存 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

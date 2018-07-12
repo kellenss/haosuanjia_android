@@ -122,11 +122,6 @@ public class HelpCenterActivity extends StatisticsActivity implements  View.OnCl
                                 .replaceAll("&quot;", "\"")
                                 .replaceAll("&lt;", "<")
                                 .replaceAll("&gt;", ">");
-//                htmlData = htmlData.;
-//                htmlData = htmlData;
-//                htmlData = htmlData;
-//            ((WebView)getView(R.id.wv_shoucang)).loadData(htmlData, "text/html" , "utf-8");
-//            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(htmlData, null, "text/html", "utf-8", null);
 //            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(htmlData));
                         wv_about_us_content.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
 //                        finish();

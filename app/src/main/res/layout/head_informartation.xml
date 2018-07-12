@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_common_bg"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:id="@+id/fl_tips"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_180dip">
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_180dip" />
+
+            <LinearLayout
+                android:id="@+id/ll_zsq"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_32dip"
+                android:layout_gravity="bottom"
+                android:background="@mipmap/icon_banner_bg"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="16.5dip"
+                android:visibility="visible">
+            </LinearLayout>
+            <com.jinan.haosuanjia.view.TipsPageIndicator
+                android:id="@+id/indicator"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/size_32dip"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:paddingLeft="@dimen/size_12dip"
+                android:visibility="visible"
+                android:paddingRight="@dimen/size_80dip" />
+
+            <TextView
+                android:id="@+id/tv_zt_more"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/size_32dip"
+                android:layout_gravity="right|bottom"
+                android:layout_marginRight="10dp"
+                android:drawableRight="@mipmap/icon_head_banner_more"
+                android:gravity="center_vertical"
+                android:onClick="onClick"
+                android:text="更多"
+                android:visibility="gone"
+                android:drawablePadding="@dimen/size_5dip"
+                android:textColor="@color/white"
+                android:textSize="13sp" />
+
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

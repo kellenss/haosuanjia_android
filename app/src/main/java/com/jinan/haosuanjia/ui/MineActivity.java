@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jinan.haosuanjia.R;
@@ -21,6 +22,8 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
     private TextView tv_phone;
     private TextView tv_yjfk;
     private TextView tv_bzzx;
+    private TextView tv_fabu_zulin;
+    private LinearLayout ll_mine_info;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +35,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onResume() {
         super.onResume();
+//        if (SPUtil.get())
         if(!TextUtils.isEmpty( SPUtil.get(ConstantString.PHONENUM))){
             tv_phone.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));
             tv_name.setText(""+ SPUtil.get(ConstantString.USERNICKNAME));
@@ -47,9 +51,13 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         tv_phone=(TextView) findViewById(R.id.tv_phone);
         tv_yjfk=(TextView) findViewById(R.id.tv_yjfk);
         tv_bzzx=(TextView) findViewById(R.id.tv_bzzx);
+        tv_fabu_zulin=(TextView) findViewById(R.id.tv_fabu_zulin);
+        ll_mine_info=(LinearLayout) findViewById(R.id.ll_mine_info);
         iv_setting.setOnClickListener(this);
         tv_yjfk.setOnClickListener(this);
         tv_bzzx.setOnClickListener(this);
+        tv_fabu_zulin.setOnClickListener(this);
+        ll_mine_info.setOnClickListener(this);
     }
 
     @Override
@@ -66,6 +74,18 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
             case R.id.iv_setting:
                 Intent intent2 =new Intent(this,SettingActivity.class);
                 startActivity(intent2);
+                break;
+            case R.id.tv_fabu_zulin:
+                Intent intent3 =new Intent(this,AddColdStorageActivity.class);
+                startActivity(intent3);
+                break;
+            case R.id.ll_mine_info:
+                if (TextUtils.isEmpty(SPUtil.get(ConstantString.PHONENUM))){
+                    Intent intent4 =new Intent(this,LoginActivity.class);
+                    startActivity(intent4);
+                 }else{
+
+                  }
                 break;
             default:
                     break;

@@ -1,8 +1,13 @@
 package com.jinan.haosuanjia.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.v4.view.ViewPager;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
@@ -13,12 +18,14 @@ import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.jinan.haosuanjia.R;
-import com.jinan.haosuanjia.bean.NewsCompanyBean;
+import com.jinan.haosuanjia.bean.NewsInformationBean;
+import com.jinan.haosuanjia.bean.TipsList;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.BitmapUtil;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
+import com.jinan.haosuanjia.view.TipsViewPagerAdapter;
 import com.jinan.haosuanjia.view.adapter.AdapterItem;
 import com.jinan.haosuanjia.view.adapter.CommonAdapter;
 import com.jinan.haosuanjia.view.listviewload.XListView;
@@ -27,14 +34,16 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
- * 公司企业
- * create by gc on 2018/05/30
+ * 信息资讯
+ * create by gc on 2018/06/27
  */
-public class CompanyEnterpriseActivity extends StatisticsActivity implements  View.OnClickListener, XListView.IXListViewListener {
+public class InformationConsultationActivity extends StatisticsActivity implements  View.OnClickListener, XListView.IXListViewListener {
     private XListView lv_activity_main;
-    List<NewsCompanyBean> activityList; // 动态数组
+    List<NewsInformationBean> activityList; // 动态数组
     BussinessFragmentAdapter feedAdapter;
     private ImageView iv_back_head;
     private ImageView iv_right_head;
@@ -43,15 +52,16 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
     private TextView tv_right_head;
 
     View view_head_sublist;
+    ViewPager view_pager;
+    LinearLayout ll_zsq;
     LayoutInflater inflater;
     int Width;
 
-    private LinearLayout ll_zx_company;
-    private LinearLayout ll_tj_company;
-    private LinearLayout ll_rm_company;
-    private LinearLayout ll_lkzlj_company;
-//    private LinearLayout ll_xhsgj_company;
-//    private LinearLayout ll_xhckj_company;
+    List<TipsList> tipslist; // 动态数组
+    TipsViewPagerAdapter tipsAdapter;
+    boolean openTimer;
+    public Timer mTimerWait;// 定时器
+    private int viewpagerHeaderIndex = 0;
     int page=1;
     String class_id ="";
     @Override
@@ -63,24 +73,124 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         inflater = LayoutInflater.from(context);
         Width = this.getWindowManager().getDefaultDisplay().getWidth();// 获取屏幕高度
         view_head_sublist = inflater.inflate(
-                R.layout.head_conmpany_enterprise, null);
-        ll_zx_company=view_head_sublist.findViewById(R.id.ll_zx_company);
-        ll_tj_company=view_head_sublist.findViewById(R.id.ll_tj_company);
-        ll_rm_company=view_head_sublist.findViewById(R.id.ll_rm_company);
-        ll_lkzlj_company=view_head_sublist.findViewById(R.id.ll_lkzlj_company);
-//        ll_xhsgj_company=view_head_sublist.findViewById(R.id.ll_xhsgj_company);
-//        ll_xhckj_company=view_head_sublist.findViewById(R.id.ll_xhckj_company);
-        ll_zx_company.setOnClickListener(this);
-        ll_tj_company.setOnClickListener(this);
-        ll_rm_company.setOnClickListener(this);
-        ll_lkzlj_company.setOnClickListener(this);
-//        ll_xhsgj_company.setOnClickListener(this);
-//        ll_xhckj_company.setOnClickListener(this);
+                R.layout.head_informartation, null);
+        view_pager=view_head_sublist.findViewById(R.id.view_pager);
+        ll_zsq=view_head_sublist.findViewById(R.id.ll_zsq);
         lv_activity_main.removeHeaderView(view_head_sublist);
         lv_activity_main.addHeaderView(view_head_sublist);
+        tipslist= new ArrayList<>();
+        viewPageInit();
+    }
+    @SuppressLint("HandlerLeak")
+    public Handler mHandlerwait = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (viewpagerHeaderIndex > tipslist.size()) {
+                viewpagerHeaderIndex = 0;
+            }
+            view_pager.setCurrentItem(viewpagerHeaderIndex);
+            viewpagerHeaderIndex++;
+            super.handleMessage(msg);
+        }
+    };
 
+    public void timerTaskWait(int index) {
+        viewpagerHeaderIndex = index;
+        mTimerWait = new Timer();
+        mTimerWait.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                mHandlerwait.sendEmptyMessage(1);// 向Handler发送消息
+            }
+        }, 2000, 5000);// 定时任务
     }
 
+    private void viewPageInit() {
+        /**
+         * 创建多个item （每一条viewPager都是一个item） 从服务器获取完数据（如文章标题、url地址） 后，再设置适配器
+         */
+        int width = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+        int height = View.MeasureSpec.makeMeasureSpec(0,
+                View.MeasureSpec.UNSPECIFIED);
+//        if (tipslist!=null)
+//            tipslist.clear();
+//        for (int i=0;i<3;i++){
+//            TipsList tips=new TipsList();
+//            tips.imageUrl="";
+//            tips.id=i;
+//            tipslist.add(tips);
+//        }
+//        tipslist.add()
+//        try {
+//            tipslist = ParseJson.parseGetResultCollection(new JSONObject(json), "data", TipsList.class);
+        if(tipslist.size()==0){
+            lv_activity_main.removeHeaderView(view_head_sublist);
+        }else {
+            lv_activity_main.removeHeaderView(view_head_sublist);
+            lv_activity_main.addHeaderView(view_head_sublist);
+            try {
+                for (int i = 0; i < tipslist.size(); i++) {
+//                list1.add(inflater.inflate(R.layout.community_item_recommend_head, null));
+                    if (tipslist.size() > 1) {
+                        ll_zsq.setVisibility(View.VISIBLE);
+                        View iv = new View(context);
+                        if (i == 0) {
+                            iv.setBackgroundResource(R.mipmap.icon_select_yes);
+                        } else {
+                            iv.setBackgroundResource(R.mipmap.icon_select_no);
+                        }
+                        iv.measure(width, height);
+                        LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
+                                iv.getMeasuredWidth(), iv.getMeasuredHeight());
+                        ll.leftMargin = 10;
+                        ll.rightMargin = 10;
+                        iv.setLayoutParams(ll);
+                        ll_zsq.addView(iv);
+                    } else {
+                        ll_zsq.setVisibility(View.GONE);
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            // 创建适配器， 把组装完的组件传递进去
+            if (tipsAdapter == null) {
+                tipsAdapter = new TipsViewPagerAdapter(context,tipslist,R.layout.community_item_recommend_head);
+                tipsAdapter.setData(tipslist);
+                view_pager.setAdapter(tipsAdapter);
+                view_pager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+                    @Override
+                    public void onPageSelected(int position) {
+                        super.onPageSelected(position);
+                        for (int i = 0; i < ll_zsq.getChildCount(); i++) {
+                            if (ll_zsq.getChildAt(i) != null) {
+                                ll_zsq.getChildAt(i).setBackgroundResource(
+                                        R.mipmap.icon_select_no);
+                            }
+                        }
+                        ll_zsq.getChildAt(position).setBackgroundResource(
+                                R.mipmap.icon_select_yes);
+                        viewpagerHeaderIndex = position;
+                    }
+                });
+            } else {
+                tipsAdapter.setData(tipslist);
+                tipsAdapter.notifyDataSetChanged();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if(tipsAdapter != null){
+            tipsAdapter.notifyDataSetChanged();
+            if (!openTimer) {
+                timerTaskWait(0);
+                openTimer = true;
+            }
+        }
+    }
     private void initdata() {
         lv_activity_main.setPullLoadEnable(true);
         lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);
@@ -90,7 +200,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         }
         activityList=new ArrayList<>();
         for (int i=0;i<10;i++){
-            NewsCompanyBean bean=new NewsCompanyBean();
+            NewsInformationBean bean=new NewsInformationBean();
             bean.title=""+i;
             activityList.add(bean);
         }
@@ -116,6 +226,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
             }
         });
         initDataPost(true);
+        getTips();
     }
 
     private void initUI() {
@@ -127,7 +238,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
         iv_back_head.setOnClickListener(this);
         tv_right_head.setOnClickListener(this);
-        tv_title_head.setText("公司企业");
+        tv_title_head.setText("信息资讯");
         iv_back_head.setVisibility(View.VISIBLE);
         tv_left_head.setVisibility(View.GONE);
         tv_right_head.setVisibility(View.GONE);
@@ -138,7 +249,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
     }
     private void initDataPost(final boolean needclear) {
 
-        AuctionModule.getInstance().getNewsCommpanyList(context,class_id,page, new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getNewsInformationList(context,class_id,page, new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
@@ -146,7 +257,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                     if(jsonObject.getInteger("status")==1){
                         page++;
                         try{
-                            activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", NewsCompanyBean.class);
+                            activityList = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "data", NewsInformationBean.class);
                         }catch (Exception e ){
                             e.printStackTrace();
                             ShowToastUtil.Short("没有更多数据！");
@@ -172,6 +283,42 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
             @Override
             public void onGotError(String code, String error) {
                 onLoad();
+            }
+        });
+    }
+    private void getTips() {
+
+        AuctionModule.getInstance().getBannerList(context, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+//                        page++;
+                        try{
+                            tipslist = ParseJson.parseGetResultCollection(result, "data", TipsList.class);
+                            viewPageInit();
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+
+                    }else{
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+//                    lv_activity_main.stopRefresh();
+//                    lv_activity_main.stopLoadMore();
+//                    activityList = feedAdapter.getDataList();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+//                onLoad();
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+//                onLoad();
             }
         });
     }
@@ -204,7 +351,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                 startActivity(intent3);
                 break;
             case R.id.ll_lkzlj_company:
-                Intent intent4=new Intent(this,ColdStorageActivity.class);
+                Intent intent4=new Intent(this,CompanyItemActivity.class);
                 intent4.putExtra("title_name","冷库租赁价");
                 startActivity(intent4);
                 break;
@@ -234,7 +381,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         initDataPost(false);
     }
 
-    class BussinessFragmentAdapter extends CommonAdapter<NewsCompanyBean> implements AbsListView.OnScrollListener {
+    class BussinessFragmentAdapter extends CommonAdapter<NewsInformationBean> implements AbsListView.OnScrollListener {
         //        private String type;
         //屏幕宽
         int widthScreen;
@@ -242,7 +389,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         int collectionImgSize;
         int itemSpace;
 
-        BussinessFragmentAdapter(List<NewsCompanyBean> data) {
+        BussinessFragmentAdapter(List<NewsInformationBean> data) {
             super(data, 10);
         }
 
@@ -256,7 +403,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         final int VIEWTYPE_VEDIO = 2;//视频
 
         @Override
-        public AdapterItem<NewsCompanyBean> getItemView(int itemViewType) {
+        public AdapterItem<NewsInformationBean> getItemView(int itemViewType) {
             AdapterItem item = null;
 //            if (itemViewType == VIEWTYPE_VEDIO) {
 //                item = new ItemVedio();
@@ -288,11 +435,11 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         }
     }
 
-    class ItemFeed extends AdapterItem<NewsCompanyBean> implements View.OnClickListener {
+    class ItemFeed extends AdapterItem<NewsInformationBean> implements View.OnClickListener {
 
         @Override
         public int getLayoutResId() {
-            return R.layout.item_company_enterprise;
+            return R.layout.item_information_consultation;
         }
 
         @Override
@@ -317,7 +464,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
 
 
         @Override
-        public void onUpdateViews(final NewsCompanyBean auctionBean, final int position) {
+        public void onUpdateViews(final NewsInformationBean auctionBean, final int position) {
             if (position==0){
                 ((TextView)getView(R.id.tv_head_title)).setVisibility(View.VISIBLE);
             }else {
@@ -333,8 +480,9 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
 //                htmlData = htmlData;
 //            ((WebView)getView(R.id.wv_shoucang)).loadData(htmlData, "text/html" , "utf-8");
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(htmlData, null, "text/html", "utf-8", null);
-//            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(htmlData));
-            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//            ((TextView)getView(R.id.tv_shoucang)).setText(Html.fromHtml(htmlData));
+            ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.title);
+//            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
             Bitmap bitmap;
             bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
         }

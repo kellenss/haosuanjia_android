@@ -8,10 +8,14 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -21,7 +25,15 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jinan.haosuanjia.R;
+import com.jinan.haosuanjia.bean.AuotationDetailBean;
+import com.jinan.haosuanjia.bean.LabourServicesBean;
+import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
+import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.ui.base.BaseFragment;
+import com.jinan.haosuanjia.utils.ParseJson;
+import com.jinan.haosuanjia.utils.ShowToastUtil;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +60,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     private TextView tv_zoushi_two;
     private TextView tv_zoushi_three;
     private TextView tv_zoushi_four;
+    private Spinner spinner_data;
     LineChart chart;
     LineChart chart2;
     private Typeface mTf;
@@ -60,6 +73,15 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
+    private String country="165";
+    private String cropid="4";
+    private String month="6";
+    private int index=1;
+
+    List<AuotationDetailBean> activityList=new ArrayList<>(); // 动态数组
+
+    private List<String> data_list;
+    private ArrayAdapter<String> arr_adapter;
 //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
@@ -89,7 +111,6 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         this.inflater = inflater;
         mTf = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
         init(view);
-        loadData(1);
         loadData2(1);
 
 //        chartItem=new LineChartItem(generateDataLine(1), context);
@@ -97,7 +118,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         return view;
     }
 
-    private void loadData(int index) {
+    private void loadData(int index,List<AuotationDetailBean> activityList) {
         chart.getDescription().setEnabled(false);
         chart.setDrawGridBackground(true);
 
@@ -119,7 +140,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         // set data
-        chart.setData((LineData) generateDataLine(1,index));
+        chart.setData((LineData) generateDataLine(1,index,activityList));
 
         // do not forget to refresh the chart
         // holder.chart.invalidate();
@@ -162,13 +183,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
 
         // set data
         chart2.setData((LineData) generateDataLine2(1,index));
-
-        // do not forget to refresh the chart
-        // holder.chart.invalidate();
         chart2.animateX(200);
-//        v_default.setVisibility(View.VISIBLE);
-//        viewEmpty.setVisibility(View.VISIBLE);
-//        viewEmpty.setText(getString(R.string.no_content_activity));
         List<ILineDataSet> sets = chart2.getData()
                 .getDataSets();
 
@@ -196,43 +211,63 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         tv_zoushi_two = (TextView) view.findViewById(R.id.tv_zoushi_two);
         tv_zoushi_three = (TextView) view.findViewById(R.id.tv_zoushi_three);
         tv_zoushi_four = (TextView) view.findViewById(R.id.tv_zoushi_four);
+        spinner_data = (Spinner) view.findViewById(R.id.spinner_data);
         chart = (LineChart) view.findViewById(R.id.chart);
         chart2 = (LineChart) view.findViewById(R.id.chart2);
         rl_zoushi_one.setOnClickListener(this);
         rl_zoushi_two.setOnClickListener(this);
         rl_zoushi_three.setOnClickListener(this);
         rl_zoushi_four.setOnClickListener(this);
-//        lv_activity_main.setPullLoadEnable(true);
-//        lv_activity_main.setXListViewListener((XListView.IXListViewListener) this);
-//        activityList=new ArrayList<>();
-//        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
-//        v_default = view.findViewById(R.id.v_default);
-//        feedAdapter = new ActivityListAdapter(activityList,context,3,mParam1);;//type复用adapter传2为服务列表3活动
-//        lv_activity_main.setAdapter(feedAdapter);
-//        lv_activity_main.setPullLoadEnable(true);
-//        lv_activity_main.setXListViewListener(this);
+        //数据
+        data_list = new ArrayList<String>();
+        data_list.add("1月");
+        data_list.add("2月");
+        data_list.add("3月");
+        data_list.add("4月");
+        data_list.add("5月");
+        data_list.add("6月");
+        data_list.add("7月");
+        data_list.add("8月");
+        data_list.add("9月");
+        data_list.add("10月");
+        data_list.add("11月");
+        data_list.add("12月");
 
+        //适配器
+        arr_adapter= new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, data_list);
+        //设置样式
+        arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        //加载适配器
+        spinner_data.setAdapter(arr_adapter);
+        spinner_data.setSelection(2,true);
+        spinner_data.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {//选择item的选择点击监听事件
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                // 将所选mySpinner 的值带入myTextView 中
+//                tv_zoushi_four.setText("您选择的是：" + arg2+"个");//文本说明
+                ShowToastUtil.Short("您选择的是：" + data_list.get(arg2));
+                spinner_data.setSelection(arg2,true);
+            }
 
-//        lv_activity_main.setOnScrollListener(new AbsListView.OnScrollListener() {
-//
-//            int firstVisibleItem, lastVisibleItem;
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-////                firstVisibleItem = lv_community_main.getFirstVisiblePosition();
-////                lastVisibleItem = lv_community_main.getLastVisiblePosition();
-//            }
-//        });
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+//                tv_zoushi_four.setText("Nothing");
+
+                ShowToastUtil.Short("您选择的是：Nothing" );
+            }
+        });
+
     }
-    private LineData generateDataLine(int cnt,int index) {
+    private LineData generateDataLine(int cnt,int index,List<AuotationDetailBean> arrayList) {
 
         ArrayList<Entry> e1 = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            e1.add(new Entry(i, (int) (Math.random() * 5) + 10));
+        if (arrayList!=null)
+        for (int i = 0; i < arrayList.size(); i++) {
+//            if(i==0) {
+//                e1.add(new Entry(i, arrayList.get(i).price));
+//            }
+                e1.add(new Entry(arrayList.get(i).day, arrayList.get(i).price));
         }
         LineDataSet d1=null;
         if(index==1){
@@ -250,19 +285,19 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         d1.setHighLightColor(Color.rgb(244, 117, 117));
         d1.setDrawValues(false);
 
-        ArrayList<Entry> e2 = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            e2.add(new Entry(i, e1.get(i).getY() - 2));
-        }
-
-        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
-        d2.setLineWidth(2.5f);
-        d2.setCircleRadius(4.5f);
-        d2.setHighLightColor(Color.rgb(244, 117, 117));
-        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
-        d2.setDrawValues(false);
+//        ArrayList<Entry> e2 = new ArrayList<>();
+//
+//        for (int i = 0; i < 10; i++) {
+//            e2.add(new Entry(i, e1.get(i).getY() - 2));
+//        }
+//
+//        LineDataSet d2 = new LineDataSet(e2, "New DataSet " + cnt + ", (2)");
+//        d2.setLineWidth(2.5f);
+//        d2.setCircleRadius(4.5f);
+//        d2.setHighLightColor(Color.rgb(244, 117, 117));
+//        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+//        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[4]);
+//        d2.setDrawValues(false);
 
         ArrayList<ILineDataSet> sets = new ArrayList<>();
         sets.add(d1);
@@ -334,58 +369,37 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     }
     @Override
     protected void initData() {
-//        onRefresh();
+        getQuotationByCountry(country,cropid,month,index);
     }
-//    @Override
-//    public void onRefresh() {
-//        next=0;
-//        initData(true);
-//    }
+    private void getQuotationByCountry(String country,String cropid,String month,final int index) {
+        AuctionModule.getInstance().getQuotationByCountry(context,country,cropid,month,new BaseHandlerJsonObject() {
+                    @Override
+                    public void onGotJson(JSONObject result) {
+                        try {
+                            com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                            if(jsonObject.getInteger("status")==1){
+                                try{
+                                    activityList = ParseJson.parseGetResultCollection(result, "data", AuotationDetailBean.class);
+                                    loadData(index,activityList);
+                                    loadData2(1);
+                                }catch (Exception e ){
+                                    e.printStackTrace();
+//                                    ShowToastUtil.Short("没有更多数据！");
+                                }
+                            }else{
+                                ShowToastUtil.Short(jsonObject.getString("msg"));
+                            }
 
-    private void initData(boolean needclear) {
-//        longitude=SPUtil.get("longitude");
-//        latitude=SPUtil.get("latitude");
-//        cityId= SPUtil.get("cityId");
-//        NetWorkModule.getInstance().getCityActivityList(context,cityId,classId,longitude,latitude,next,limit,mParam1, new VolleyCallBack() {
-//            @Override
-//            public void success(String result, String method) {
-//                List<ActivityListBean> activityEntities = null;
-//                try {
-//                    JSONObject jSONObject=new JSONObject(result).getJSONObject("data");
-//                    activityEntities = ParseJson.parseGetResultCollection(jSONObject.getJSONObject("pagedData"), "data", ActivityListBean.class);
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//                if (next == 0) {
-//                    lv_activity_main.stopRefresh();
-//                    feedAdapter.updateData(activityEntities);
-//                } else {
-//                    feedAdapter.addListData(activityEntities);
-//                    lv_activity_main.stopLoadMore();
-//                }
-//
-//                if (activityEntities.size() >= limit) {
-//                    lv_activity_main.setPullLoadEnable(true);
-//                } else {
-//                    lv_activity_main.setPullLoadEnable(false);
-//                }
-//                activityList = feedAdapter.getDataList();
-//                if(activityList.size()>0){
-//                    v_default.setVisibility(View.GONE);
-//                    viewEmpty.setVisibility(View.GONE);
-//                }else{
-//                    v_default.setVisibility(View.VISIBLE);
-//                    viewEmpty.setVisibility(View.VISIBLE);
-//                    viewEmpty.setText(getString(R.string.no_content_activity));
-//                }
-//                onLoad();
-//            }
-//
-//            @Override
-//            public void failure(String error, String method, int type) {
-//                onLoad();
-//            }
-//        });
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ShowToastUtil.Short("解析异常！");
+                        }
+                    }
+
+                    @Override
+                    public void onGotError(String code, String error) {
+                    }
+                });
     }
 
     @Override
@@ -393,22 +407,30 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         switch (view.getId()){
             case R.id.rl_zoushi_one:
                 setTextColor(1);
-                loadData(1);
+//                country="1729";
+                getQuotationByCountry(country,cropid,month,1);
+//                loadData(1,activityList);
                 loadData2(1);
                 break;
             case R.id.rl_zoushi_two:
                 setTextColor(2);
-                loadData(2);
+//                country="1240";
+                getQuotationByCountry(country,cropid,month,2);
+//                loadData(2,activityList);
                 loadData2(2);
                 break;
             case R.id.rl_zoushi_three:
                 setTextColor(3);
-                loadData(3);
+//                country="173";
+                getQuotationByCountry(country,cropid,month,3);
+//                loadData(3,activityList);
                 loadData2(3);
                 break;
             case R.id.rl_zoushi_four:
                 setTextColor(4);
-                loadData(4);
+//                country="46";
+                getQuotationByCountry(country,cropid,month,4);
+//                loadData(4,activityList);
                 loadData2(4);
                 break;
             default:
@@ -440,14 +462,4 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         }
 
     }
-//    @Override
-//    public void onLoadMore() {
-//        initData(false);
-//    }
-//    private void onLoad() {
-//        if (lv_activity_main != null) {
-//            lv_activity_main.stopRefresh();
-//            lv_activity_main.stopLoadMore();
-//        }
-//    }
 }

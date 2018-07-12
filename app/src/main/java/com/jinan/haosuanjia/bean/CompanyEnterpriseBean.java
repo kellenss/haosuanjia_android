@@ -25,6 +25,24 @@ public class CompanyEnterpriseBean implements Serializable {
     public int status;
     public String avatar;
 
+    public String cold_storage_cate;
+
+    public float price;
+
+    public float amount;
+
+    public int daylength;
+
+//    public int status;
+
+//    public String address;
+
+    public int surplus;
+    public int is_lease;
+    public String updatetime;
+    public String createtime;
+    public int user_id;
+
 }
 
 
