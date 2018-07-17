@@ -21,8 +21,6 @@
                 android:id="@+id/rl_zoushi_one"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -41,6 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="金乡走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/color_main"
                     android:textSize="14sp" />
 
@@ -66,8 +66,6 @@
                 android:id="@+id/rl_zoushi_two"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -87,6 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="邳州走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -112,8 +112,6 @@
                 android:id="@+id/rl_zoushi_three"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -133,6 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="莱芜走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -158,8 +158,6 @@
                 android:id="@+id/rl_zoushi_four"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -179,6 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="沧州走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -294,8 +294,13 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/size_10dp"
                             android:background="@drawable/yes_bg"
-                            android:hint="请输入大蒜数量（单位：斤）"
-                            android:padding="3dp"
+                            android:hint="请输入大蒜数量（单位：斤斤斤斤斤斤斤斤斤斤斤斤斤斤斤斤）"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:padding="5dp"
+                            android:inputType="numberDecimal"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/size_14sp"
                             android:textColorHint="@color/gray" />
                     </LinearLayout>
 
@@ -313,13 +318,13 @@
                             android:textColor="@color/black" />
 
                         <Spinner
-                            android:id="@+id/spinner_crop"
+                            android:id="@+id/spinner_data"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
                             android:layout_marginRight="@dimen/size_10dp"
-                            android:background="@drawable/yes_bg"
-                            android:padding="3dp"
-                            android:textColorHint="@color/gray" />
+                            ></Spinner>
                     </LinearLayout>
 
                     <LinearLayout
@@ -342,7 +347,12 @@
                             android:layout_marginRight="@dimen/size_10dp"
                             android:background="@drawable/yes_bg"
                             android:hint="请输入理想价格（单位：元/斤）"
-                            android:padding="3dp"
+                            android:padding="5dp"
+                            android:textSize="@dimen/size_14sp"
+                            android:inputType="numberDecimal"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:textColor="@color/black"
                             android:textColorHint="@color/gray" />
                     </LinearLayout>
 
@@ -383,7 +393,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/size_10dp"
                             android:background="@drawable/yes_bg"
-                            android:padding="3dp"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:lines="1"
+                            android:ellipsize="end"
+                            android:hint="计算结果"
+                            android:textSize="@dimen/size_16sp"
                             android:textColorHint="@color/gray" />
                     </LinearLayout>
                 </LinearLayout>

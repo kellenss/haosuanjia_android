@@ -17,6 +17,7 @@ import com.jinan.haosuanjia.bean.NewsCompanyBean;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.BitmapUtil;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.adapter.AdapterItem;
@@ -53,7 +54,7 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
 //    private LinearLayout ll_xhsgj_company;
 //    private LinearLayout ll_xhckj_company;
     int page=1;
-    String class_id ="";
+    String class_id ="4";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -188,19 +189,19 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
                 titleNama="";
                 Intent intent1=new Intent(this,CompanyItemActivity.class);
                 intent1.putExtra("title_name","最新企业");
-                intent1.putExtra("class_id","new_order");
+                intent1.putExtra("class_id","3");
                 startActivity(intent1);
                 break;
             case R.id.ll_tj_company:
                 Intent intent2=new Intent(this,CompanyItemActivity.class);
                 intent2.putExtra("title_name","推荐企业");
-                intent2.putExtra("class_id","extension_order");
+                intent2.putExtra("class_id","2");
                 startActivity(intent2);
                 break;
             case R.id.ll_rm_company:
                 Intent intent3=new Intent(this,CompanyItemActivity.class);
                 intent3.putExtra("title_name","热门企业");
-                intent3.putExtra("class_id","hot_order");
+                intent3.putExtra("class_id","1");
                 startActivity(intent3);
                 break;
             case R.id.ll_lkzlj_company:
@@ -323,20 +324,23 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
             }else {
                 ((TextView)getView(R.id.tv_head_title)).setVisibility(View.GONE);
             }
-                String htmlData = auctionBean.content;
-                htmlData = htmlData.replaceAll("&amp;", "")
-                                                  .replaceAll("&quot;", "\"")
-                                                  .replaceAll("&lt;", "<")
-                                                  .replaceAll("&gt;", ">");
+//                String htmlData = auctionBean.content;
+//                htmlData = htmlData.replaceAll("&amp;", "")
+//                                                  .replaceAll("&quot;", "\"")
+//                                                  .replaceAll("&lt;", "<")
+//                                                  .replaceAll("&gt;", ">");
 //                htmlData = htmlData.;
 //                htmlData = htmlData;
 //                htmlData = htmlData;
 //            ((WebView)getView(R.id.wv_shoucang)).loadData(htmlData, "text/html" , "utf-8");
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(htmlData, null, "text/html", "utf-8", null);
-//            ((TextView)getView(R.id.tv_shoucang)).setText("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(htmlData));
-            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
-            Bitmap bitmap;
-            bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
+            ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.scopeop);
+            getView(R.id.tv_shoucang).setVisibility(View.VISIBLE);
+            getView(R.id.wv_shoucang).setVisibility(View.GONE);
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_commpany_logo)), R.mipmap.icon_commpany_zd, HMApplication.KP_BASE_URL_YU + auctionBean.banner);
+//            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//            Bitmap bitmap;
+//            bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
         }
     }
     private void onLoad() {

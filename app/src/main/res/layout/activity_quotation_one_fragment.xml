@@ -21,8 +21,6 @@
                 android:id="@+id/rl_zoushi_one"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -41,6 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="金乡走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/color_main"
                     android:textSize="14sp" />
 
@@ -66,8 +66,6 @@
                 android:id="@+id/rl_zoushi_two"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -87,6 +85,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="邳州走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -112,8 +112,6 @@
                 android:id="@+id/rl_zoushi_three"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -133,6 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="莱芜走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -158,8 +158,6 @@
                 android:id="@+id/rl_zoushi_four"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:layout_marginLeft="@dimen/size_10dip"
                 android:gravity="center_horizontal"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -179,6 +177,8 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="沧州走势"
+                    android:lines="1"
+                    android:ellipsize="end"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -196,13 +196,13 @@
             </RelativeLayout>
         </LinearLayout>
 
-       <!-- <ImageView
-            android:id="@+id/iv_right_img"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/size_10dip"/>-->
+        <!-- <ImageView
+             android:id="@+id/iv_right_img"
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_alignParentRight="true"
+             android:layout_marginRight="@dimen/size_10dip"/>-->
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
@@ -252,13 +252,20 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            android:layout_marginLeft="80dp">
+            android:layout_marginTop="30dp">
             <Spinner
+                android:id="@+id/spinner_data"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinner_data"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
+                ></Spinner>
+            <Spinner
+                android:id="@+id/spinner_address_data"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_toLeftOf="@+id/spinner_data"
                 ></Spinner>
         </RelativeLayout>
     </FrameLayout>

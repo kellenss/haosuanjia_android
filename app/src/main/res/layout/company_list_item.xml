@@ -16,12 +16,14 @@
         android:layout_height="wrap_content"
         >
         <ImageView
+            android:id="@+id/iv_commpany_logo"
             android:layout_width="@dimen/size_100dip"
             android:layout_height="@dimen/size_80dip"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@mipmap/icon_company_defoult"/>
+            android:scaleType="centerCrop"
+            android:src="@mipmap/icon_company_defoult"/>
     </RelativeLayout>
 
         <LinearLayout
@@ -98,7 +100,7 @@
                     android:layout_marginTop="5dp"
                     android:text="吃大蒜对喂有好处吗？"
                     android:textColor="@color/color_666666"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:textSize="16sp" />
             </LinearLayout>
         </LinearLayout>
@@ -122,8 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
-            android:text="详细地址：合肥市高新区工业南路120号"
-            android:gravity="center"
+            android:text="详细地址：合肥市高新区工业"
             android:textColor="@color/color_666666"
             android:layout_marginRight="10dp" />
 

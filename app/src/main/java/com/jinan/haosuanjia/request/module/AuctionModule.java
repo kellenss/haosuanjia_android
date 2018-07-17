@@ -253,6 +253,16 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 获取资讯详情
+     */
+    public void getNewsInformationDetail(Context context,String class_id,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getNewsInformationDetail();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("id", class_id);
+//        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
      * 获取资讯顶部banner
      */
     public void getBannerList(Context context,BaseHandlerJsonObject responseHandler) {
@@ -346,11 +356,34 @@ public class AuctionModule extends BaseModule {
     /**
      * 行情页根据省份获取平均价格列表
      */
-    public void getQuotationByCountry(Context context ,String country,String cropid,String month, BaseHandlerJsonObject responseHandler) {
-        String url = UrlUtils.getQuotationByCountry();
+    public void getQuotationByZone(Context context ,String zone,String cropid,String month, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getQuotationByZone();
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("unitName", unitName);
-        mapParams.put("country", country);
+        mapParams.put("zone", zone);
+        mapParams.put("cropid", cropid);
+        mapParams.put("month", month);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 根据所属ID获取地区列表
+     */
+    public void getAreaParent(Context context ,String parentid, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAreaParent();
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("unitName", unitName);
+        mapParams.put("parentid", parentid);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 行情页获取乡镇级品种行情
+     */
+    public void getQuotationByTwon(Context context ,String zone ,String twon,String cropid,String month, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getQuotationByTwon();
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("unitName", unitName);
+        mapParams.put("zone", zone);
+        mapParams.put("twon", twon);
         mapParams.put("cropid", cropid);
         mapParams.put("month", month);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);

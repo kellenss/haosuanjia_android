@@ -105,6 +105,10 @@ public class UrlUtils {
 	public static String getNewsInformationList() {
 		return getBaseUrl() + "news/get_news_list";
 	}
+	//获取信息咨询详情
+	public static String getNewsInformationDetail() {
+		return getBaseUrl() + "news/get_news_by_id";
+	}
 	//获取信息咨询banner列表
 	public static String getBannerList() {
 		return getBaseUrl() + "news/get_banner_list";
@@ -134,8 +138,16 @@ public class UrlUtils {
 		return getBaseUrl() + "business/add_buy";
 	}
 	//行情根据省份获取平均价格列表
-	public static String getQuotationByCountry() {
-		return getBaseUrl() + "quotation/get_quotation_by_country";
+	public static String getQuotationByZone() {
+		return getBaseUrl() + "quotation/get_quotation_by_zone";
+	}
+	//行情获取乡镇级品种行情
+	public static String getQuotationByTwon() {
+		return getBaseUrl() + "quotation/get_quotation_by_twon";
+	}
+	//根据所属ID获取地区列表
+	public static String getAreaParent() {
+		return getBaseUrl() + "common/get_area_parent";
 	}
 	//添加出售大蒜
 	public static String AddSell() {

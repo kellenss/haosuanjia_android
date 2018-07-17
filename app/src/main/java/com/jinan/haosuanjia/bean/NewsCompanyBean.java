@@ -37,6 +37,10 @@ public class NewsCompanyBean implements Serializable {
     public String address;
     public String avatar;
     public String import_order;
+    public String email;
+    public String company_code;
+    public String scopeop;
+    public String banner;
     public int user_id;
 
 }

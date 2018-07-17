@@ -21,9 +21,11 @@ public class AgentListBean implements Serializable {
     public String zone;
     public String create_time;
     public String agent_avatar;
+    public String user_id;
     public String province_name;
     public String country_name;
     public String zone_name;
+    public String address_name;
 
 }
 

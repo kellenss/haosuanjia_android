@@ -1,6 +1,7 @@
 package com.jinan.haosuanjia.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
@@ -317,9 +318,17 @@ public class AgentActivity extends StatisticsActivity implements  View.OnClickLi
         @Override
         public void onUpdateViews(final AgentListBean auctionBean, final int position) {
             ((TextView)getView(R.id.tv_name_phone_num)).setText(auctionBean.agent_name);
-            ((TextView)getView(R.id.tv_qq_num)).setText("QQ : "+auctionBean.qq);
-            ((TextView)getView(R.id.rv_address)).setText("地区 ："+auctionBean.province);
-            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.agent_avatar);
+            if (!TextUtils.isEmpty(auctionBean.qq)){
+                ((TextView)getView(R.id.tv_qq_num)).setText("QQ : "+auctionBean.qq);
+            }else {
+                ((TextView)getView(R.id.tv_qq_num)).setText("QQ : ");
+            }
+            if (!TextUtils.isEmpty(auctionBean.address_name)) {
+                ((TextView) getView(R.id.rv_address)).setText("地区 ：" + auctionBean.address_name);
+            }else{
+                ((TextView) getView(R.id.rv_address)).setText("地区 ：" );
+            }
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU + auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);
         }

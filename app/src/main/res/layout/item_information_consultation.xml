@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="@color/white">
     <LinearLayout
-        android:id="@android:id/tabhost"
+        android:id="@+id/ll_item_parent"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -57,7 +57,8 @@
         android:layout_width="100dp"
         android:layout_height="80dp"
         android:layout_marginTop="10dp"
-        android:background="@mipmap/icon_commpany_zd"/>
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_commpany_zd"/>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

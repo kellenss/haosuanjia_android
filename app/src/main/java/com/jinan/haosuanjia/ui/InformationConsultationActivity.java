@@ -8,10 +8,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
 import android.text.Html;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import com.jinan.haosuanjia.bean.TipsList;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.BitmapUtil;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.TipsViewPagerAdapter;
@@ -225,6 +228,15 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
 //                lastVisibleItem = lv_community_main.getLastVisiblePosition();
             }
         });
+//        lv_activity_main.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//
+//                Intent intent = new Intent(context,InformationConsultationDetailActivity.class);
+//                intent.putExtra("class_id",activityList.get(position).id);
+//                startActivity(intent);
+//            }
+//        });
         initDataPost(true);
         getTips();
     }
@@ -458,7 +470,7 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
 
         @Override
         public void onSetViews() {
-//            getView(R.id.tv_user_name).setOnClickListener(this);
+            getView(R.id.ll_item_parent).setOnClickListener(this);
 
         }
 
@@ -471,10 +483,7 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
                 ((TextView)getView(R.id.tv_head_title)).setVisibility(View.GONE);
             }
                 String htmlData = auctionBean.content;
-                htmlData = htmlData.replaceAll("&amp;", "")
-                                                  .replaceAll("&quot;", "\"")
-                                                  .replaceAll("&lt;", "<")
-                                                  .replaceAll("&gt;", ">");
+
 //                htmlData = htmlData.;
 //                htmlData = htmlData;
 //                htmlData = htmlData;
@@ -482,9 +491,27 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(htmlData, null, "text/html", "utf-8", null);
 //            ((TextView)getView(R.id.tv_shoucang)).setText(Html.fromHtml(htmlData));
             ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.title);
-//            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
-            Bitmap bitmap;
-            bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
+            getView(R.id.tv_shoucang).setVisibility(View.VISIBLE);
+            getView(R.id.wv_shoucang).setVisibility(View.GONE);
+//            if(!TextUtils.isEmpty(htmlData)){
+//                htmlData = htmlData.replaceAll("&amp;", "")
+//                        .replaceAll("&quot;", "\"")
+//                        .replaceAll("&lt;", "<")
+//                        .replaceAll("&gt;", ">");
+//                ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//            }
+
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_commpany_logo)), R.mipmap.icon_commpany_zd, HMApplication.KP_BASE_URL_YU + auctionBean.cover);
+//            Bitmap bitmap;
+//            bitmap = BitmapUtil.convertViewToBitmap(getView(R.id.iv_commpany_logo));
+            getView(R.id.ll_item_parent).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context,InformationConsultationDetailActivity.class);
+                    intent.putExtra("class_id",auctionBean.id+"");
+                    startActivity(intent);
+                }
+            });
         }
     }
     private void onLoad() {

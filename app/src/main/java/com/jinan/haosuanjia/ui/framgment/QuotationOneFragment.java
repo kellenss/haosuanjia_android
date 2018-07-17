@@ -1,5 +1,6 @@
 package com.jinan.haosuanjia.ui.framgment;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
+import android.widget.CheckedTextView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -26,6 +29,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AuotationDetailBean;
+import com.jinan.haosuanjia.bean.DataAddressBean;
 import com.jinan.haosuanjia.bean.LabourServicesBean;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
@@ -61,6 +65,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     private TextView tv_zoushi_three;
     private TextView tv_zoushi_four;
     private Spinner spinner_data;
+    private Spinner spinner_address_data;
     LineChart chart;
     LineChart chart2;
     private Typeface mTf;
@@ -73,15 +78,23 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
     private static final String ARG_CLASSID = "classId";
     private String mParam1;
     private String classId;
-    private String country="165";
-    private String cropid="4";
-    private String month="6";
+    private String zone="1729";
+    private String twon="6573";
+    private String cropid="5";
+    public static String month="7";
     private int index=1;
+    private int position=0;
 
     List<AuotationDetailBean> activityList=new ArrayList<>(); // 动态数组
+    List<AuotationDetailBean> activityListByZone=new ArrayList<>(); // 动态数组
+    List<AuotationDetailBean> activityListByTwon=new ArrayList<>(); // 动态数组
 
     private List<String> data_list;
     private ArrayAdapter<String> arr_adapter;
+    private List<DataAddressBean> data_address_list;
+    private List<String> data_address_list_Str;
+    private ArrayAdapter<String> arr_address_adapter;
+//    private MyAdapter arr_address_adapter;
 //    String longitude="";
 //    String latitude="";
 //    TextView viewEmpty;
@@ -111,7 +124,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         this.inflater = inflater;
         mTf = Typeface.createFromAsset(context.getAssets(), "OpenSans-Regular.ttf");
         init(view);
-        loadData2(1);
+//        loadData2(1);
 
 //        chartItem=new LineChartItem(generateDataLine(1), context);
 
@@ -160,7 +173,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
 
         chart.invalidate();
     }
-    private void loadData2(int index) {
+    private void loadData2(int index,List<AuotationDetailBean> activityListByZone,List<AuotationDetailBean> activityListByTwon) {
         chart2.getDescription().setEnabled(false);
         chart2.setDrawGridBackground(true);
 
@@ -182,7 +195,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         rightAxis.setAxisMinimum(0f); // this replaces setStartAtZero(true)
 
         // set data
-        chart2.setData((LineData) generateDataLine2(1,index));
+        chart2.setData((LineData) generateDataLine2(1,index,activityListByZone,activityListByTwon));
         chart2.animateX(200);
         List<ILineDataSet> sets = chart2.getData()
                 .getDataSets();
@@ -212,6 +225,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         tv_zoushi_three = (TextView) view.findViewById(R.id.tv_zoushi_three);
         tv_zoushi_four = (TextView) view.findViewById(R.id.tv_zoushi_four);
         spinner_data = (Spinner) view.findViewById(R.id.spinner_data);
+        spinner_address_data = (Spinner) view.findViewById(R.id.spinner_address_data);
         chart = (LineChart) view.findViewById(R.id.chart);
         chart2 = (LineChart) view.findViewById(R.id.chart2);
         rl_zoushi_one.setOnClickListener(this);
@@ -220,6 +234,8 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         rl_zoushi_four.setOnClickListener(this);
         //数据
         data_list = new ArrayList<String>();
+        data_address_list_Str = new ArrayList<String>();
+        data_address_list = new ArrayList<DataAddressBean>();
         data_list.add("1月");
         data_list.add("2月");
         data_list.add("3月");
@@ -239,15 +255,49 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         arr_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //加载适配器
         spinner_data.setAdapter(arr_adapter);
-        spinner_data.setSelection(2,true);
+        spinner_data.setSelection(6,true);
         spinner_data.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {//选择item的选择点击监听事件
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
                 // TODO Auto-generated method stub
                 // 将所选mySpinner 的值带入myTextView 中
 //                tv_zoushi_four.setText("您选择的是：" + arg2+"个");//文本说明
-                ShowToastUtil.Short("您选择的是：" + data_list.get(arg2));
+//                ShowToastUtil.Short("您选择的是：" + data_list.get(arg2));
                 spinner_data.setSelection(arg2,true);
+                month=(arg2+1)+"";
+                getQuotationByZone(zone,cropid,month,index);
+                getQuotationByTwon(zone,twon,cropid,month,index);
+            }
+
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+//                tv_zoushi_four.setText("Nothing");
+
+                ShowToastUtil.Short("您选择的是：Nothing" );
+            }
+        });
+
+//        //适配器
+//        arr_address_adapter= new ArrayAdapter<String>(getActivity(), R.layout.spinner_item, data_address_list_Str);
+//        //设置样式
+//        arr_address_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        //加载适配器
+//        spinner_address_data.setAdapter(arr_address_adapter);
+//        spinner_address_data.setSelection(0,true);
+        spinner_address_data.setOnItemSelectedListener(new Spinner.OnItemSelectedListener() {//选择item的选择点击监听事件
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                // 将所选mySpinner 的值带入myTextView 中
+//                tv_zoushi_four.setText("您选择的是：" + arg2+"个");//文本说明
+//                ShowToastUtil.Short("您选择的是：" + data_address_list.get(arg2).areaname);
+                spinner_address_data.setSelection(arg2,true);
+                position=arg2;
+                twon=data_address_list.get(arg2).areaid+"";
+//                getQuotationByZone(zone,cropid,month,index);
+                getQuotationByTwon(zone,twon,cropid,month,index);
+//                month=(arg2+1)+"";
+//                getAreaParent(zone);
             }
 
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -259,16 +309,79 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         });
 
     }
+
+    /**
+     * 自定义适配器类
+     *
+     */
+   /* public class MyAdapter extends BaseAdapter {
+        private List<DataAddressBean> mList;
+        private Context mContext;
+
+        public MyAdapter(Context pContext, List<DataAddressBean> pList) {
+            this.mContext = pContext;
+            this.mList = pList;
+        }
+
+        @Override
+        public int getCount() {
+            return mList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return mList.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+        *//**
+         * 下面是重要代码
+         *//*
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder = null;
+            if (convertView == null) {
+                convertView = View.inflate(mContext, R.layout.spinner_item, null);
+                holder = new ViewHolder();
+//                holder.iv = (ImageView) convertView.findViewById(R.id.iv);
+                holder.tv = (CheckedTextView) convertView.findViewById(R.id.text1);
+                convertView.setTag(holder);
+            } else {
+                holder = (ViewHolder) convertView.getTag();
+            }
+//            holder.iv.setImageResource(mList.get(position).getIcon());
+            holder.tv.setText(mList.get(position).areaname);
+            holder.tv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    twon=mList.get(position).areaid+"";
+                    getQuotationByTwon(zone,twon,cropid,month,index);
+                }
+            });
+            return convertView;
+        }
+    }
+    static class ViewHolder {
+//        private ImageView iv;
+        private CheckedTextView tv;
+    }*/
     private LineData generateDataLine(int cnt,int index,List<AuotationDetailBean> arrayList) {
 
         ArrayList<Entry> e1 = new ArrayList<>();
-        if (arrayList!=null)
-        for (int i = 0; i < arrayList.size(); i++) {
+        if (arrayList!=null&&arrayList.size()!=0){
+            for (int i = 0; i < arrayList.size(); i++) {
 //            if(i==0) {
 //                e1.add(new Entry(i, arrayList.get(i).price));
 //            }
                 e1.add(new Entry(arrayList.get(i).day, arrayList.get(i).price));
+            }
+        }else{
+            e1.add(new Entry(0, 0));
         }
+
         LineDataSet d1=null;
         if(index==1){
             d1= new LineDataSet(e1, "金乡走势");
@@ -277,7 +390,7 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         }else if(index==3){
             d1= new LineDataSet(e1, "莱芜走势");
         }else if(index==4){
-            d1= new LineDataSet(e1, "沧州走势");
+            d1= new LineDataSet(e1, "苍山走势");
         }
 
         d1.setLineWidth(2.5f);
@@ -306,13 +419,23 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         LineData cd = new LineData(sets);
         return cd;
     }
-    private LineData generateDataLine2(int cnt,int index) {
+    private LineData generateDataLine2(int cnt,int index ,List<AuotationDetailBean> arrayListByZone,List<AuotationDetailBean> arrayListByTwon) {
 
         ArrayList<Entry> e1 = new ArrayList<>();
+        if (arrayListByZone!=null&&arrayListByZone.size()!=0)
+            for (int i = 0; i < arrayListByZone.size(); i++) {
+//            if(i==0) {
+//                e1.add(new Entry(i, arrayList.get(i).price));
+//            }
+                e1.add(new Entry(arrayListByZone.get(i).day, arrayListByZone.get(i).price));
+            }else{
+                e1.add(new Entry(0, 0));
+             }
 
-        for (int i = 0; i < 10; i++) {
-            e1.add(new Entry(i, (int) (Math.random() * 5) + 10));
-        }
+//        ArrayList<Entry> e1 = new ArrayList<>();
+//        for (int i = 0; i < 10; i++) {
+//            e1.add(new Entry(i, (int) (Math.random() * 5) + 10));
+//        }
         LineDataSet d1=null;
         if(index==1){
             d1= new LineDataSet(e1, "金乡走势");
@@ -321,73 +444,163 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
         }else if(index==3){
             d1= new LineDataSet(e1, "莱芜走势");
         }else if(index==4){
-            d1= new LineDataSet(e1, "沧州走势");
+            d1= new LineDataSet(e1, "苍山走势");
         }
 
         d1.setLineWidth(2.5f);
         d1.setCircleRadius(4.5f);
         d1.setHighLightColor(Color.rgb(244, 117, 117));
+//        d1.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        d1.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
         d1.setDrawValues(false);
 
         ArrayList<Entry> e2 = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            e2.add(new Entry(i, e1.get(i).getY() - 2));
-        }
-
-        LineDataSet d2 = new LineDataSet(e2, "金乡县");
+        if (arrayListByTwon!=null&&arrayListByTwon.size()!=0)
+            for (int i = 0; i < arrayListByTwon.size(); i++) {
+//            if(i==0) {
+//                e1.add(new Entry(i, arrayList.get(i).price));
+//            }
+                e2.add(new Entry(arrayListByTwon.get(i).day, arrayListByTwon.get(i).price));
+            }else{
+            e2.add(new Entry(0, 0));
+             }
+        LineDataSet d2 = new LineDataSet(e2, data_address_list_Str.get(position));
         d2.setLineWidth(2.5f);
         d2.setCircleRadius(4.5f);
         d2.setHighLightColor(Color.rgb(244, 117, 117));
-        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        d2.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//        d2.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+        d2.setColor(getActivity().getResources().getColor(R.color.red));
+        d2.setCircleColor(getActivity().getResources().getColor(R.color.red));
         d2.setDrawValues(false);
-        ArrayList<Entry> e3 = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++) {
-            e3.add(new Entry(i, e2.get(i).getY() - 2));
-        }
-
-        LineDataSet d3= new LineDataSet(e3, "金乡县");
-        d3.setLineWidth(2.5f);
-        d3.setCircleRadius(4.5f);
-        d3.setHighLightColor(Color.rgb(244, 117, 117));
-//        d3.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-//        d3.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
-
-        d3.setColor(getActivity().getResources().getColor(R.color.red));
-        d3.setCircleColor(getActivity().getResources().getColor(R.color.red));
-        d3.setDrawValues(false);
+//        ArrayList<Entry> e3 = new ArrayList<>();
+//
+//        for (int i = 0; i < 10; i++) {
+//            e3.add(new Entry(i, e2.get(i).getY() - 2));
+//        }
+//
+//        LineDataSet d3= new LineDataSet(e3, "金乡县");
+//        d3.setLineWidth(2.5f);
+//        d3.setCircleRadius(4.5f);
+//        d3.setHighLightColor(Color.rgb(244, 117, 117));
+////        d3.setColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+////        d3.setCircleColor(ColorTemplate.VORDIPLOM_COLORS[0]);
+//
+//        d3.setColor(getActivity().getResources().getColor(R.color.red));
+//        d3.setCircleColor(getActivity().getResources().getColor(R.color.red));
+//        d3.setDrawValues(false);
 
         ArrayList<ILineDataSet> sets = new ArrayList<>();
         sets.add(d1);
         sets.add(d2);
-        sets.add(d3);
+//        sets.add(d3);
 
         LineData cd = new LineData(sets);
         return cd;
     }
     @Override
     protected void initData() {
-        getQuotationByCountry(country,cropid,month,index);
+        getQuotationByZone(zone,cropid,month,index);
+        getQuotationByTwon(zone,twon,cropid,month,index);
+        getAreaParent(zone);
     }
-    private void getQuotationByCountry(String country,String cropid,String month,final int index) {
-        AuctionModule.getInstance().getQuotationByCountry(context,country,cropid,month,new BaseHandlerJsonObject() {
+    private void getAreaParent(String zone) {
+        AuctionModule.getInstance().getAreaParent(context,zone,new BaseHandlerJsonObject() {
                     @Override
                     public void onGotJson(JSONObject result) {
                         try {
                             com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                             if(jsonObject.getInteger("status")==1){
                                 try{
-                                    activityList = ParseJson.parseGetResultCollection(result, "data", AuotationDetailBean.class);
-                                    loadData(index,activityList);
-                                    loadData2(1);
+                                    data_address_list = ParseJson.parseGetResultCollection(result, "data", DataAddressBean.class);
+//                                    data_address_list_Str = new ArrayList<String>();
+                                    data_address_list_Str.clear();
+                                    for (int i=0;i<data_address_list.size();i++){
+                                        data_address_list_Str.add(data_address_list.get(i).areaname);
+                                    }
+                                    twon=data_address_list.get(0).areaid+"";
+                                    //适配器
+                                    arr_address_adapter= new ArrayAdapter<String>(getActivity(), R.layout.spinner_address_item, data_address_list_Str);
+                                    //设置样式
+                                    arr_address_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                    //加载适配器
+                                    spinner_address_data.setAdapter(arr_address_adapter);
+                                    spinner_address_data.setSelection(0,false);
+//                                    arr_address_adapter.notifyDataSetChanged();
+//                                    loadData(index,activityList);
+//                                    loadData2(1);
                                 }catch (Exception e ){
                                     e.printStackTrace();
 //                                    ShowToastUtil.Short("没有更多数据！");
                                 }
                             }else{
-                                ShowToastUtil.Short(jsonObject.getString("msg"));
+//                                ShowToastUtil.Short(jsonObject.getString("msg"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ShowToastUtil.Short("解析异常！");
+                        }
+                    }
+
+                    @Override
+                    public void onGotError(String code, String error) {
+                    }
+                });
+    }
+    private void getQuotationByZone(String zone,String cropid,String month,final int index) {
+        AuctionModule.getInstance().getQuotationByZone(context,zone,cropid,month,new BaseHandlerJsonObject() {
+                    @Override
+                    public void onGotJson(JSONObject result) {
+                        try {
+                            com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                            activityList=null;
+                            if(jsonObject.getInteger("status")==1){
+                                try{
+                                    activityList = ParseJson.parseGetResultCollection(result, "data", AuotationDetailBean.class);
+                                    loadData(index,activityList);
+//                                    loadData2(1);
+                                }catch (Exception e ){
+                                    loadData(index,activityList);
+                                    e.printStackTrace();
+//                                    ShowToastUtil.Short("没有更多数据！");
+                                }
+                            }else{
+                                loadData(index,activityList);
+//                                ShowToastUtil.Short(jsonObject.getString("msg"));
+                            }
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            ShowToastUtil.Short("解析异常！");
+                            loadData(index,activityList);
+                        }
+                    }
+
+                    @Override
+                    public void onGotError(String code, String error) {
+                        loadData(index,activityList);
+                    }
+                });
+    }
+    private void getQuotationByTwon(String zone,String twon,String cropid,String month,final int index) {
+        AuctionModule.getInstance().getQuotationByTwon(context,zone,twon,cropid,month,new BaseHandlerJsonObject() {
+                    @Override
+                    public void onGotJson(JSONObject result) {
+                        try {
+                            com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                            if(jsonObject.getInteger("status")==1){
+                                try{
+                                    activityListByZone = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "zonelist", AuotationDetailBean.class);
+                                    activityListByTwon = ParseJson.parseGetResultCollection(result.getJSONObject("data"), "twonlist", AuotationDetailBean.class);
+                                    loadData2(index,activityListByZone,activityListByTwon);
+//                                    loadData2(1);
+                                }catch (Exception e ){
+                                    e.printStackTrace();
+//                                    ShowToastUtil.Short("没有更多数据！");
+                                }
+                            }else{
+//                                ShowToastUtil.Short(jsonObject.getString("msg"));
                             }
 
                         } catch (Exception e) {
@@ -404,38 +617,66 @@ public class QuotationOneFragment extends BaseFragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        if(view.getId()==R.id.rl_zoushi_one){
+            index=1;
+            zone="1729";
+        }else if(view.getId()==R.id.rl_zoushi_two){
+            index=2;
+            zone="1240";
+        }else if(view.getId()==R.id.rl_zoushi_three){
+            index=3;
+            zone="6618";
+        }else if(view.getId()==R.id.rl_zoushi_four){
+            index=4;
+            zone="1749";
+        }
+        setTextColor(index);
+        getQuotationByZone(zone,cropid,month,index);
+        getAreaParent(zone);
+        /*switch (view.getId()){
             case R.id.rl_zoushi_one:
-                setTextColor(1);
-//                country="1729";
-                getQuotationByCountry(country,cropid,month,1);
+                index=1;
+                setTextColor(index);
+                zone="1729";
+                getQuotationByZone(zone,cropid,month,index);
+                getAreaParent(zone);
+//                getQuotationByTwon(zone,twon,cropid,month,1);
 //                loadData(1,activityList);
-                loadData2(1);
+//                loadData2(1);
                 break;
             case R.id.rl_zoushi_two:
-                setTextColor(2);
-//                country="1240";
-                getQuotationByCountry(country,cropid,month,2);
+                index=2;
+                setTextColor(index);
+                zone="1240";
+                getQuotationByZone(zone,cropid,month,index);
+                getAreaParent(zone);
+//                getQuotationByTwon(zone,twon,cropid,month,2);
 //                loadData(2,activityList);
-                loadData2(2);
+//                loadData2(2);
                 break;
             case R.id.rl_zoushi_three:
-                setTextColor(3);
-//                country="173";
-                getQuotationByCountry(country,cropid,month,3);
+                index=3;
+                setTextColor(index);
+                zone="6618";
+                getQuotationByZone(zone,cropid,month,index);
+                getAreaParent(zone);
+//                getQuotationByTwon(zone,twon,cropid,month,3);
 //                loadData(3,activityList);
-                loadData2(3);
+//                loadData2(3);
                 break;
             case R.id.rl_zoushi_four:
-                setTextColor(4);
-//                country="46";
-                getQuotationByCountry(country,cropid,month,4);
+                index=4;
+                setTextColor(index);
+                zone="1749";
+                getQuotationByZone(zone,cropid,month,index);
+                getAreaParent(zone);
+//                getQuotationByTwon(zone,twon,cropid,month,4);
 //                loadData(4,activityList);
-                loadData2(4);
+//                loadData2(4);
                 break;
             default:
                     break;
-        }
+        }*/
     }
 
     private void setTextColor(int index) {

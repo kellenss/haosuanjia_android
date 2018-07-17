@@ -52,7 +52,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:background="@mipmap/icon_commpany_zd"/>
+                android:scaleType="centerCrop"
+                android:src="@mipmap/icon_commpany_zd"/>
         </LinearLayout>
 
 </LinearLayout>
