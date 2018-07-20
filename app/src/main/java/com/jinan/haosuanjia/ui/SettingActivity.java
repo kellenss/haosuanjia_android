@@ -21,6 +21,7 @@ import com.jinan.haosuanjia.dialog.CustomDialogBack;
 import com.jinan.haosuanjia.interfac.VolleyCallBack;
 import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.DataCleanManager;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.NetworkUtils;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.SPUtil;
@@ -75,6 +76,7 @@ public class SettingActivity extends StatisticsActivity implements
         tv_item_three = (TextView) findViewById(R.id.tv_item_three);
         tv_layout_logout = (TextView) findViewById(R.id.tv_layout_logout);
         tv_title_head.setText("设置");
+        tv_item_one.setText("当前版本号：v"+HMApplication.version_name);
         tv_clear_memory = (TextView) findViewById(R.id.tv_clear_memory);
         try {
             tv_clear_memory
@@ -360,7 +362,7 @@ public class SettingActivity extends StatisticsActivity implements
             versionDomain=new AppVersionDomain();
              versionDomain = ParseJson.parseConvertResultObject(jsonObject.optJSONObject("data"),
                     AppVersionDomain.class);
-            if (versionDomain.flag == 0) { // 0不需要更新，1需要更新
+            if (HMApplication.version_code<versionDomain.version_code) { // 0不需要更新，1需要更新
                 new CustomDialog.Builder(SettingActivity.this)
                         .setTitle(getString(R.string.version_refresh_message, versionDomain.version_code+""))
                         .setMessage(versionDomain.version_desc)
@@ -398,12 +400,13 @@ public class SettingActivity extends StatisticsActivity implements
 //                    }
                     }
                 }).show();
-            } else if (versionDomain.flag == 0) {
-                ShowToastUtil.Short("已是最新版本");
-//            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
-//                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
-//            }
             }
+//            else if (versionDomain.flag == 0) {
+//                ShowToastUtil.Short("已是最新版本");
+////            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
+////                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
+////            }
+//            }
         }catch (Exception e){
             e.printStackTrace();
         }

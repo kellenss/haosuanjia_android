@@ -31,9 +31,7 @@
         <WebView
             android:id="@+id/wv_content_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="@dimen/size_20dip"
-            android:layout_marginLeft="@dimen/size_20dip">
+            android:layout_height="match_parent">
 
         </WebView>
     </LinearLayout>

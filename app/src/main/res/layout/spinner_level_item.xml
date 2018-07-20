@@ -22,11 +22,9 @@
     android:singleLine="true"
     android:layout_width="match_parent"
     android:layout_height="30dp"
-    android:ellipsize="marquee"
     android:paddingLeft="@dimen/size_8dip"
     android:gravity="center_vertical"
     android:text="1月 "
     android:textColor="@color/black"
     android:background="@drawable/yes_bg"
-    android:drawableRight="@mipmap/icon_down_right"
-    android:textAlignment="inherit"/>
+    android:drawableRight="@mipmap/icon_down_right"/>

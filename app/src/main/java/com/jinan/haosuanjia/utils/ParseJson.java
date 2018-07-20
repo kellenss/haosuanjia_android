@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
-import com.jinan.haosuanjia.bean.InformationConsultationBean;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,7 +41,7 @@ public class ParseJson {
         return result == null ? response : result;
     }
 
-    public static JSONObject parseGetResultObject(JSONObject response, Class<InformationConsultationBean> informationConsultationBeanClass) {
+    public static JSONObject parseGetResultObject(JSONObject response) {
         JSONObject result = parseGetJSONObject(response, RESULT);
         return result == null ? response : result;
     }

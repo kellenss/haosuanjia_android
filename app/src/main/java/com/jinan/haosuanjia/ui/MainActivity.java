@@ -32,6 +32,7 @@ import com.jinan.haosuanjia.interfac.VolleyCallBack;
 import com.jinan.haosuanjia.utils.Constant;
 import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.FileUtils_new;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.NetworkUtils;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
@@ -127,7 +128,7 @@ public class MainActivity extends TabActivity  {
             versionDomain=new AppVersionDomain();
             versionDomain = ParseJson.parseConvertResultObject(jsonObject.optJSONObject("data"),
                     AppVersionDomain.class);
-            if (versionDomain.flag == 1) { // 0不需要更新，1需要更新
+            if (HMApplication.version_code<versionDomain.version_code) { // 0不需要更新，1需要更新
                 new CustomDialog.Builder(context)
                         .setTitle(getString(R.string.version_refresh_message, versionDomain.version_code+""))
                         .setMessage(versionDomain.version_desc)
@@ -165,12 +166,13 @@ public class MainActivity extends TabActivity  {
 //                    }
                     }
                 }).show();
-            } else if (versionDomain.flag == 0) {
-                ShowToastUtil.Short("已是最新版本");
-//            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
-//                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
-//            }
             }
+//            else if (versionDomain.flag == 0) {
+//                ShowToastUtil.Short("已是最新版本");
+////            if(!TextUtils.isEmpty(versionDomain.appPatchVersion)){
+////                BaokuStatic.startDownloadPatch(versionDomain.appPatchUrl, versionDomain.appPatchVersion);
+////            }
+//            }
         }catch (Exception e){
             e.printStackTrace();
         }
