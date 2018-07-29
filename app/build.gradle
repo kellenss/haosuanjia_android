@@ -6,9 +6,12 @@ android {
         applicationId "com.jinan.haosuanjia"
         minSdkVersion 15
         targetSdkVersion 26
-        versionCode 2
-        versionName "1.1"
+        versionCode 3
+        versionName "1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs'] // <-- Set your folder here!
     }
     buildTypes {
         release {
@@ -30,6 +33,8 @@ dependencies {
     implementation files('libs/android-async-http-1.4.2.jar')
     implementation files('libs/fastjson-1.1.38.jar')
     implementation files('libs/fastjson-1.1.38-sources.jar')
+    implementation files('libs/jcore-android-1.2.3.jar')
+    implementation files('libs/jpush-android-3.1.5.jar')
     implementation project(':library_volley')
     implementation project(':MPChartLib')
     implementation project(':okgo')

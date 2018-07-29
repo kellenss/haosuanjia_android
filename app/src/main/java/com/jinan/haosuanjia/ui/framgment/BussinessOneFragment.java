@@ -280,6 +280,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
             ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname);
             ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
             ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
+            ((TextView)getView(R.id.tv_create_time)).setText("发布时间： "+auctionBean.createDate);
         }
     }
 

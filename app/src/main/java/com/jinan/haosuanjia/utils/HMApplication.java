@@ -2,6 +2,8 @@ package com.jinan.haosuanjia.utils;
 
 import android.app.Application;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by admin on 2017/09/06.
  * 一些静态参数，从Application中转移到这里，方便后续使用tinker
@@ -16,11 +18,14 @@ public class HMApplication extends Application {
 //    public static final String KP_BASE_URL = "http://47.94.210.116/app";//库拍请求服务器地址线上
     public static final String KP_BASE_URL = "http://www.haosuanjia.com/app";//库拍请求服务器地址线上
     public static final String KP_BASE_URL_YU = "http://www.haosuanjia.com";//库拍请求服务器地址线上
-    public static String version_name = "1.1";
-    public static int version_code = 1;
+    public static String version_name = "1.1.0";
+    public static int version_code = 3;
     @Override
     public void onCreate() {
         super.onCreate();
         application= (Application) getApplicationContext();
+        JPushInterface.setDebugMode(true); 	// 设置开启日志,发布时请关闭日志
+        JPushInterface.init(this);     		// 初始化 JPush
+
     }
 }

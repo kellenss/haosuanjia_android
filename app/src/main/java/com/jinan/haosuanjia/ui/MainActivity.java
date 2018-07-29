@@ -23,6 +23,8 @@ import android.widget.RemoteViews;
 import android.widget.TabHost;
 import android.widget.Toast;
 
+import com.example.jpushdemo.ExampleUtil;
+import com.example.jpushdemo.LocalBroadcastManager;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AppVersionDomain;
 import com.jinan.haosuanjia.commons.LogX;
@@ -52,6 +54,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class MainActivity extends TabActivity  {
     private TabHost tabHost;
     private RadioButton main_tab_main, main_tab_quotation, main_tab_business,  main_tab_mine;// main_tab_forum,
@@ -69,6 +73,8 @@ public class MainActivity extends TabActivity  {
         setContentView(R.layout.activity_main);
         context=this;
         init();
+        registerMessageReceiver();  // used for receive msg
+        initJpush();
 //        getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         registBoscast();
         initMainInfo();
@@ -568,9 +574,56 @@ public class MainActivity extends TabActivity  {
             unregisterReceiver(commonReceiver);
             OkGo.getInstance().cancelTag(this);
             nManager.cancel(NOTIFY_ID);
+            LocalBroadcastManager.getInstance(this).unregisterReceiver(mMessageReceiver);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+    // 初始化 JPush。如果已经初始化，但没有登录成功，则执行重新登录。
+    private void initJpush(){
+        JPushInterface.init(getApplicationContext());
+    }
+
+    //for receive customer msg from jpush server
+    private MessageReceiver mMessageReceiver;
+    public static final String MESSAGE_RECEIVED_ACTION = "com.example.jpushdemo.MESSAGE_RECEIVED_ACTION";
+    public static final String KEY_TITLE = "title";
+    public static final String KEY_MESSAGE = "message";
+    public static final String KEY_EXTRAS = "extras";
+
+    public void registerMessageReceiver() {
+        mMessageReceiver = new MessageReceiver();
+        IntentFilter filter = new IntentFilter();
+        filter.setPriority(IntentFilter.SYSTEM_HIGH_PRIORITY);
+        filter.addAction(MESSAGE_RECEIVED_ACTION);
+        LocalBroadcastManager.getInstance(this).registerReceiver(mMessageReceiver, filter);
+    }
+
+    public class MessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                if (MESSAGE_RECEIVED_ACTION.equals(intent.getAction())) {
+                    String messge = intent.getStringExtra(KEY_MESSAGE);
+                    String extras = intent.getStringExtra(KEY_EXTRAS);
+                    StringBuilder showMsg = new StringBuilder();
+                    showMsg.append(KEY_MESSAGE + " : " + messge + "\n");
+                    if (!ExampleUtil.isEmpty(extras)) {
+                        showMsg.append(KEY_EXTRAS + " : " + extras + "\n");
+                    }
+                    setCostomMsg(showMsg.toString());
+                }
+            } catch (Exception e){
+            }
+        }
+    }
+
+    private void setCostomMsg(String msg){
+//        if (null != msgText) {
+//            msgText.setText(msg);
+//            msgText.setVisibility(View.VISIBLE);
+//        }
     }
 }
