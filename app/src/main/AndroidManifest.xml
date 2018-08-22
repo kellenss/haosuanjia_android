@@ -159,6 +159,9 @@
         <activity android:name=".ui.InformationConsultationDetailActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.AudioBroadcastActivity"
+            android:screenOrientation="portrait">
+        </activity>
         <!-- FileProvider共享文件、缓存 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

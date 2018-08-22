@@ -92,7 +92,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入租赁价格"
+                android:hint="请输入租赁价格(单位：元/天)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -106,7 +106,7 @@
                 android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="租赁时长(天)"
+                android:text="租赁时长"
                 android:layout_marginLeft="@dimen/size_10dip"
                 android:textColor="@color/black"/>
             <EditText
@@ -119,7 +119,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入租赁时长(例:10)"
+                android:hint="请输入租赁时长(单位：天)"
                 android:inputType="number"
                 android:gravity="start"
                 android:textSize="12sp"/>
@@ -147,7 +147,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入剩余数量"
+                android:hint="请输入剩余数量(单位：个)"
                 android:gravity="start"
                 android:inputType="number"
                 android:textSize="12sp"/>
@@ -175,7 +175,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入租赁总价格"
+                android:hint="请输入租赁总价格(单位：元)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>

@@ -210,14 +210,14 @@
                         android:layout_width="@dimen/size_60dip"
                         android:layout_height="@dimen/size_60dip"
                         android:background="@mipmap/icon_qita"
-                        android:visibility="gone"/>
+                        android:visibility="visible"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/iv_home_icon6"
-                        android:text="其他"
-                        android:visibility="gone"
+                        android:text="新闻播报"
+                        android:visibility="visible"
                         android:layout_marginTop="15dp"
                         android:textColor="@color/black" />
                 </LinearLayout>

@@ -31,8 +31,8 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 	private TextView login_button;
 	private TextView tv_forget_password ,tv_regist;
 	private Context context=null;
-	
 
+	String registration_id="";
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -86,6 +86,48 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 		}
 		alertDialog.show();
 	}
+//对话框
+
+	private void RegisteJpush(String registration_id) {
+		AuctionModule.getInstance().RegisteJpush(context, registration_id, new BaseHandlerJsonObject() {
+			@Override
+			public void onGotJson(org.json.JSONObject result) {
+				try {
+					JSONObject jsonObject = JSON.parseObject(result.toString());
+					if (jsonObject.getInteger("status")==1) {
+//						SPUtil.set(ConstantString.PHONENUM, username);
+//						SPUtil.set(ConstantString.PASSWORD, password);
+//						Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+//						startActivity(intent);
+					}
+					if(jsonObject.getInteger("status")==1){
+//						SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
+//						SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
+//						SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
+//						SPUtil.set(ConstantString.TOKEN, jsonObject.getJSONObject("data").getString(ConstantString.TOKEN));
+////											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+////													Toast.LENGTH_SHORT).show();
+////						dialogtools.dismissDialog();
+						ShowToastUtil.Short(jsonObject.getString("msg"));
+////						finish();
+					}else{
+////											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
+////													Toast.LENGTH_SHORT).show();
+						ShowToastUtil.Short(jsonObject.getString("msg"));
+////						dialogtools.dismissDialog();
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					ShowToastUtil.Short("解析异常！");
+//										Toast.makeText(ZhuCeActivity.this, "未知异常！", Toast.LENGTH_LONG).show();
+//					dialogtools.dismissDialog();
+				}
+			}
+			@Override
+			public void onGotError(String code, String error) {
+			}
+		});
+	}
 
 	@Override
 	public void onClick(View view) {
@@ -124,6 +166,8 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 								SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
 								SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
 								SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
+								SPUtil.set(ConstantString.TOKEN, jsonObject.getJSONObject("data").getString(ConstantString.TOKEN));
+								RegisteJpush(registration_id);
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();
 //						dialogtools.dismissDialog();

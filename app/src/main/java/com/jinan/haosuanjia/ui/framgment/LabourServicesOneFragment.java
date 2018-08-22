@@ -290,14 +290,14 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
 
         @Override
         public void onUpdateViews(final LabourServicesBean auctionBean, final int position) {
-            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.unitName);
-            ((TextView)getView(R.id.tv_name_phone)).setText("电话："+auctionBean.phone);
-            ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" 下午"+auctionBean.endDate);
+            ((TextView)getView(R.id.tv_title_price)).setText("招工：挖蒜工人"+auctionBean.workers+"人，工资"+auctionBean.price+"元/天");
+            ((TextView)getView(R.id.tv_name_phone)).setText("联系人："+auctionBean.contact+" 电话："+auctionBean.phone);
+            ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" --"+auctionBean.endDate);
             ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
-            ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.amount+"人，工资"+auctionBean.price+"元/天");
+//            ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.workers+"人，工资"+auctionBean.price+"元/天");
             ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
             BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
-            ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.VISIBLE);
+            ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.GONE);
         }
     }
 

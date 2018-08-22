@@ -28,6 +28,7 @@ public class BussinessListBean implements Serializable {
    public String address;
    public String requirement;
    public String phone;
+   public String contact;
    public int status;
    public String createDate;
    public int user_id;

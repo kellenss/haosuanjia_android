@@ -18,6 +18,11 @@
     <!-- 需要调整的有标题栏和viewpagertab的高度（高和下边距）之和（tabandtitle_height）、总高度header_height、可以隐藏的头的高度imageview_height -->
 
     <dimen name="userinfo_textsize">15sp</dimen>
+    <!--<dimen name="t14">14sp</dimen>-->
+    <!--<dimen name="t12">12sp</dimen>-->
+    <!--<dimen name="v16">16dip</dimen>-->
+    <!--<dimen name="v10">10dip</dimen>-->
+    <!--<dimen name="v7">7dip</dimen>-->
 
     <dimen name="profile_head_height">@dimen/size_230dip</dimen>
     <dimen name="profile_head">@dimen/size_280dip</dimen>

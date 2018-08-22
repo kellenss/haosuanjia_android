@@ -176,6 +176,7 @@ public class VolleyUtils {
         Map<String, String> headers = new HashMap<String, String>();
         long timestamp = System.currentTimeMillis() / 1000; // unix时间戳 System.currentTime()/1000 获取
         headers.put("x-matrix-uid", "dd");
+        headers.put("token", SPUtil.get(ConstantString.TOKEN));
 
         LogX.sysO("headers",headers.toString());
         return headers;

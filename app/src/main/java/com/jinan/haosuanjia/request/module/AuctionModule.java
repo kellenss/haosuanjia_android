@@ -52,6 +52,17 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 注册jpush
+     */
+    public void RegisteJpush(Context context,String registration_id, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getRegisteJpush();
+
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("PhoneNumber", PhoneNumber);
+        mapParams.put("registration_id", registration_id);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
      * 注册
      */
     public void getRegister(Context context,String PhoneNumber, String PassWord,String PhoneCode,BaseHandlerJsonObject responseHandler) {
@@ -279,6 +290,16 @@ public class AuctionModule extends BaseModule {
         String url = UrlUtils.getAgentList();
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("class_id", class_id);
+        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取语音播报列表
+     */
+    public void getAudioBroadcastList(Context context,String zone,int page,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAudioBroadcastList();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("zone", zone);
         mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }

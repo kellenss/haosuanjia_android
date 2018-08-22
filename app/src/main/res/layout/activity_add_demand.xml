@@ -199,7 +199,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入总天数"
+                android:hint="请输入总天数(单位：天)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -226,7 +226,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入需求工人数量"
+                android:hint="请输入需求工人数量(单位：人)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -253,7 +253,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入金额"
+                android:hint="请输入金额(单位：元/人天)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -280,7 +280,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入金额"
+                android:hint="请输入金额(单位：元)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>

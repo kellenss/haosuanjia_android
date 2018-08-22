@@ -93,7 +93,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入求购数量"
+                android:hint="请输入求购数量(单位：斤)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -120,7 +120,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入求购规格"
+                android:hint="请输入求购规格(单位：公分)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
@@ -147,7 +147,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入理想价位"
+                android:hint="请输入理想价位(单位：元/斤)"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>

@@ -221,6 +221,9 @@ private ViewPager view_pager;
                 startActivity(intent5);
                 break;
             case R.id.ll_other:
+                Intent intent6=new Intent(this,AudioBroadcastActivity.class);
+                startActivity(intent6);
+                break;
             case R.id.ll_company:
                 Intent intent7=new Intent(this,CompanyEnterpriseActivity.class);
                 startActivity(intent7);

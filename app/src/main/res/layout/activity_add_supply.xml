@@ -65,7 +65,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入劳务输出数量"
+                android:hint="请输入劳务输出数量（单位：人）"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>

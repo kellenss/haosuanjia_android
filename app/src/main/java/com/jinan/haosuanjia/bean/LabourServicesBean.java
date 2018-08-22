@@ -34,6 +34,7 @@ public class LabourServicesBean implements Serializable {
    public String workDays;
    public String avatar;
    public String user_nickname;
+   public String contact;
    public int workers;
    public int offer_count;
    public int comments_count;

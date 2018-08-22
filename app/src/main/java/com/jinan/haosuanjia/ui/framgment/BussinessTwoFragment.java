@@ -271,9 +271,9 @@ public class BussinessTwoFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public void onUpdateViews(final BussinessListBean auctionBean, final int position) {
-            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/公斤");
+            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/斤");
             ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
-            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.user_nickname);
+            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.contact+"  联系方式："+auctionBean.phone);
             ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
             ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
             ((TextView)getView(R.id.tv_create_time)).setText("发布时间： "+auctionBean.createDate);

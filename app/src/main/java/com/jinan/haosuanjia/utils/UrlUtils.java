@@ -25,6 +25,10 @@ public class UrlUtils {
 	public static String getMemberLogin() {
 		return getBaseUrl() + "user/login";
 	}
+	//注册jpush
+	public static String getRegisteJpush() {
+		return getBaseUrl() + "user/registe_jpush";
+	}
 	//获取验证码
 	public static String getYanZhengMa() {
 		return getBaseUrl() + "getPhonecode.php";
@@ -116,6 +120,10 @@ public class UrlUtils {
 	//获取所有经纪人
 	public static String getAgentList() {
 		return getBaseUrl() + "common/get_all_agent";
+	}
+	//获取语音播报
+	public static String getAudioBroadcastList() {
+		return getBaseUrl() + "news/get_music_news_list";
 	}
 	//获取我的消息列表
 	public static String getMessageList() {

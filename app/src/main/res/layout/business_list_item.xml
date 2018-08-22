@@ -60,15 +60,16 @@
                 android:layout_marginLeft="@dimen/size_5dip"
                 android:layout_weight="1"
                 android:text="李先生"/>
-            <TextView
-                android:id="@+id/tv_create_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:textColor="@color/data_text"
-                android:layout_marginLeft="@dimen/size_5dip"
-                android:text="发布时间：2018-01-09 12：00：00"/>
+
         </LinearLayout>
+        <TextView
+            android:id="@+id/tv_create_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/data_text"
+            android:layout_marginLeft="15dp"
+            android:text="发布时间：2018-01-09 12：00：00"/>
         <TextView
             android:id="@+id/tv_address_text"
             android:layout_width="wrap_content"
