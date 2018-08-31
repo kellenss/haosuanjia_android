@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/color_common_bg"
+    android:orientation="vertical">
+    <include
+    android:id="@+id/inc"
+    layout="@layout/include_title" />
+    <ImageView
+        android:id="@+id/iv_user_photo"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/icon_my_head_img"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/tv_names"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_20dip"
+            android:singleLine="true"
+            tools:text="用户姓名"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_20sp"/>
+
+        <TextView
+            android:id="@+id/tv_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_10dip"
+            android:gravity="center"
+            tools:text="手机号"
+            android:textColor="@color/black"
+            android:textSize="@dimen/size_15sp"/>
+
+      <!--  <TextView
+            android:id="@+id/tv_authText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/size_20dip"
+            android:drawableLeft="@drawable/icon_head_v"
+            android:drawablePadding="5dp"
+            android:gravity="center"
+            tools:text="库拍认证：中国宋代瓷器收藏专家"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/size_15sp"/>-->
+
+        <!--<TextView
+            android:id="@+id/tvDes"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            tools:text="—————— 个人简介 ——————"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="15sp"/>-->
+
+        <!--<TextView
+            android:id="@+id/tv_personbrief"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:gravity="left"
+            android:lineSpacingExtra="7dp"
+            tools:text="文化艺术爱好者"
+            android:textColor="@color/black"
+            android:textSize="15sp"/>-->
+
+        <TextView
+            android:id="@+id/tv_uid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:textIsSelectable="true"
+            android:textColor="@color/gray_setting"/>
+
+    </LinearLayout>
+
+
+</LinearLayout>

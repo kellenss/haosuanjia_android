@@ -165,6 +165,9 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 							if(jsonObject.getInteger("status")==1){
 								SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
 								SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
+								SPUtil.set(ConstantString.AVATAR, jsonObject.getJSONObject("data").getString("avatar"));
+								SPUtil.set(ConstantString.BIRTHDAY, jsonObject.getJSONObject("data").getString("birthday"));
+								SPUtil.set(ConstantString.SEX, jsonObject.getJSONObject("data").getString("sex"));
 								SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
 								SPUtil.set(ConstantString.TOKEN, jsonObject.getJSONObject("data").getString(ConstantString.TOKEN));
 								RegisteJpush(registration_id);

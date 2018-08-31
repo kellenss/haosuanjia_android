@@ -24,6 +24,8 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import cz.msebera.android.httpclient.Header;
+
 
 /**
  * 注册界面
@@ -234,6 +236,31 @@ public class RegistActivity extends StatisticsActivity implements OnClickListene
 		params.put("smscode", yanzhengma);
 		new AsyncHttpClient().post(UrlUtils.getfindpassword(),params,new AsyncHttpResponseHandler(){
 			@Override
+			public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+				try {
+					JSONObject jsonObject = JSON.parseObject(responseBody.toString());
+					if(jsonObject.getBoolean("success")){
+						ShowToastUtil.Short(jsonObject.getString("msg"));
+						dialogtools.dismissDialog();
+						finish();
+					}else{
+						ShowToastUtil.Short(jsonObject.getString("msg"));
+						dialogtools.dismissDialog();
+					}
+				} catch (Exception e) {
+					ShowToastUtil.Short("解析异常");
+					dialogtools.dismissDialog();
+				}
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+				if(dialogtools!=null){
+					dialogtools.dismissDialog();
+				}
+			}
+
+		/*	@Override
 			public void onSuccess(String data) {
 
 				super.onSuccess(data);
@@ -263,7 +290,7 @@ public class RegistActivity extends StatisticsActivity implements OnClickListene
 				}
 
 				super.onFailure(arg0, arg1);
-			}
+			}*/
 		});
 	}
 	/* 定义一个倒计时的内部类 */

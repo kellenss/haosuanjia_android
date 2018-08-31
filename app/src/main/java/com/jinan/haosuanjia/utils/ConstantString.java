@@ -11,6 +11,10 @@ public class ConstantString {
     public static final String SPUTIL_GUIDE_STATE = "guideState";
     public static final String PHONENUM = "phoneNum";
     public static final String PASSWORD = "password";
+    public static final String AVATAR = "avatar";
+    public static final String BIRTHDAY = "birthday";
+    public static final String TAG_UPLOAD_PIC = "tagUploadPic";
+    public static final String SEX = "sex";
     public static final String USERNICKNAME = "user_nickname";
     public static final String USERID = "user_id";
     public static final String TOKEN = "app_token";

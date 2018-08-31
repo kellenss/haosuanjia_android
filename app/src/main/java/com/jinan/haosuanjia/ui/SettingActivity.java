@@ -340,6 +340,9 @@ public class SettingActivity extends StatisticsActivity implements
         SPUtil.set(ConstantString.PASSWORD, "");
         SPUtil.set(ConstantString.USERNICKNAME, "");
         SPUtil.set(ConstantString.USERID, "");
+        SPUtil.set(ConstantString.AVATAR, "");
+        SPUtil.set(ConstantString.BIRTHDAY, "");
+        SPUtil.set(ConstantString.SEX, "");
         finish();
     }
 
@@ -372,8 +375,7 @@ public class SettingActivity extends StatisticsActivity implements
                                     @Override
                                     public void onClick(DialogInterface dialog,
                                                         int which) {
-                                        if (TextUtils.isEmpty(versionDomain
-                                                .url)) {
+                                        if (TextUtils.isEmpty(versionDomain.url)) {
                                             ShowToastUtil.Short(getString(R.string.version_refresh_urlerror));
                                             return;
                                         }
@@ -385,7 +387,7 @@ public class SettingActivity extends StatisticsActivity implements
                                         if (NetworkUtils.isWifi(context)) {
 
                                             startDownloadService(
-                                                    UrlUtils.getBaseUrlYu()+versionDomain.url,
+                                                    UrlUtils.getBaseUrlFile()+versionDomain.url,
                                                     versionDomain.version_name);
                                         } else {
                                             // TODO 测试

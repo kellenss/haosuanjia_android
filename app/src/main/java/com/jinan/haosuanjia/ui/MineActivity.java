@@ -8,9 +8,15 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jinan.haosuanjia.R;
+import com.jinan.haosuanjia.utils.BitmapUtil;
+import com.jinan.haosuanjia.utils.Constant;
 import com.jinan.haosuanjia.utils.ConstantString;
+import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.SPUtil;
+
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 
 /**
@@ -20,10 +26,14 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
     private ImageView iv_setting;
     private TextView tv_name;
     private TextView tv_phone;
+    private TextView tv_hyfw;
+    private TextView tv_zffs;
     private TextView tv_yjfk;
     private TextView tv_bzzx;
     private TextView tv_fabu_zulin;
     private LinearLayout ll_mine_info;
+    private ImageView iv_user_photo;
+    private ImageView iv_head_bg;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +49,11 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         if(!TextUtils.isEmpty( SPUtil.get(ConstantString.PHONENUM))){
             tv_phone.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));
             tv_name.setText(""+ SPUtil.get(ConstantString.USERNICKNAME));
+            BitmapUtil.loadImageUrl(iv_user_photo, R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
+            Glide.with(context)//磨砂，毛玻璃效果使用此方法
+                    .load(HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR))//radius为模糊半径，如果不写，默认为25
+                    .bitmapTransform(new BlurTransformation(context, 25))
+                    .into(iv_head_bg);
         }else{
             tv_phone.setText("");
             tv_name.setText("请登录");
@@ -49,20 +64,35 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         iv_setting=(ImageView) findViewById(R.id.iv_setting);
         tv_name=(TextView) findViewById(R.id.tv_name);
         tv_phone=(TextView) findViewById(R.id.tv_phone);
+        tv_hyfw=(TextView) findViewById(R.id.tv_hyfw);
+        tv_zffs=(TextView) findViewById(R.id.tv_zffs);
         tv_yjfk=(TextView) findViewById(R.id.tv_yjfk);
         tv_bzzx=(TextView) findViewById(R.id.tv_bzzx);
         tv_fabu_zulin=(TextView) findViewById(R.id.tv_fabu_zulin);
         ll_mine_info=(LinearLayout) findViewById(R.id.ll_mine_info);
+        iv_user_photo=(ImageView) findViewById(R.id.iv_user_photo);
+        iv_head_bg=(ImageView) findViewById(R.id.iv_head_bg);
         iv_setting.setOnClickListener(this);
+        tv_hyfw.setOnClickListener(this);
+        tv_zffs.setOnClickListener(this);
         tv_yjfk.setOnClickListener(this);
         tv_bzzx.setOnClickListener(this);
         tv_fabu_zulin.setOnClickListener(this);
         ll_mine_info.setOnClickListener(this);
+        iv_user_photo.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
+            case R.id.tv_hyfw:
+                Intent intent6 =new Intent(this,PayOrderActivity.class);
+                startActivity(intent6);
+                break;
+            case R.id.tv_zffs:
+                Intent intent7 =new Intent(this,PayOrderActivity.class);
+                startActivity(intent7);
+                break;
             case R.id.tv_yjfk:
                 Intent intent =new Intent(this,FeedbackActivity.class);
                 startActivity(intent);
@@ -86,6 +116,16 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
                  }else{
 
                   }
+                break;
+             case R.id.iv_user_photo:
+                 if (TextUtils.isEmpty(SPUtil.get(ConstantString.PHONENUM))){
+                     Intent intent4 =new Intent(this,LoginActivity.class);
+                     startActivity(intent4);
+                     return;
+                 }
+                Intent intent5 =new Intent(this,PersonalInformationActivity.class);
+                startActivity(intent5);
+
                 break;
             default:
                     break;

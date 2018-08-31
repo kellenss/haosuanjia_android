@@ -14,60 +14,70 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/iv_head_bg"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"
+        android:background="@mipmap/icon_mine_setting"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <ImageView
+                android:id="@+id/iv_setting"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_centerVertical="true"
+                android:padding="10dp"
+                android:src="@mipmap/icon_mine_setting"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="12dp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/size_160dip">
 
+           <!-- android:background="@color/color_19d472"-->
             <LinearLayout
+                android:id="@+id/ll_mine_info"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:background="@color/white"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/iv_user_photo"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@color/color_19d472">
-                    <ImageView
-                        android:id="@+id/iv_setting"
-                        android:layout_width="45dp"
-                        android:layout_height="45dp"
-                        android:layout_centerVertical="true"
-                        android:padding="10dp"
-                        android:src="@mipmap/icon_mine_setting"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginRight="12dp" />
-                </RelativeLayout>
-               <RelativeLayout
-                   android:layout_width="match_parent"
-                   android:layout_height="@dimen/size_160dip"
-                   android:background="@color/color_19d472">
-                   <LinearLayout
-                       android:id="@+id/ll_mine_info"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:orientation="vertical"
-                       android:gravity="center">
-                       <ImageView
-                           android:layout_width="50dp"
-                           android:layout_height="50dp"
-                           android:background="@mipmap/icon_my_head_img"/>
-                       <TextView
-                           android:id="@+id/tv_name"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:text="商丘大蒜王"/>
-                       <TextView
-                           android:id="@+id/tv_phone"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           android:layout_marginTop="10dp"
-                           android:text="手机号：12345678900"/>
-                   </LinearLayout>
-                  <!-- <ImageView
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       android:background="@mipmap/ic_launcher"/>-->
-               </RelativeLayout>
-
+                    android:background="@mipmap/icon_my_head_img"/>
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="商丘大蒜王"/>
+                <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="手机号：12345678900"/>
             </LinearLayout>
+            <!-- <ImageView
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:background="@mipmap/ic_launcher"/>-->
+        </RelativeLayout>
+
+    </LinearLayout>
+</FrameLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

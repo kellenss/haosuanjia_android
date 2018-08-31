@@ -10,8 +10,8 @@ public class UrlUtils {
 		return HMApplication.KP_BASE_URL+"/";
 	}
 	//获取服务器域名地址url
-	public static String getBaseUrlYu() {
-		return HMApplication.KP_BASE_URL_YU;
+	public static String getBaseUrlFile() {
+		return HMApplication.KP_BASE_URL_FILE;
 	}
 	//注册接口
 	public static String getRegist() {
@@ -129,6 +129,14 @@ public class UrlUtils {
 	public static String getMessageList() {
 		return getBaseUrl() + "message/get_message_list";
 	}
+	//获取金币配置列表
+	public static String getCoinConfig() {
+		return getBaseUrl() + "common/get_coin_config";
+	}
+	//更新头像
+	public static String getUpdateAvatart() {
+		return getBaseUrl() + "user/update_avatar";
+	}
 	//添加论坛朋友圈
 	public static String getAddCircle() {
 		return getBaseUrl() + "circle/add_circle";
@@ -165,6 +173,18 @@ public class UrlUtils {
 	public static String getAboutUs() {
 		return getBaseUrl() + "common/get_about";
 	}
+	//添加订单接口
+	public static String getCreateOrder() {
+		return getBaseUrl() + "alipayment/create_new_order";
+	}
+	//获取支付状态
+	public static String getOrderResult() {
+		return getBaseUrl() + "alipayment/get_order_result";
+	}
+	//获取金币信息
+	public static String getUserCoin() {
+		return getBaseUrl() + "user/get_user_coin";
+	}
 	//添加劳务输出
 	public static String AddSupply() {
 		return getBaseUrl() + "labor/add_supply";
@@ -172,6 +192,10 @@ public class UrlUtils {
 	//添加冷库租赁信息
 	public static String AddColdLease() {
 		return getBaseUrl() + "company/add_cold_lease";
+	}
+	//上传图片接口
+	public static String AddUpload() {
+		return getBaseUrl() + "user/upload_avatar";
 	}
 	//获取论坛朋友圈列表
 	public static String getCircleList() {

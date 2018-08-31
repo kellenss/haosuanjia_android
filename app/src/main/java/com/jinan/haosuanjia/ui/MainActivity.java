@@ -99,7 +99,7 @@ public class MainActivity extends TabActivity  {
                     Toast.makeText(context, "正在下载", Toast.LENGTH_LONG).show();
                 } else {
                     Bundle bundle = intent.getExtras();
-                    String url = UrlUtils.getBaseUrlYu()+bundle.getString("url");
+                    String url = bundle.getString("url");
                     String versionName = bundle.getString("versionName");
                     startDownloadService(url, versionName);
                 }
@@ -157,7 +157,7 @@ public class MainActivity extends TabActivity  {
                                         if (NetworkUtils.isWifi(context)) {
 
                                             startDownloadService(
-                                                    UrlUtils.getBaseUrlYu()+versionDomain.url,
+                                                    UrlUtils.getBaseUrlFile()+versionDomain.url,
                                                     versionDomain.version_name);
                                         } else {
                                             // TODO 测试
@@ -236,7 +236,7 @@ public class MainActivity extends TabActivity  {
     }
 
     private void startDownload(String apkName, String url) {
-        String apkPath = FileUtils_new.getFilesDir("download/") + apkName;
+        String apkPath = FileUtils_new.getFilesDir("download/") + "/"+apkName;
         String apkTempPath = apkPath.substring(0, apkPath.lastIndexOf('.')) + "_temp";
 
         final File apkFile = new File(apkPath);

@@ -162,6 +162,30 @@
         <activity android:name=".ui.AudioBroadcastActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".ui.PersonalInformationActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.SelectSexPicPopWindowActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity android:name=".ui.PayOrderActivity"
+            android:screenOrientation="portrait">
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation|screenSize"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+        <activity
+            android:name="com.alipay.sdk.app.H5AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"
+            android:windowSoftInputMode="adjustResize|stateHidden" >
+        </activity>
+
         <!-- FileProvider共享文件、缓存 -->
         <provider
             android:name="android.support.v4.content.FileProvider"

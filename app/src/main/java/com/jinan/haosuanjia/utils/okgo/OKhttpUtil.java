@@ -1,9 +1,18 @@
 package com.jinan.haosuanjia.utils.okgo;
 
+import android.os.Build;
+import android.webkit.URLUtil;
+
 import com.jinan.haosuanjia.commons.LogX;
+import com.jinan.haosuanjia.utils.BitmapUtil;
 import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.HMApplication;
 import com.jinan.haosuanjia.utils.LiteHttp;
+import com.jinan.haosuanjia.utils.SPUtil;
+import com.jinan.haosuanjia.utils.ShowToastUtil;
+import com.jinan.haosuanjia.utils.UrlUtils;
+import com.jinan.haosuanjia.utils.luban.Luban;
+import com.jinan.haosuanjia.utils.luban.OnCompressListener;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.cache.CacheEntity;
 import com.lzy.okgo.cache.CacheMode;
@@ -13,7 +22,9 @@ import com.lzy.okgo.https.HttpsUtils;
 import com.lzy.okgo.interceptor.HttpLoggingInterceptor;
 import com.lzy.okgo.model.HttpHeaders;
 import com.lzy.okgo.model.HttpParams;
+import com.lzy.okgo.model.Response;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.concurrent.TimeUnit;
@@ -100,162 +111,162 @@ public class OKhttpUtil {
     }
 
 //    //上传图片
-//    public static void upLoadFile(int type, final File file, final JsonCallback<LzyResponse<UploadBitmapModel>> callBack){
-//        Luban.get(HMApplication.application).load(file).setCompressListener(new OnCompressListener() {
-//            @Override
-//            public void onStart() { }
-//
-//            @Override
-//            public void onSuccess(File file) {
-//                upLoadFile(file, callBack);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                try {
-//                    if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT){
-//                        upLoadFile(file, callBack);
-//                    } else {
-//                        upLoadFile(new File(BitmapUtil.compressImage(file.toString())), callBack);
-//                    }
-//                }catch (Exception e1){
-//                    e1.printStackTrace();
-//                }
-//
-//            }
-//        }).launch();
-//    }
-//    //上传图片
-//    public static void upLoadFile(File file, final JsonCallback<LzyResponse<UploadBitmapModel>> callBack){
-//        upLoadFile("pic", URLUtil.getkUploadPicUrl(), file, new JsonCallback<LzyResponse<UploadBitmapModel>>() {
-//            @Override
-//            public void onSuccess(Response<LzyResponse<UploadBitmapModel>> response) {
-//                if(response.body() == null){
-//                    onError(response);
-//                    return;
-//                }
-//
-//                LzyResponse result = response.body();
-//                if(!result.status)
-//                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-//                else if(result.code != 0)
-//                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-//                if(callBack != null)
-//                    callBack.onSuccess(response);
-//            }
-//
-//            @Override
-//            public void onError(Response<LzyResponse<UploadBitmapModel>> response) {
-//                super.onError(response);
-//                if(callBack != null)
-//                    callBack.onError(response);
-//            }
-//        });
-//    }
-//    //上传语音
-//    public static void upLoadVideo(File file, final JsonCallback<LzyResponse<UploadVideoModel>> callBack){
-//        upLoadFile("vedio", URLUtil.getkUploadVedioUrl(), file, new JsonCallback<LzyResponse<UploadVideoModel>>() {
-//            @Override
-//            public void onSuccess(Response<LzyResponse<UploadVideoModel>> response) {
-//                if(response.body() == null)return;
-//
-//                LzyResponse result = response.body();
-//                if(!result.status)
-//                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-//                else if(result.code != 0)
-//                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-//                if(callBack != null)
-//                    callBack.onSuccess(response);
-//            }
-//
-//            @Override
-//            public void onError(Response<LzyResponse<UploadVideoModel>> response) {
-//                super.onError(response);
-//                if(callBack != null)
-//                    callBack.onError(response);
-//            }
-//        });
-//    }
-//    //上传图片
-//    public static void upLoadFile(String key, String uploadUrl, File file, final JsonCallback callBack){
-//        initOkGo();
-//
-//        OkGo.<LzyResponse<UploadBitmapModel>>post(uploadUrl)//
-//                .tag(ConstantString.TAG_UPLOAD_PIC)//
+    public static void upLoadFile(int type, final File file, final JsonCallback<LzyResponse<UploadBitmapModel>> callBack){
+        Luban.get(HMApplication.application).load(file).setCompressListener(new OnCompressListener() {
+            @Override
+            public void onStart() { }
+
+            @Override
+            public void onSuccess(File file) {
+                upLoadFile(file, callBack);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                try {
+                    if(Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT){
+                        upLoadFile(file, callBack);
+                    } else {
+                        upLoadFile(new File(BitmapUtil.compressImage(file.toString())), callBack);
+                    }
+                }catch (Exception e1){
+                    e1.printStackTrace();
+                }
+
+            }
+        }).launch();
+    }
+    //上传图片
+    public static void upLoadFile(File file, final JsonCallback<LzyResponse<UploadBitmapModel>> callBack){
+        upLoadFile("file", UrlUtils.AddUpload(), file, new JsonCallback<LzyResponse<UploadBitmapModel>>() {
+            @Override
+            public void onSuccess(Response<LzyResponse<UploadBitmapModel>> response) {
+                if(response.body() == null){
+                    onError(response);
+                    return;
+                }
+
+                LzyResponse result = response.body();
+                if(!result.status)
+                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
+                else if(result.code != 0)
+                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
+                if(callBack != null)
+                    callBack.onSuccess(response);
+            }
+
+            @Override
+            public void onError(Response<LzyResponse<UploadBitmapModel>> response) {
+                super.onError(response);
+                if(callBack != null)
+                    callBack.onError(response);
+            }
+        });
+    }
+    //上传语音
+    public static void upLoadVideo(File file, final JsonCallback<LzyResponse<UploadVideoModel>> callBack){
+        upLoadFile("vedio", UrlUtils.AddUpload(), file, new JsonCallback<LzyResponse<UploadVideoModel>>() {
+            @Override
+            public void onSuccess(Response<LzyResponse<UploadVideoModel>> response) {
+                if(response.body() == null)return;
+
+                LzyResponse result = response.body();
+                if(!result.status)
+                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
+                else if(result.code != 0)
+                    ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
+                if(callBack != null)
+                    callBack.onSuccess(response);
+            }
+
+            @Override
+            public void onError(Response<LzyResponse<UploadVideoModel>> response) {
+                super.onError(response);
+                if(callBack != null)
+                    callBack.onError(response);
+            }
+        });
+    }
+    //上传图片
+    public static void upLoadFile(String key, String uploadUrl, File file, final JsonCallback callBack){
+        initOkGo();
+
+        OkGo.<LzyResponse<UploadBitmapModel>>post(uploadUrl)//
+                .tag(ConstantString.TAG_UPLOAD_PIC)//
 //                .params(ConstantString.USERID, SPUtil.get(ConstantString.USERID))
-//                .params(key, file)   //这种方式为一个key，对应一个文件
-////                .params("file2",new File("文件路径"))
-////                .params("file3",new File("文件路径"))
-////                .addFileParams("file", files)           // 这种方式为同一个key，上传多个文件
-//                .execute(callBack);
-//    }
-//    //上传图片
-//    public static void upLoadJson(String key, String uploadUrl, String json, JsonCallback<LzyResponse<String>> callBack){
-//        initOkGo();
-//
-//        OkGo.<LzyResponse<String>>post(uploadUrl)//
-//                .tag(ConstantString.TAG_UPLOAD_PIC)//
-//                .params(ConstantString.USERID, SPUtil.get(ConstantString.USERID))
-//                .params("contacts", json)   //这种方式为一个key，对应一个文件
-//                .params("Content-Type", "application/json")   //这种方式为一个key，对应一个文件
-//                .params("charset", "utf-8")   //这种方式为一个key，对应一个文件
-//                .params("filename", "contacts")   //这种方式为一个key，对应一个文件
-//                .params("name", "contacts")   //这种方式为一个key，对应一个文件
-//                .params("Content-Disposition", "form-data; name=contacts; filename=contacts")   //这种方式为一个key，对应一个文件
-//                .execute(callBack);
-//    }
-//    //上传Json
-//    public static void upLoadFile(String uploadUrl, String json, final JsonCallback callBack){
-//        initOkGo();
-//        final OkHttpClient client = new OkHttpClient();
-//
-//        MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json;charset=utf-8");
-//
-////        MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/gzip;charset=utf-8");
-////        MultipartBody requestBody = new MultipartBody.Builder().addPart(
-////                Headers.of(new String[]{"Content-Disposition",
-////                        "form-data; name=contacts; filename=contacts","Content-Type","application/gzip"}),
-////                create(MEDIA_TYPE_MARKDOWN, stream)).build();
-////        MultipartBody requestBody = new MultipartBody.Builder()
-////                .addFormDataPart("contacts", "contacts", create(MEDIA_TYPE_MARKDOWN, stream))
-////                .build();
-////        RequestBody requestBody=RequestBody.create(MEDIA_TYPE_MARKDOWN,json);
-//
+                .params(key, file)   //这种方式为一个key，对应一个文件
+//                .params("file2",new File("文件路径"))
+//                .params("file3",new File("文件路径"))
+//                .addFileParams("file", files)           // 这种方式为同一个key，上传多个文件
+                .execute(callBack);
+    }
+    //上传图片
+    public static void upLoadJson(String key, String uploadUrl, String json, JsonCallback<LzyResponse<String>> callBack){
+        initOkGo();
+
+        OkGo.<LzyResponse<String>>post(uploadUrl)//
+                .tag(ConstantString.TAG_UPLOAD_PIC)//
+                .params(ConstantString.USERID, SPUtil.get(ConstantString.USERID))
+                .params("contacts", json)   //这种方式为一个key，对应一个文件
+                .params("Content-Type", "application/json")   //这种方式为一个key，对应一个文件
+                .params("charset", "utf-8")   //这种方式为一个key，对应一个文件
+                .params("filename", "contacts")   //这种方式为一个key，对应一个文件
+                .params("name", "contacts")   //这种方式为一个key，对应一个文件
+                .params("Content-Disposition", "form-data; name=contacts; filename=contacts")   //这种方式为一个key，对应一个文件
+                .execute(callBack);
+    }
+    //上传Json
+    public static void upLoadFile(String uploadUrl, String json, final JsonCallback callBack){
+        initOkGo();
+        final OkHttpClient client = new OkHttpClient();
+
+        MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/json;charset=utf-8");
+
+//        MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("application/gzip;charset=utf-8");
+//        MultipartBody requestBody = new MultipartBody.Builder().addPart(
+//                Headers.of(new String[]{"Content-Disposition",
+//                        "form-data; name=contacts; filename=contacts","Content-Type","application/gzip"}),
+//                create(MEDIA_TYPE_MARKDOWN, stream)).build();
 //        MultipartBody requestBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("filename", "contacts")
-//                .addFormDataPart("name", "contacts",
-//                        RequestBody.create(MEDIA_TYPE_MARKDOWN, json))
+//                .addFormDataPart("contacts", "contacts", create(MEDIA_TYPE_MARKDOWN, stream))
 //                .build();
-//
-//        final okhttp3.Request request = new okhttp3.Request.Builder()
-//                .url(uploadUrl)
-//                .addHeader("filename", "contacts")   //这种方式为一个key，对应一个文件
-//                .addHeader("name", "contacts")   //这种方式为一个key，对应一个文件
-//                .addHeader("Content-Disposition", "form-data; name=contacts; filename=contacts")
-//                .post(requestBody)
-//                .build();
-//
-//        LiteHttp.getInstence().executeAsync(new Runnable() {
-//            @Override
-//            public void run() {
-//                final okhttp3.Response response;
-//                try {
-//                    final Call rawCall = client.newCall(request);
-//                    response = rawCall.execute();
-//                } catch (Exception e) {
-//                    e.printStackTrace();
-//                    LogX.e(BaokuStatic.TAG, e.getMessage());
-//                    return;
-//                }
-//
-//                if (response.isSuccessful()) {
-//                    LogX.e(BaokuStatic.TAG, response.body().toString());
-//                }
-//                LogX.e(BaokuStatic.TAG, response.message().toString());
-//            }
-//        });
-//    }
+//        RequestBody requestBody=RequestBody.create(MEDIA_TYPE_MARKDOWN,json);
+
+        MultipartBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addFormDataPart("filename", "contacts")
+                .addFormDataPart("name", "contacts",
+                        RequestBody.create(MEDIA_TYPE_MARKDOWN, json))
+                .build();
+
+        final okhttp3.Request request = new okhttp3.Request.Builder()
+                .url(uploadUrl)
+                .addHeader("filename", "contacts")   //这种方式为一个key，对应一个文件
+                .addHeader("name", "contacts")   //这种方式为一个key，对应一个文件
+                .addHeader("Content-Disposition", "form-data; name=contacts; filename=contacts")
+                .post(requestBody)
+                .build();
+
+        LiteHttp.getInstence().executeAsync(new Runnable() {
+            @Override
+            public void run() {
+                final okhttp3.Response response;
+                try {
+                    final Call rawCall = client.newCall(request);
+                    response = rawCall.execute();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    LogX.e(HMApplication.TAG, e.getMessage());
+                    return;
+                }
+
+                if (response.isSuccessful()) {
+                    LogX.e(HMApplication.TAG, response.body().toString());
+                }
+                LogX.e(HMApplication.TAG, response.message().toString());
+            }
+        });
+    }
 
     public static RequestBody create(final MediaType mediaType, final InputStream inputStream) {
         return new RequestBody() {

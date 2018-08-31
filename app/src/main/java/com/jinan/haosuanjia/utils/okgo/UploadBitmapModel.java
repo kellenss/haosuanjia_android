@@ -8,4 +8,6 @@ import java.io.Serializable;
 
 public class UploadBitmapModel implements Serializable {
     public String imageId;
+    public String srcName;
+    public String path;
 }

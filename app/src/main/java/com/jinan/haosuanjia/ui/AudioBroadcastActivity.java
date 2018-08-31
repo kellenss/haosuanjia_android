@@ -2,6 +2,7 @@ package com.jinan.haosuanjia.ui;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,7 +51,7 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
     MusicPlayer musicPlayer;
 
     int page=1;
-    String zone ="";
+    String zone ="1729";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -266,7 +267,12 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
         public void onUpdateViews(final AudioBroadCastBean auctionBean, final int position) {
             ((TextView)getView(R.id.tv_name_phone_num)).setText(auctionBean.title);
             if (!TextUtils.isEmpty(auctionBean.content)){
-                ((TextView)getView(R.id.tv_qq_num)).setText(auctionBean.content);
+                String htmlData = auctionBean.content;
+                htmlData = htmlData.replaceAll("&amp;", "")
+                        .replaceAll("&quot;", "\"")
+                        .replaceAll("&lt;", "<")
+                        .replaceAll("&gt;", ">");
+                ((TextView)getView(R.id.tv_qq_num)).setText(Html.fromHtml(htmlData));
             }else {
                 ((TextView)getView(R.id.tv_qq_num)).setText("");
             }
@@ -277,18 +283,18 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
 //            }
             final MusicPlayer musicPlayer = new MusicPlayer(context,  (MusicController)getView(R.id.music_controller));
 //            musicPlayer=new MusicPlayer(context,)
-              musicPlayer.setVideoPath(HMApplication.KP_BASE_URL_YU +auctionBean.music_url);
-//            getView(R.id.iv_user_photo).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if(musicPlayer!=null){
-//                        musicPlayer.pause();
-//                    }else{
-//                        musicPlayer.start();
-//                    }
-//
-//                }
-//            });
+              musicPlayer.setVideoPath(HMApplication.KP_BASE_URL_FILE +auctionBean.music_url);
+            getView(R.id.iv_user_photo).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(musicPlayer!=null){
+                        musicPlayer.pause();
+                    }else{
+                        musicPlayer.start();
+                    }
+
+                }
+            });
 //            musicPlayer.
 //            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU + auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));

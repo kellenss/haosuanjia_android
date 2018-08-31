@@ -299,7 +299,7 @@ public class AuctionModule extends BaseModule {
     public void getAudioBroadcastList(Context context,String zone,int page,BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.getAudioBroadcastList();
         Map<String, String> mapParams = new HashMap<>();
-        mapParams.put("zone", zone);
+//        mapParams.put("zone", zone);
         mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
@@ -311,6 +311,24 @@ public class AuctionModule extends BaseModule {
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("id", user_id);
         mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取金币配置列表
+     */
+    public void getCoinConfig(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getCoinConfig();
+        Map<String, String> mapParams = new HashMap<>();
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取我的消息
+     */
+    public void getUpdateAvatart(Context context,String user_id,String avatar,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getUpdateAvatart();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("id", user_id);
+        mapParams.put("avatar", avatar+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
@@ -480,8 +498,35 @@ public class AuctionModule extends BaseModule {
      * 关于我们
      */
     public void getAboutUs(Context context, BaseHandlerJsonObject responseHandler) {
-        String url = UrlUtils.getAboutUs ();
+        String url = UrlUtils.getAboutUs();
         Map<String, String> mapParams = new HashMap<>();
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 创建 订单
+     */
+    public void getCreateOrder(Context context, String coin_config_id,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getCreateOrder();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("coin_config_id", coin_config_id+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取支付状态
+     */
+    public void getOrderResult(Context context, String out_trade_no,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getOrderResult();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("out_trade_no", out_trade_no+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取金币信息
+     */
+    public void getUserCoin(Context context, String out_trade_no,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getUserCoin();
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("out_trade_no", out_trade_no+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
 }
