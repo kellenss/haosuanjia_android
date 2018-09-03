@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 	private TextView login_button;
 	private TextView tv_forget_password ,tv_regist;
 	private Context context=null;
+	public static String phone="";
 
 	String registration_id="";
 	@Override
@@ -76,8 +78,16 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 	et_password.setText(SPUtil.get(ConstantString.PASSWORD));
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!TextUtils.isEmpty(phone)){
+			et_username.setText(phone);
+			phone="";
+		}
+	}
 
-//对话框
+	//对话框
 	private void showDialog() {
 		if (alertDialog == null) {
 			alertDialog = new AlertDialog.Builder(this).create();

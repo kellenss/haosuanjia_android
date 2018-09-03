@@ -77,8 +77,8 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
         Width = this.getWindowManager().getDefaultDisplay().getWidth();// 获取屏幕高度
         view_head_sublist = inflater.inflate(
                 R.layout.head_informartation, null);
-        view_pager=view_head_sublist.findViewById(R.id.view_pager);
-        ll_zsq=view_head_sublist.findViewById(R.id.ll_zsq);
+        view_pager= (ViewPager) view_head_sublist.findViewById(R.id.view_pager);
+        ll_zsq= (LinearLayout) view_head_sublist.findViewById(R.id.ll_zsq);
         lv_activity_main.removeHeaderView(view_head_sublist);
         lv_activity_main.addHeaderView(view_head_sublist);
         tipslist= new ArrayList<>();

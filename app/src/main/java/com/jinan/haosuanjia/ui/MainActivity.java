@@ -2,7 +2,9 @@ package com.jinan.haosuanjia.ui;
 
 import android.app.Activity;
 import android.app.Notification;
+//import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.app.TabActivity;
 import android.content.BroadcastReceiver;
@@ -327,7 +329,28 @@ public class MainActivity extends TabActivity  {
         mNotification.flags = Notification.FLAG_ONGOING_EVENT;
         nManager.notify(NOTIFY_ID, mNotification);
     }
+   /* public void postNotification() {
+        Notification.Builder builder;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("", "库拍正在下载...",NotificationManager.IMPORTANCE_HIGH);
+            nManager.createNotificationChannel(channel);
+            builder = new Notification.Builder(context, "");
+        }else {
+            builder = new Notification.Builder(context);
+        }
+        //需要跳转指定的页面
+        Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(pendingIntent);
 
+        builder.setTicker("new message")
+                .setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("标题")
+                .setContentText("内容")
+                .setContentIntent(pendingIntent);
+//        activity
+//        notificationManager.notify(1,builder.build());
+    }*/
     /**
      * 安装apk
      */

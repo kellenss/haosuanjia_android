@@ -137,6 +137,10 @@ public class UrlUtils {
 	public static String getUpdateAvatart() {
 		return getBaseUrl() + "user/update_avatar";
 	}
+	//更新用户昵称
+	public static String getUpdateUserName() {
+		return getBaseUrl() + "user/update_user_nickname";
+	}
 	//添加论坛朋友圈
 	public static String getAddCircle() {
 		return getBaseUrl() + "circle/add_circle";

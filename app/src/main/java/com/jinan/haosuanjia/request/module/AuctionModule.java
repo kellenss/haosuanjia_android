@@ -332,6 +332,15 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 更新用户昵称
+     */
+    public void getUpdateUserName(Context context,String user_nickname,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getUpdateUserName();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("user_nickname", user_nickname+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
      * 添加论坛朋友圈
      */
     public void getAddCircle(Context context,String user_id,String title, String content,BaseHandlerJsonObject responseHandler) {

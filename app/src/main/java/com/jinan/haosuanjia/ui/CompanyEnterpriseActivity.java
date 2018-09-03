@@ -65,10 +65,10 @@ public class CompanyEnterpriseActivity extends StatisticsActivity implements  Vi
         Width = this.getWindowManager().getDefaultDisplay().getWidth();// 获取屏幕高度
         view_head_sublist = inflater.inflate(
                 R.layout.head_conmpany_enterprise, null);
-        ll_zx_company=view_head_sublist.findViewById(R.id.ll_zx_company);
-        ll_tj_company=view_head_sublist.findViewById(R.id.ll_tj_company);
-        ll_rm_company=view_head_sublist.findViewById(R.id.ll_rm_company);
-        ll_lkzlj_company=view_head_sublist.findViewById(R.id.ll_lkzlj_company);
+        ll_zx_company= (LinearLayout) view_head_sublist.findViewById(R.id.ll_zx_company);
+        ll_tj_company= (LinearLayout) view_head_sublist.findViewById(R.id.ll_tj_company);
+        ll_rm_company= (LinearLayout) view_head_sublist.findViewById(R.id.ll_rm_company);
+        ll_lkzlj_company= (LinearLayout) view_head_sublist.findViewById(R.id.ll_lkzlj_company);
 //        ll_xhsgj_company=view_head_sublist.findViewById(R.id.ll_xhsgj_company);
 //        ll_xhckj_company=view_head_sublist.findViewById(R.id.ll_xhckj_company);
         ll_zx_company.setOnClickListener(this);

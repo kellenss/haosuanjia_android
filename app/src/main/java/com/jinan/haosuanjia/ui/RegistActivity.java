@@ -204,8 +204,9 @@ public class RegistActivity extends StatisticsActivity implements OnClickListene
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();
 //						dialogtools.dismissDialog();
+						LoginActivity.phone=phone;
 						ShowToastUtil.Short(jsonObject.getString("msg"));
-//						finish();
+						finish();
 					}else{
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();

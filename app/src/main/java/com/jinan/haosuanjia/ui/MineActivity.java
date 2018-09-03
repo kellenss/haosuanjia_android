@@ -38,7 +38,12 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mine);
+
         init();
+        Glide.with(context)//磨砂，毛玻璃效果使用此方法
+                .load(R.mipmap.icon_market)//radius为模糊半径，如果不写，默认为25
+                .bitmapTransform(new BlurTransformation(context, 45))
+                .into(iv_head_bg);
 //        Toast.makeText(context,"我的",Toast.LENGTH_SHORT).show();
     }
 
@@ -57,6 +62,10 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         }else{
             tv_phone.setText("");
             tv_name.setText("请登录");
+            Glide.with(context)//磨砂，毛玻璃效果使用此方法
+                    .load(R.mipmap.icon_market)//radius为模糊半径，如果不写，默认为25
+                    .bitmapTransform(new BlurTransformation(context, 45))
+                    .into(iv_head_bg);
         }
     }
 

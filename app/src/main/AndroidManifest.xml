@@ -46,6 +46,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="permission android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".utils.HMApplication"
@@ -166,7 +167,8 @@
             android:screenOrientation="portrait">
         </activity>
         <activity android:name=".ui.SelectSexPicPopWindowActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent">
         </activity>
         <activity android:name=".ui.PayOrderActivity"
             android:screenOrientation="portrait">

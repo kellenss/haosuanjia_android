@@ -26,6 +26,7 @@ import com.google.gson.JsonObject;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.InformationConsultationBean;
 import com.jinan.haosuanjia.commons.LogX;
+import com.jinan.haosuanjia.dialog.CustomDialogEditText;
 import com.jinan.haosuanjia.dialog.DialogDefaultLoading;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
@@ -112,6 +113,8 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
 //    private String job_end_date;
 //    private String flag="0";//状态 0：正常，1：作废
 //    private String createTime="2018-06-20";
+
+    private String userNickname="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -137,6 +140,7 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
         iv_user_photo = (ImageView) findViewById(R.id.iv_user_photo);
         iv_back_head.setOnClickListener(this);
         tv_right_head.setOnClickListener(this);
+        tv_names.setOnClickListener(this);
         tv_title_head.setText("个人资料");
         iv_back_head.setVisibility(View.VISIBLE);
         tv_left_head.setVisibility(View.GONE);
@@ -157,6 +161,34 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
             case R.id.iv_back_head:
                 finish();
                 break;
+            case R.id.tv_names:
+                new CustomDialogEditText.Builder(context, new CustomDialogEditText.Builder.PriorityListener() {
+                    @Override
+                    public void setActivityText(String content) {
+                        Upadate_USerName(content);
+                        userNickname=content;
+                    }
+                })
+                        .setMessage("修改昵称")
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.confirm,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+//                                        LogX.d("setPagePath",
+//                                                "" +
+//                                                        "报价");
+                                    }
+                                })
+                        .setNegativeButton(R.string.cancel,
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.cancel();
+                                    }
+                                })
+                        .show();
+                break;
             case R.id.tv_right_head:
                 Intent intent=new Intent(context,SelectSexPicPopWindowActivity.class);
                 intent.putExtra("type", 1);
@@ -168,7 +200,34 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
                 break;
         }
     }
+    private void Upadate_USerName(final String user_nickname) {
+        AuctionModule.getInstance().getUpdateUserName(context, user_nickname, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                        try{
+                            tv_names.setText(user_nickname);
+                            SPUtil.set(ConstantString.USERNICKNAME,user_nickname);
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+                    }else{
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+            }
 
+            @Override
+            public void onGotError(String code, String error) {
+            }
+        });
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
