@@ -30,5 +30,5 @@ android {
         abortOnError false
     }
     useLibrary 'org.apache.http.legacy'
-    buildToolsVersion '27.0.3'
+//    buildToolsVersion '27.0.3'
 }
