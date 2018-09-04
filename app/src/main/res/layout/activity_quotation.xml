@@ -46,12 +46,12 @@
 
                 <ImageView
                     android:id="@+id/iv_recommend"
-                    android:layout_width="@dimen/size_20dip"
+                    android:layout_width="@dimen/size_80dip"
                     android:layout_height="3dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/ic_launcher_background" />
+                    android:background="@color/white" />
 
                 <TextView
                     android:id="@+id/tv_recommend"
@@ -86,9 +86,9 @@
 
                 <ImageView
                     android:id="@+id/iv_attention"
-                    android:layout_width="@dimen/size_20dip"
+                    android:layout_width="@dimen/size_80dip"
                     android:layout_height="3dp"
-                    android:background="@drawable/ic_launcher_background"
+                    android:background="@color/white"
                     android:visibility="invisible"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:text="商品计算"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/limit_buy_text_bg"
                     android:layout_above="@+id/iv_attention"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"

@@ -61,14 +61,14 @@ public class QuotationActivity extends BaseActivity  implements  View.OnClickLis
         @Override
         public void onPageSelected(int arg0) {
             if (arg0 == 0) {
-                tv_attention.setTextColor(ContextCompat.getColor(context, R.color.black));
+                tv_attention.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
                 tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.white));
                 iv_attention.setVisibility(View.INVISIBLE);
                 iv_recommend.setVisibility(View.VISIBLE);
 
             } else {
                 tv_attention.setTextColor(ContextCompat.getColor(context, R.color.white));
-                tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.black));
+                tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
                 iv_recommend.setVisibility(View.INVISIBLE);
                 iv_attention.setVisibility(View.VISIBLE);
 
@@ -79,7 +79,7 @@ public class QuotationActivity extends BaseActivity  implements  View.OnClickLis
     public void onClick(View v) {
         int i = v.getId();
         if (i == R.id.ll_recommend) {
-            tv_attention.setTextColor(ContextCompat.getColor(context, R.color.black));
+            tv_attention.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
             tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.white));
             iv_attention.setVisibility(View.INVISIBLE);
             iv_recommend.setVisibility(View.VISIBLE);
@@ -87,7 +87,7 @@ public class QuotationActivity extends BaseActivity  implements  View.OnClickLis
         } else if (i == R.id.ll_attention) {
 //            if(!ARouterUtils.IsLogin()) return;
             tv_attention.setTextColor(ContextCompat.getColor(context, R.color.white));
-            tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.black));
+            tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
             iv_recommend.setVisibility(View.INVISIBLE);
             iv_attention.setVisibility(View.VISIBLE);
             view_pager.setCurrentItem(1);

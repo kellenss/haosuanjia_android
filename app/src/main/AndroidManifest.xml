@@ -85,6 +85,10 @@
         <activity android:name=".ui.HomeActivity"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+        android:name=".ui.GuidanceActivity"
+        android:screenOrientation="portrait" >
+        </activity>
         <activity android:name=".ui.QuotationActivity"
             android:screenOrientation="portrait">
         </activity>

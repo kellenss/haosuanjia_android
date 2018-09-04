@@ -146,8 +146,8 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
         tv_left_head.setVisibility(View.GONE);
         tv_right_head.setVisibility(View.VISIBLE);
         tv_right_head.setText("修改");
-        tv_right_head.setTextColor(getResources().getColor(R.color.color_main));
-        tv_right_head.setBackgroundResource(R.mipmap.icon_send_message);
+//        tv_right_head.setTextColor(getResources().getColor(R.color.color_main));
+//        tv_right_head.setBackgroundResource(R.mipmap.icon_send_message);
         iv_right_head.setVisibility(View.GONE);
         tv_names.setText(SPUtil.get(ConstantString.USERNICKNAME));
         tv_details.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));

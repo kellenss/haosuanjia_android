@@ -9,7 +9,16 @@
         android:layout_width="fill_parent"
         android:layout_height="@dimen/title_height"
         android:background="@color/color_19d472">
-
+        <ImageView
+            android:id="@+id/iv_back_head"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="@dimen/size_5dip"
+            android:layout_marginLeft="@dimen/title_left_margin"
+            android:layout_height="@dimen/size_28dip"
+            android:src="@mipmap/icon_back"
+            android:visibility="visible"
+            android:padding="@dimen/size_5dip"
+            android:layout_width="wrap_content" />
         <!--  <ImageView
               android:id="@+id/iv_left_img"
               style="@style/iconSearch"
@@ -46,12 +55,12 @@
 
                 <ImageView
                     android:id="@+id/iv_recommend"
-                    android:layout_width="@dimen/size_20dip"
+                    android:layout_width="@dimen/size_80dip"
                     android:layout_height="3dp"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
                     android:layout_alignParentBottom="true"
-                    android:background="@drawable/ic_launcher_background" />
+                    android:background="@color/white" />
 
                 <TextView
                     android:id="@+id/tv_recommend"
@@ -86,9 +95,9 @@
 
                 <ImageView
                     android:id="@+id/iv_attention"
-                    android:layout_width="@dimen/size_20dip"
+                    android:layout_width="@dimen/size_80dip"
                     android:layout_height="3dp"
-                    android:background="@drawable/ic_launcher_background"
+                    android:background="@color/white"
                     android:visibility="invisible"
                     android:layout_centerHorizontal="true"
                     android:layout_centerInParent="true"
@@ -100,7 +109,7 @@
                     android:layout_height="wrap_content"
                     android:text="劳务输出"
                     android:textSize="20sp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/limit_buy_text_bg"
                     android:layout_above="@+id/iv_attention"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"

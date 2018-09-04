@@ -92,8 +92,8 @@ public class AddSellActivity extends StatisticsActivity implements  View.OnClick
         tv_left_head.setVisibility(View.GONE);
         tv_right_head.setVisibility(View.VISIBLE);
         tv_right_head.setText("发送");
-        tv_right_head.setTextColor(getResources().getColor(R.color.color_main));
-        tv_right_head.setBackgroundResource(R.mipmap.icon_send_message);
+//        tv_right_head.setTextColor(getResources().getColor(R.color.color_main));
+//        tv_right_head.setBackgroundResource(R.mipmap.icon_send_message);
         iv_right_head.setVisibility(View.GONE);
 //
 

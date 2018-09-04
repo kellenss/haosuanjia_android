@@ -19,8 +19,8 @@ public class HMApplication extends Application {
     public static final String KP_BASE_URL = "http://www.haosuanjia.com/app";//库拍请求服务器地址线上
     public static final String KP_BASE_URL_YU = "http://www.haosuanjia.com";//库拍请求服务器地址线上
     public static final String KP_BASE_URL_FILE = "http://www.haosuanjia.com/upload/";//库拍请求服务器地址线上
-    public static String version_name = "1.3.3";
-    public static int version_code = 7;
+    public static String version_name = "1.3.5";
+    public static int version_code = 9;
     @Override
     public void onCreate() {
         super.onCreate();

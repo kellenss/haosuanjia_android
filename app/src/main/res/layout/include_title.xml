@@ -9,12 +9,12 @@
     <ImageView
         android:id="@+id/iv_back_head"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/title_left_margin"
+        android:layout_marginStart="@dimen/size_5dip"
         android:layout_marginLeft="@dimen/title_left_margin"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/size_5dip"
-        android:background="@mipmap/icon_back"
+        android:layout_height="@dimen/size_28dip"
+        android:src="@mipmap/icon_back"
         android:visibility="visible"
+        android:padding="@dimen/size_5dip"
         android:layout_width="wrap_content" />
     <TextView
         android:id="@+id/tv_left_head"
@@ -39,12 +39,12 @@
         android:ellipsize="middle"
         android:text="@string/app_name"
         android:textColor="@color/white"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/iv_right_head"
-        android:layout_height="32dp"
-        android:layout_width="24dp"
+        android:layout_height="28dp"
+        android:layout_width="23dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginEnd="@dimen/title_left_margin"
@@ -62,7 +62,12 @@
         android:text="发布"
         android:gravity="center"
         android:visibility="gone"
+        android:paddingTop="@dimen/size_2dip"
+        android:paddingBottom="@dimen/size_2dip"
+        android:paddingLeft="@dimen/size_10dip"
+        android:paddingRight="@dimen/size_10dp"
         android:textColor="@color/white"
+        android:background="@drawable/bg_50dp_chatprice"
         android:textSize="16sp" />
     <View
         android:id="@+id/tv_line"

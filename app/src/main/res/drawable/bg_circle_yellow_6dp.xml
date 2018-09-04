@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <!-- size设置形状的大小 -->
+    <size
+        android:width="6dp"
+        android:height="6dp" />
+    <!-- gradient设置渐变 -->
+    <solid android:color="@color/color_f5a623"/>
+
+</shape>

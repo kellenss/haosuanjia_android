@@ -321,7 +321,7 @@
     <dimen name="theme_mini_vip_size">@dimen/size_12dip</dimen>
 
     <dimen name="bid_show_price">@dimen/size_100dip</dimen>
-    <dimen name="title_height">@dimen/size_50dip</dimen>
+    <dimen name="title_height">@dimen/size_45dip</dimen>
 
     <dimen name="card_divider_height">@dimen/size_10dip</dimen>
     <dimen name="line_divide_height">@dimen/size_1px</dimen>

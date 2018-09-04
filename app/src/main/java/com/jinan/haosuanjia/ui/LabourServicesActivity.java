@@ -22,6 +22,7 @@ import java.util.ArrayList;
 public class LabourServicesActivity extends StatisticsActivity implements  View.OnClickListener {
     private TextView tv_recommend;
     private ImageView iv_recommend;
+    private ImageView iv_back_head;
     private TextView tv_attention;
     private ImageView iv_attention;
     public ViewPager view_pager;
@@ -33,6 +34,7 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
         setContentView(R.layout.activity_labour_services);
         tv_recommend = (TextView) findViewById(R.id.tv_recommend);
         iv_recommend = (ImageView) findViewById(R.id.iv_recommend);
+        iv_back_head = (ImageView) findViewById(R.id.iv_back_head);
         tv_attention = (TextView) findViewById(R.id.tv_attention);
         iv_attention = (ImageView) findViewById(R.id.iv_attention);
         view_pager = (ViewPager) findViewById(R.id.view_pager);
@@ -45,6 +47,7 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
         findViewById(R.id.ll_recommend).setOnClickListener(this);
         findViewById(R.id.ll_attention).setOnClickListener(this);
         findViewById(R.id.iv_right_img).setOnClickListener(this);
+        findViewById(R.id.iv_back_head).setOnClickListener(this);
         initViewPager();
     }
     private void initViewPager() {
@@ -60,14 +63,14 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
         @Override
         public void onPageSelected(int arg0) {
             if (arg0 == 0) {
-                tv_attention.setTextColor(ContextCompat.getColor(context, R.color.black));
+                tv_attention.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
                 tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.white));
                 iv_attention.setVisibility(View.INVISIBLE);
                 iv_recommend.setVisibility(View.VISIBLE);
 
             } else {
                 tv_attention.setTextColor(ContextCompat.getColor(context, R.color.white));
-                tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.black));
+                tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
                 iv_recommend.setVisibility(View.INVISIBLE);
                 iv_attention.setVisibility(View.VISIBLE);
 
@@ -77,8 +80,10 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
     @Override
     public void onClick(View v) {
         int i = v.getId();
-        if (i == R.id.ll_recommend) {
-            tv_attention.setTextColor(ContextCompat.getColor(context, R.color.black));
+        if (i == R.id.iv_back_head) {
+          finish();
+        } else if (i == R.id.ll_recommend) {
+            tv_attention.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
             tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.white));
             iv_attention.setVisibility(View.INVISIBLE);
             iv_recommend.setVisibility(View.VISIBLE);
@@ -86,7 +91,7 @@ public class LabourServicesActivity extends StatisticsActivity implements  View.
         } else if (i == R.id.ll_attention) {
 //            if(!ARouterUtils.IsLogin()) return;
             tv_attention.setTextColor(ContextCompat.getColor(context, R.color.white));
-            tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.black));
+            tv_recommend.setTextColor(ContextCompat.getColor(context, R.color.limit_buy_text_bg));
             iv_recommend.setVisibility(View.INVISIBLE);
             iv_attention.setVisibility(View.VISIBLE);
             view_pager.setCurrentItem(1);
