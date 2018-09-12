@@ -312,7 +312,7 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
                 offer_count_txt="我要报价";
             }
             ((TextView)getView(R.id.tv_baojia)).setText(offer_count_txt);
-            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
             ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.GONE);
         }
     }

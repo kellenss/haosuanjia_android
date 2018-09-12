@@ -365,7 +365,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
             }else{
                 (getView(R.id.iv_shoucang_icon)).setBackground(getApplicationContext().getResources().getDrawable(R.mipmap.icon_shoucang));
             }
-            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
+            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
 
             ((LinearLayout) getView(R.id.ll_mainline1)).removeAllViews();
 

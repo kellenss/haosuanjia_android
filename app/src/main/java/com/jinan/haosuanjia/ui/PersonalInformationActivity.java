@@ -151,7 +151,7 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
         iv_right_head.setVisibility(View.GONE);
         tv_names.setText(SPUtil.get(ConstantString.USERNICKNAME));
         tv_details.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));
-        BitmapUtil.loadImageUrl(iv_user_photo, R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
+        BitmapUtil.loadImageUrl(iv_user_photo, R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
 //
 
     }

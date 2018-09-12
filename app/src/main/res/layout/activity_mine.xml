@@ -55,7 +55,7 @@
                     android:id="@+id/iv_user_photo"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:background="@mipmap/icon_my_head_img"/>
+                    android:src="@mipmap/icon_my_head_img"/>
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
