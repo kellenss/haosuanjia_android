@@ -22,7 +22,7 @@
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:scaleType="centerCrop"
-        android:background="@mipmap/icon_market"/>
+        android:background="@color/color_main"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="180dp"

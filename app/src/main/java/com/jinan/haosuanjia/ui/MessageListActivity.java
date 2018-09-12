@@ -89,11 +89,11 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
             activityList.clear();
         }
         activityList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            MessageListBean bean=new MessageListBean();
-            bean.from_user=""+i;
-            activityList.add(bean);
-        }
+//        for (int i=0;i<10;i++){
+//            MessageListBean bean=new MessageListBean();
+//            bean.from_user=""+i;
+//            activityList.add(bean);
+//        }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
 //        v_default = view.findViewById(R.id.v_default);
         feedAdapter = new BussinessFragmentAdapter(activityList);;//type复用adapter传2为服务列表3活动
@@ -322,7 +322,7 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
         @Override
         public void onUpdateViews(final MessageListBean auctionBean, final int position) {
             ((TextView)getView(R.id.tv_title)).setText(auctionBean.title+"  来自"+auctionBean.from_user);
-            ((TextView)getView(R.id.tv_content)).setText(auctionBean.content);
+            ((TextView)getView(R.id.tv_content)).setText(auctionBean.type_name+":"+auctionBean.content);
             ((TextView)getView(R.id.tv_createtime)).setText(auctionBean.createtime);
 //            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));

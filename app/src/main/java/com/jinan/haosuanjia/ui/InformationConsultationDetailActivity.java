@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AbsListView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -50,6 +51,8 @@ public class InformationConsultationDetailActivity extends StatisticsActivity im
     private TextView tv_title_head;
     private TextView tv_right_head;
     private TextView tv_content_title;
+    private EditText et_comments_edit;
+    private TextView tv_comments_send;
     private ImageView iv_company_img;
     private WebView wv_content_detail;
     private InformationConsultationBean informationConsultationBean;
@@ -79,10 +82,13 @@ public class InformationConsultationDetailActivity extends StatisticsActivity im
         iv_back_head = (ImageView) findViewById(R.id.iv_back_head);
         iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
         tv_content_title = (TextView) findViewById(R.id.tv_content_title);
+        et_comments_edit = (EditText) findViewById(R.id.et_comments_edit);
+        tv_comments_send = (TextView) findViewById(R.id.tv_comments_send);
         iv_company_img = (ImageView) findViewById(R.id.iv_company_img);
         wv_content_detail = (WebView) findViewById(R.id.wv_content_detail);
         iv_back_head.setOnClickListener(this);
         tv_right_head.setOnClickListener(this);
+        tv_comments_send.setOnClickListener(this);
         tv_title_head.setText("信息资讯详情");
         iv_back_head.setVisibility(View.VISIBLE);
         tv_left_head.setVisibility(View.GONE);
@@ -131,12 +137,57 @@ public class InformationConsultationDetailActivity extends StatisticsActivity im
             }
         });
     }
+String content="";
+    private void getAddNewsComments() {
+        content=et_comments_edit.getText().toString().trim();
+        AuctionModule.getInstance().getAddNewsComments(context,class_id,content, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                        try{
+                            et_comments_edit.setText("");
+//                            informationConsultationBean = ParseJson.parseGetResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            informationConsultationBean=ParseJson.parseConvertResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            tv_content_title.setText(informationConsultationBean.title);
+//                            BitmapUtil.loadImageUrl(iv_company_img, R.mipmap.icon_commpany_zd, HMApplication.KP_BASE_URL_YU + informationConsultationBean.cover);
+//                            String htmlData = informationConsultationBean.content;
+//                            if(!TextUtils.isEmpty(htmlData)){
+//                                htmlData = htmlData.replaceAll("&amp;", "")
+//                                        .replaceAll("&quot;", "\"")
+//                                        .replaceAll("&lt;", "<")
+//                                        .replaceAll("&gt;", ">");
+//                                wv_content_detail.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//                            }
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+                    }else{
+//                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+                    ShowToastUtil.Short(jsonObject.getString("msg"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+            }
+        });
+    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_back_head:
                 finish();
+                break;
+            case R.id.tv_comments_send:
+                getAddNewsComments();
                 break;
             default:
                 break;

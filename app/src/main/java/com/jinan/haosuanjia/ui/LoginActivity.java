@@ -20,6 +20,8 @@ import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * 登录界面activity
  * @author admin
@@ -104,12 +106,6 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 			public void onGotJson(org.json.JSONObject result) {
 				try {
 					JSONObject jsonObject = JSON.parseObject(result.toString());
-					if (jsonObject.getInteger("status")==1) {
-//						SPUtil.set(ConstantString.PHONENUM, username);
-//						SPUtil.set(ConstantString.PASSWORD, password);
-//						Intent intent = new Intent(getApplicationContext(),MainActivity.class);
-//						startActivity(intent);
-					}
 					if(jsonObject.getInteger("status")==1){
 //						SPUtil.set(ConstantString.PHONENUM, jsonObject.getJSONObject("data").getString("mobile"));
 //						SPUtil.set(ConstantString.USERNICKNAME, jsonObject.getJSONObject("data").getString("user_nickname"));
@@ -180,6 +176,7 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 								SPUtil.set(ConstantString.SEX, jsonObject.getJSONObject("data").getString("sex"));
 								SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
 								SPUtil.set(ConstantString.TOKEN, jsonObject.getJSONObject("data").getString(ConstantString.TOKEN));
+								registration_id = JPushInterface.getRegistrationID(getApplicationContext());
 								RegisteJpush(registration_id);
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();

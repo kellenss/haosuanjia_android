@@ -44,7 +44,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="李先生"
-                    android:textColor="@color/black"
+                    android:textColor="@color/color_405db4"
                     android:textSize="16sp" />
 
                 <TextView
@@ -55,13 +55,14 @@
                     android:background="@mipmap/icon_yellow_bg"
                     android:gravity="center"
                     android:text="班长"
+                    android:visibility="gone"
                     android:textColor="@color/white" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
+                android:layout_marginBottom="5dp"
                 android:layout_marginRight="10dp"
                 android:orientation="vertical">
 
@@ -87,7 +88,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
-                    android:maxLines="2"
+                    android:maxLines="8"
                     android:text="一级大蒜 |5000.00斤 |价格：2.5元/公斤一级大蒜 |5000.00斤 |价格：2.5元/公斤"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
@@ -95,17 +96,47 @@
         </LinearLayout>
 
 </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_1dip"
+        android:background="@color/gray"
+        android:layout_margin="@dimen/size_10dp">
+    </View>
+<!--    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">-->
+        <LinearLayout
+            android:id="@+id/ll_mainline1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:layout_marginRight="@dimen/size_10dp"
+            android:background="@color/color_f8f8f8"
+            android:paddingRight="@dimen/size_15dip"
+            android:scrollbars="vertical" />
+    <!--</HorizontalScrollView>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp">
-
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="@dimen/size_10dp">
+        <ImageView
+            android:id="@+id/iv_shoucang_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/aaaaaaaaaaaaa"
+            android:layout_toLeftOf="@+id/tv_shoucang"
+            android:gravity="center"
+            android:layout_marginRight="5dp" />
         <TextView
             android:id="@+id/tv_shoucang"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:drawableLeft="@mipmap/icon_shoucang"
             android:drawablePadding="@dimen/size_5dip"
             android:text="255"
             android:gravity="center"

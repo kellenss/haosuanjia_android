@@ -110,11 +110,11 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
             activityList.clear();
         }
         activityList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            BussinessListBean bean=new BussinessListBean();
-            bean.address=""+i;
-            activityList.add(bean);
-        }
+//        for (int i=0;i<10;i++){
+//            BussinessListBean bean=new BussinessListBean();
+//            bean.address=""+i;
+//            activityList.add(bean);
+//        }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
 //        v_default = view.findViewById(R.id.v_default);
         feedAdapter = new BussinessFragmentAdapter(activityList);;//type复用adapter传2为服务列表3活动
@@ -219,6 +219,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
                     @Override
                     public void setActivityText(String content) {
                         getBuyOffer(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                        getModel().offer_count=getModel().offer_count+1;
                     }
                 })
                         .setMessage("向他报价")
@@ -245,6 +246,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
                     @Override
                     public void setActivityText(String content) {
                         getBuyComment(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                        getModel().comments_count=getModel().comments_count+1;
                     }
                 })
                         .setMessage("给他留言")
@@ -279,7 +281,20 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
             ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
             ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.contact+"  联系方式："+auctionBean.phone);
             ((TextView)getView(R.id.tv_address_text)).setText("地址："+auctionBean.address);
-            ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
+            String comments_count_txt="";
+            if(auctionBean.comments_count>0){
+                comments_count_txt="我要留言 ( "+auctionBean.comments_count+" )";
+            }else{
+                comments_count_txt="我要留言";
+            }
+            ((TextView)getView(R.id.tv_liuyan)).setText(comments_count_txt);
+            String offer_count_txt="";
+            if(auctionBean.offer_count>0){
+                offer_count_txt="我要报价 ( "+auctionBean.offer_count+" )";
+            }else{
+                offer_count_txt="我要报价";
+            }
+            ((TextView)getView(R.id.tv_baojia)).setText(offer_count_txt);
             ((TextView)getView(R.id.tv_create_time)).setText("发布时间： "+auctionBean.createDate);
         }
     }

@@ -39,6 +39,7 @@ public class LabourServicesBean implements Serializable {
    public int offer_count;
    public int comments_count;
    public int status;
+   public int supplyNum;
 
 
 }

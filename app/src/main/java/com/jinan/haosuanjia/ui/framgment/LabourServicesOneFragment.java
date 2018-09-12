@@ -115,11 +115,11 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
             activityList.clear();
         }
         activityList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            LabourServicesBean bean=new LabourServicesBean();
-            bean.startDate=""+i;
-            activityList.add(bean);
-        }
+//        for (int i=0;i<10;i++){
+//            LabourServicesBean bean=new LabourServicesBean();
+//            bean.startDate=""+i;
+//            activityList.add(bean);
+//        }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
 //        v_default = view.findViewById(R.id.v_default);
         feedAdapter = new BussinessFragmentAdapter(activityList);;//type复用adapter传2为服务列表3活动
@@ -225,6 +225,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
                                     public void setActivityText(String content) {
 //                                     ShowToastUtil.toastShow(content);
                                         getDemandOffer(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                                        getModel().offer_count=getModel().offer_count+1;
                                     }
                                 })
                         .setMessage("向他报价")
@@ -253,6 +254,7 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
                     public void setActivityText(String content) {
                         ShowToastUtil.toastShow(content);
                         getDemandComment(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+                        getModel().comments_count=getModel().comments_count+1;
                     }
                 })
                         .setMessage("给他留言")
@@ -295,7 +297,20 @@ public class LabourServicesOneFragment extends BaseFragment implements View.OnCl
             ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" --"+auctionBean.endDate);
             ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workContent);
 //            ((TextView)getView(R.id.tv_desc_text)).setText("招工：挖蒜工人"+auctionBean.workers+"人，工资"+auctionBean.price+"元/天");
-            ((TextView)getView(R.id.tv_baojia)).setText("我要报价 ( "+auctionBean.comments_count+" )");
+           String comments_count_txt="";
+            if(auctionBean.comments_count>0){
+                comments_count_txt="我要留言 ( "+auctionBean.comments_count+" )";
+            }else{
+                comments_count_txt="我要留言";
+            }
+            ((TextView)getView(R.id.tv_liuyan)).setText(comments_count_txt);
+            String offer_count_txt="";
+            if(auctionBean.offer_count>0){
+                offer_count_txt="我要报价 ( "+auctionBean.offer_count+" )";
+            }else{
+                offer_count_txt="我要报价";
+            }
+            ((TextView)getView(R.id.tv_baojia)).setText(offer_count_txt);
             BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
             ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.GONE);
         }

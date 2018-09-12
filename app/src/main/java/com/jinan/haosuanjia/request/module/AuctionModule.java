@@ -195,11 +195,11 @@ public class AuctionModule extends BaseModule {
     /**
      * 添加论坛收藏
      */
-    public void getAddCollection(Context context,String circle_id,String user_id,String content,BaseHandlerJsonObject responseHandler) {
-        String url = UrlUtils.getAddCollection();
+    public void getAddCircleCollection(Context context,String circle_id,String user_id,String status,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAddircleCollection();
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("circle_id", circle_id);
-        mapParams.put("user_id", user_id);
+//        mapParams.put("user_id", user_id);
 //        mapParams.put("status", status);
 //        mapParams.put("content", content);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
@@ -270,6 +270,17 @@ public class AuctionModule extends BaseModule {
         String url = UrlUtils.getNewsInformationDetail();
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("id", class_id);
+//        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 添加新闻评论
+     */
+    public void getAddNewsComments(Context context,String news_id,String content,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getAddNewsComments();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("news_id", news_id);
+        mapParams.put("content", content);
 //        mapParams.put("page", page+"");
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
@@ -386,11 +397,11 @@ public class AuctionModule extends BaseModule {
     /**
      * 添加购蒜需求
      */
-    public void getAddBuy(Context context ,String crop ,String address ,String phone ,String spec ,String wantPrice,
+    public void getAddBuy(Context context ,String send_user_name,String crop ,String address ,String phone ,String spec ,String wantPrice,
                              String requirement ,String amount ,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddBuy();
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("unitName", unitName);
+        mapParams.put("contact", send_user_name);
         mapParams.put("crop", crop);
         mapParams.put("amount", amount);
         mapParams.put("spec", spec);
@@ -439,10 +450,11 @@ public class AuctionModule extends BaseModule {
     /**
      * 添加出售大蒜
      */
-    public void getAddSell(Context context ,String crop ,String address ,String phone ,String spec ,String wantPrice,
+    public void getAddSell(Context context ,String send_user_name,String crop ,String address ,String phone ,String spec ,String wantPrice,
                           String sellDesc ,String amount ,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddSell();
         Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("contact", send_user_name);
         mapParams.put("crop", crop);
         mapParams.put("amount", amount);
         mapParams.put("spec", spec);
@@ -460,7 +472,7 @@ public class AuctionModule extends BaseModule {
                              String endDate,String address,String phone,String flag,String createTime,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddSupply();
         Map<String, String> mapParams = new HashMap<>();
-//        mapParams.put("user_nickname", user_nickname);
+        mapParams.put("contact", user_nickname);
         mapParams.put("supplyNum", supplyNum);
         mapParams.put("workType", workType);
         mapParams.put("startDate", startDate);

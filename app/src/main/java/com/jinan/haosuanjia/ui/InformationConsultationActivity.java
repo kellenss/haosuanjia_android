@@ -202,11 +202,11 @@ public class InformationConsultationActivity extends StatisticsActivity implemen
             activityList.clear();
         }
         activityList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            NewsInformationBean bean=new NewsInformationBean();
-            bean.title=""+i;
-            activityList.add(bean);
-        }
+//        for (int i=0;i<10;i++){
+//            NewsInformationBean bean=new NewsInformationBean();
+//            bean.title=""+i;
+//            activityList.add(bean);
+//        }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
 //        v_default = view.findViewById(R.id.v_default);
         feedAdapter = new BussinessFragmentAdapter(activityList);;//type复用adapter传2为服务列表3活动

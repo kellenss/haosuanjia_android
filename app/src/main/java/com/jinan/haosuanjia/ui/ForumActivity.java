@@ -2,10 +2,13 @@ package com.jinan.haosuanjia.ui;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
@@ -61,11 +64,11 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
             activityList.clear();
         }
         activityList=new ArrayList<>();
-        for (int i=0;i<10;i++){
-            ForumListBean bean=new ForumListBean();
-            bean.user_nickname=""+i;
-            activityList.add(bean);
-        }
+//        for (int i=0;i<10;i++){
+//            ForumListBean bean=new ForumListBean();
+//            bean.user_nickname=""+i;
+//            activityList.add(bean);
+//        }
 //        viewEmpty = (TextView) view.findViewById(R.id.tv_discribe);
 //        v_default = view.findViewById(R.id.v_default);
         feedAdapter = new BussinessFragmentAdapter(activityList);;//type复用adapter传2为服务列表3活动
@@ -156,6 +159,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
+                        feedAdapter.notifyDataSetChanged();
                     }else{
                     }
                     ShowToastUtil.Short(jsonObject.getString("msg"));
@@ -174,16 +178,18 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
 
         });
     }
-    private void getAddCollection(String circle_id,String user_id,String status) {
+    private void getAddCircleCollection(String circle_id,String user_id,String status) {
 
-        AuctionModule.getInstance().getAddCollection(context, circle_id ,user_id ,status ,new BaseHandlerJsonObject() {
+        AuctionModule.getInstance().getAddCircleCollection(context, circle_id ,user_id ,status ,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
+                    }else if(jsonObject.getInteger("status")==2){
                     }else{
                     }
+                    feedAdapter.notifyDataSetChanged();
                     ShowToastUtil.Short(jsonObject.getString("msg"));
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -284,6 +290,14 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                         @Override
                         public void setActivityText(String content) {
                             getAddComments(getModel().id+"", SPUtil.get(ConstantString.USERID),content);
+//                            if(getModel().status==1){
+                                getModel().comments=getModel().comments+1;
+//                                getModel().status=2;
+//                            }else{
+//                                getModel().comments=getModel().comments-1;
+//                                getModel().status=1;
+//                            }
+
                         }
                     })
                             .setMessage("我要评论")
@@ -308,8 +322,17 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                             .show();
 //                    getAddComments();
                     break;
+                case R.id.iv_shoucang_icon:
                 case R.id.tv_shoucang:
-                    getAddCollection(getModel().id+"", SPUtil.get(ConstantString.USERID),"");
+                    getAddCircleCollection(getModel().id+"", SPUtil.get(ConstantString.USERID),"1");
+                    if(getModel().status==1){
+                        getModel().collection=getModel().collection+1;
+                        getModel().status=2;
+                    }else{
+                        getModel().collection=getModel().collection-1;
+                        getModel().status=1;
+                    }
+//                    getModel().collection++;
                     break;
                 default:
                     break;
@@ -321,21 +344,61 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
         public void onSetViews() {
             getView(R.id.tv_pinglun).setOnClickListener(this);
             getView(R.id.tv_shoucang).setOnClickListener(this);
+            getView(R.id.iv_shoucang_icon).setOnClickListener(this);
 
         }
 
 
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onUpdateViews(final ForumListBean auctionBean, final int position) {
             ((TextView)getView(R.id.tv_username)).setText(auctionBean.user_nickname);
             ((TextView)getView(R.id.tv_create_time)).setText(auctionBean.createtime);
             ((TextView)getView(R.id.tv_item_title)).setText(auctionBean.title);
             ((TextView)getView(R.id.tv_item_content)).setText(auctionBean.content);
-            ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.statu+"");
-            ((TextView)getView(R.id.tv_pinglun)).setText(auctionBean.collection+"");
+            ((TextView)getView(R.id.tv_shoucang)).setText(auctionBean.collection+"");
+            ((TextView)getView(R.id.tv_pinglun)).setText(auctionBean.comments+"");
 //            ((ImageView)getView(R.id.iv_user_photo)).setText(auctionBean.collection+"");
 //            String headPhotoUrl = ImageLoaderUtil.getPhotoUrl(auctionBean.bidInfo.bidGoods.supplier.supplierPic, 200);
+            if (auctionBean.status==2){
+                (getView(R.id.iv_shoucang_icon)).setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_scccccccccc));
+            }else{
+                (getView(R.id.iv_shoucang_icon)).setBackground(getApplicationContext().getResources().getDrawable(R.mipmap.icon_shoucang));
+            }
             BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
+
+            ((LinearLayout) getView(R.id.ll_mainline1)).removeAllViews();
+
+            TextView tv_comments_username;
+            TextView tv_comments_content;
+            TextView tv_comments_time;
+            for (int i = 0; i < auctionBean.comments_list.size(); i++) {
+                final int num = i;
+                View itemview1 = View.inflate(context, R.layout.list_comments_item, null);
+                // 给item布局添加ID,此ID为int类型任意值
+                ((LinearLayout) getView(R.id.ll_mainline1)).addView(itemview1);
+                tv_comments_username = (TextView) itemview1
+                        .findViewById(R.id.tv_comments_username);
+                tv_comments_content = (TextView) itemview1
+                        .findViewById(R.id.tv_comments_content);
+                tv_comments_time = (TextView) itemview1
+                        .findViewById(R.id.tv_comments_time);
+
+                try {
+                    tv_comments_username.setText(auctionBean.comments_list.get(num).user_nickname );
+                    tv_comments_time.setText("  评论于 "+auctionBean.comments_list.get(num).createtime);
+                    tv_comments_content.setText(auctionBean.comments_list.get(num).content);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                itemview1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+//                            changeOnce(auctionBean.themeInfo.bidsList.get(num).saleId + "","");
+                    }
+                });
+            }
 
         }
     }

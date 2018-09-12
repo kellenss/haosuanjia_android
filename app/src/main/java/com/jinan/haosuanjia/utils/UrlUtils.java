@@ -82,7 +82,7 @@ public class UrlUtils {
 		return getBaseUrl() + "circle/add_circle_comments";
 	}
 	//添加论坛收藏
-	public static String getAddCollection() {
+	public static String getAddircleCollection() {
 		return getBaseUrl() + "circle/add_circle_collection";
 	}
 	//获取买卖需求购买
@@ -112,6 +112,10 @@ public class UrlUtils {
 	//获取信息咨询详情
 	public static String getNewsInformationDetail() {
 		return getBaseUrl() + "news/get_news_by_id";
+	}
+	//添加新闻评论
+	public static String getAddNewsComments() {
+		return getBaseUrl() + "news/add_news_comments";
 	}
 	//获取信息咨询banner列表
 	public static String getBannerList() {

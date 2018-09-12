@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.utils.ConstantString;
@@ -33,7 +34,7 @@ public class GuidanceActivity extends Activity {
 	private static final String TAG = "GuidanceActivity";
 	private ViewPager view_pager;
 	private List<View> viewList;
-	private Button bt_begin;
+	private TextView bt_begin;
 	private ImageView iv_splish;
 	private Context context;
 	@Override
@@ -49,17 +50,17 @@ public class GuidanceActivity extends Activity {
 		View v2 = View.inflate(context, R.layout.view_guidance_1, null);
 		View v3 = View.inflate(context, R.layout.view_guidance_1, null);
 		View v4 = View.inflate(context, R.layout.view_guidance_1, null);
-		View v5 = View.inflate(context, R.layout.view_guidance_1, null);
+//		View v5 = View.inflate(context, R.layout.view_guidance_1, null);
 
 		v1.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_1);
 		v2.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_2);
 		v3.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_3);
 		v4.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_4);
-		v5.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_5);
+//		v5.findViewById(R.id.iv_ydy).setBackgroundResource(R.drawable.ydy_5);
 
-		bt_begin = (Button) v5.findViewById(R.id.bt_begin);
+		bt_begin = (TextView) v4.findViewById(R.id.bt_begin);
 		bt_begin.setVisibility(View.VISIBLE);
-		iv_splish = (ImageView) v5.findViewById(R.id.iv_splish);
+		iv_splish = (ImageView) v4.findViewById(R.id.iv_splish);
 		iv_splish.setVisibility(View.VISIBLE);
 		bt_begin.setOnClickListener(new OnClickListener() {
 
@@ -78,7 +79,7 @@ public class GuidanceActivity extends Activity {
 		viewList.add(v2);
 		viewList.add(v3);
 		viewList.add(v4);
-		 viewList.add(v5);
+//		 viewList.add(v5);
 
 		view_pager.setAdapter(new MyAdapterimg(viewList));
         view_pager.setOffscreenPageLimit(3);

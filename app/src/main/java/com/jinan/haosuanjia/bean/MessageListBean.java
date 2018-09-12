@@ -19,7 +19,9 @@ public class MessageListBean implements Serializable {
     public int aboutid;
     public String createtime;
     public int issend;
+    public int is_read;
     public String from_user;
+    public String type_name;
     public String to_user;
 
 }

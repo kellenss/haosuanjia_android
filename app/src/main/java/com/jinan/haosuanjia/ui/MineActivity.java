@@ -54,7 +54,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         if(!TextUtils.isEmpty( SPUtil.get(ConstantString.PHONENUM))){
             tv_phone.setText("手机号："+ SPUtil.get(ConstantString.PHONENUM));
             tv_name.setText(""+ SPUtil.get(ConstantString.USERNICKNAME));
-            BitmapUtil.loadImageUrl(iv_user_photo, R.drawable.ic_launcher_background, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
+            BitmapUtil.loadImageUrl(iv_user_photo, R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
             Glide.with(context)//磨砂，毛玻璃效果使用此方法
                     .load(HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR))//radius为模糊半径，如果不写，默认为25
                     .bitmapTransform(new BlurTransformation(context, 25))
@@ -62,6 +62,7 @@ public class MineActivity extends BaseActivity implements View.OnClickListener{
         }else{
             tv_phone.setText("");
             tv_name.setText("请登录");
+            BitmapUtil.loadImageUrl(iv_user_photo, R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+SPUtil.get(ConstantString.AVATAR));
             Glide.with(context)//磨砂，毛玻璃效果使用此方法
                     .load(R.mipmap.icon_market)//radius为模糊半径，如果不写，默认为25
                     .bitmapTransform(new BlurTransformation(context, 45))

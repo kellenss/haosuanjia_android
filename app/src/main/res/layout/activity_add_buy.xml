@@ -20,12 +20,12 @@
             android:orientation="horizontal"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:visibility="gone">
+            android:visibility="visible">
             <TextView
                 android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="发布人"
+                android:text="联系人"
                 android:layout_marginLeft="@dimen/size_10dip"
                 android:textColor="@color/black"/>
             <EditText
@@ -38,7 +38,7 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入用户名称"
+                android:hint="请输入联系人"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
