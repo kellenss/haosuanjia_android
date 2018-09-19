@@ -277,6 +277,7 @@ public class BussinessOneFragment extends BaseFragment implements View.OnClickLi
         }
         @Override
         public void onUpdateViews(final BussinessListBean auctionBean, final int position) {
+            ((TextView)getView(R.id.tv_title)).setText(auctionBean.title);
             ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.crop+" | "+auctionBean.amount+"斤 | 价格："+auctionBean.wantPrice+"元/斤");
             ((TextView)getView(R.id.tv_desc_text)).setText("描述："+auctionBean.requirement);
             ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.contact+"  联系方式："+auctionBean.phone);

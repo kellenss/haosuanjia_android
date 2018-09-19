@@ -15,11 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
-        <ImageView
+        <com.jinan.haosuanjia.view.CircleImageView
             android:id="@+id/iv_user_photo"
-            android:layout_width="@dimen/size_70dip"
-            android:layout_height="@dimen/size_70dip"
-            android:layout_marginTop="10dp"
+            android:layout_width="@dimen/size_50dip"
+            android:layout_height="@dimen/size_50dip"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@mipmap/ic_launcher"/>

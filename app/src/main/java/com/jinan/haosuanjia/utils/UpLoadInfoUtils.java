@@ -8,6 +8,7 @@ import com.loopj.android.http.RequestParams;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 
@@ -69,6 +70,20 @@ public class UpLoadInfoUtils {
             try {
 //                params.put(ConstantString.USERID, SPUtil.get(ConstantString.USERID));
                 params.put("file", file);// 上传的文件
+                LogX.e("uploadUrl","params file uploadUrl-->"+uploadUrl);
+//                LogX.e("uploadUrl","params file getTotalSpace-->"+file.getTotalSpace());
+//                try {
+//                    LogX.e("uploadUrl","params file getCanonicalPath-->"+file.getCanonicalPath());
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                LogX.e("uploadUrl","params file getAbsoluteFile-->"+file.getAbsoluteFile());
+//                LogX.e("uploadUrl","params file getAbsolutePath-->"+file.getAbsolutePath());
+//                LogX.e("uploadUrl","params file getFreeSpace-->"+file.getFreeSpace());
+//                LogX.e("uploadUrl","params file getUsableSpace-->"+file.getUsableSpace());
+//                LogX.e("uploadUrl","params file getName-->"+file.getName());
+                LogX.e("uploadUrl","params file getPath-->"+file.getPath());
+                LogX.e("uploadUrl","params file length-->"+file.length());
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -117,13 +132,14 @@ public class UpLoadInfoUtils {
     }
 
     public RequestHandle startUploadPic() {
-
+//LogX.e("uploadUrl","uploadUrl-->"+uploadUrl);
+//LogX.e("uploadUrl","params-->"+params);
         return asyncHttpClient.post(uploadUrl, params,
                 new AsyncHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
                         upLoadPicCallBack.onSuccess(statusCode, new String(responseBody));
+//                        LogX.e("uploadUrl","responseBody-->"+new String(responseBody));
                     }
 
                     @Override

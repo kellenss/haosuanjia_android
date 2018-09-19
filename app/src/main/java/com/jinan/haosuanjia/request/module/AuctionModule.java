@@ -295,6 +295,16 @@ public class AuctionModule extends BaseModule {
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
+     * 获取未读消息总数
+     */
+    public void getMessageCount(Context context,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getMessageCount();
+        Map<String, String> mapParams = new HashMap<>();
+//        mapParams.put("class_id", class_id);
+//        mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, false, context);
+    }
+    /**
      * 获取所有经纪人
      */
     public void getAgentList(Context context,String class_id,int page,BaseHandlerJsonObject responseHandler) {
@@ -322,6 +332,33 @@ public class AuctionModule extends BaseModule {
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("id", user_id);
         mapParams.put("page", page+"");
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     * 获取我的消息详情
+     */
+    public void getMessageDetail(Context context,String id,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getMessageDetail();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("id", id);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
+    }
+    /**
+     *更新消息状态为已读
+     */
+    public void getUpdateMessageType(Context context,String id,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getUpdateMessageType();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("id", id);
+        VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, false, context);
+    }
+    /**
+     *删除消息
+     */
+    public void getDeleteMessage(Context context,String id,BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.getDeleteMessage();
+        Map<String, String> mapParams = new HashMap<>();
+        mapParams.put("id", id);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
@@ -375,9 +412,9 @@ public class AuctionModule extends BaseModule {
     /**
      * 添加劳务需求
      */
-    public void getAddDemand(Context context,String unitName,String address,String phone,String workContent,String startDate,
-                             String endDate,String workDays,String workers,String price,String amount,String status,String user_id,String user_nickname, BaseHandlerJsonObject responseHandler) {
-        String url = UrlUtils.AddDemand ();
+    public void getAddDemand(Context context,String unitName,String address,String contact,String phone,String workContent,String startDate,
+                             String endDate,String workDays,String workers,String price,String amount,String workType,String user_id,String title, BaseHandlerJsonObject responseHandler) {
+        String url = UrlUtils.AddDemand();
         Map<String, String> mapParams = new HashMap<>();
 //        mapParams.put("unitName", unitName);
         mapParams.put("address", address);
@@ -389,19 +426,21 @@ public class AuctionModule extends BaseModule {
         mapParams.put("workers", workers);
         mapParams.put("price", price);
         mapParams.put("amount", amount);
-//        mapParams.put("status", status);
+        mapParams.put("workType", workType);
         mapParams.put("user_id", user_id);
-//        mapParams.put("user_nickname", user_nickname);
+        mapParams.put("title", title);
+        mapParams.put("contact", contact);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }
     /**
      * 添加购蒜需求
      */
-    public void getAddBuy(Context context ,String send_user_name,String crop ,String address ,String phone ,String spec ,String wantPrice,
+    public void getAddBuy(Context context ,String send_user_name,String title,String crop ,String address ,String phone ,String spec ,String wantPrice,
                              String requirement ,String amount ,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddBuy();
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("contact", send_user_name);
+        mapParams.put("title", title);
         mapParams.put("crop", crop);
         mapParams.put("amount", amount);
         mapParams.put("spec", spec);
@@ -450,11 +489,12 @@ public class AuctionModule extends BaseModule {
     /**
      * 添加出售大蒜
      */
-    public void getAddSell(Context context ,String send_user_name,String crop ,String address ,String phone ,String spec ,String wantPrice,
+    public void getAddSell(Context context ,String send_user_name,String title,String crop ,String address ,String phone ,String spec ,String wantPrice,
                           String sellDesc ,String amount ,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddSell();
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("contact", send_user_name);
+        mapParams.put("title", title);
         mapParams.put("crop", crop);
         mapParams.put("amount", amount);
         mapParams.put("spec", spec);
@@ -469,7 +509,7 @@ public class AuctionModule extends BaseModule {
      * 添加劳务输出
      */
     public void getAddSupply(Context context,String user_nickname,String supplyNum,String workType,String startDate,
-                             String endDate,String address,String phone,String flag,String createTime,String user_id, BaseHandlerJsonObject responseHandler) {
+                             String endDate,String address,String phone,String flag,String title,String user_id, BaseHandlerJsonObject responseHandler) {
         String url = UrlUtils.AddSupply();
         Map<String, String> mapParams = new HashMap<>();
         mapParams.put("contact", user_nickname);
@@ -480,7 +520,7 @@ public class AuctionModule extends BaseModule {
         mapParams.put("address", address);
         mapParams.put("phone", phone);
 //        mapParams.put("flag", flag);
-//        mapParams.put("createTime", createTime);
+        mapParams.put("title", title);
         mapParams.put("user_id", user_id);
         VolleyUtilKupai.sendPostMethod(url, mapParams, responseHandler, true, context);
     }

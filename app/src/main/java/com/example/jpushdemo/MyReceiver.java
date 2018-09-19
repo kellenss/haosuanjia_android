@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.jinan.haosuanjia.commons.LogX;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -28,7 +30,7 @@ public class MyReceiver extends BroadcastReceiver {
 		try {
 			Bundle bundle = intent.getExtras();
 			Logger.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
-
+			LogX.e("jpush","");
 			if (JPushInterface.ACTION_REGISTRATION_ID.equals(intent.getAction())) {
 				String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
 				Logger.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);

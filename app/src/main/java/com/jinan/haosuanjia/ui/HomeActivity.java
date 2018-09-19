@@ -9,11 +9,20 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.alibaba.fastjson.JSON;
 import com.jinan.haosuanjia.R;
+import com.jinan.haosuanjia.bean.AgentListBean;
 import com.jinan.haosuanjia.bean.TipsList;
+import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
+import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.ConstantString;
+import com.jinan.haosuanjia.utils.ParseJson;
+import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.TipsViewPagerAdapter;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,6 +44,7 @@ private LinearLayout ll_company;
 private LinearLayout ll_agent;
 private LinearLayout ll_customer_service;
 private LinearLayout ll_zsq;
+private TextView tv_count_num;
 private ImageView iv_right;
 private ViewPager view_pager;
 
@@ -177,6 +187,7 @@ private ViewPager view_pager;
         ll_customer_service=(LinearLayout) findViewById(R.id.ll_customer_service);
         ll_zsq=(LinearLayout) findViewById(R.id.ll_zsq);
         iv_right=(ImageView) findViewById(R.id.iv_right);
+        tv_count_num=(TextView) findViewById(R.id.tv_count_num);
         view_pager=(ViewPager) findViewById(R.id.view_pager);
 
     }
@@ -193,6 +204,44 @@ private ViewPager view_pager;
         iv_right.setOnClickListener(this);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getMessageCount();
+    }
+
+    private void getMessageCount() {
+
+        AuctionModule.getInstance().getMessageCount(context, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                        int count=jsonObject.getIntValue("data");
+                        if(count>0){
+                            tv_count_num.setText(jsonObject.getIntValue("data")+"");
+                            tv_count_num.setVisibility(View.VISIBLE);
+
+                        }else{
+                            tv_count_num.setVisibility(View.GONE);
+                        }
+
+                    }else{
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+            }
+
+        });
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()){

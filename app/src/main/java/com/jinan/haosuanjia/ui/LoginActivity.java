@@ -177,6 +177,7 @@ public class LoginActivity extends StatisticsActivity implements OnClickListener
 								SPUtil.set(ConstantString.USERID, jsonObject.getJSONObject("data").getString("id"));
 								SPUtil.set(ConstantString.TOKEN, jsonObject.getJSONObject("data").getString(ConstantString.TOKEN));
 								registration_id = JPushInterface.getRegistrationID(getApplicationContext());
+								JPushInterface.getAlias(getApplicationContext(),0);
 								RegisteJpush(registration_id);
 //											Toast.makeText(ZhuCeActivity.this, jsonObject.getString("msg"),
 //													Toast.LENGTH_SHORT).show();

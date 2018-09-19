@@ -35,7 +35,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/font_gray"
             android:textSize="18sp"/>
 
         <View
@@ -51,7 +51,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:singleLine="true"
-            android:textColor="@color/black"
+            android:textColor="@color/color_main"
             android:textSize="18sp"/>
     </LinearLayout>
 

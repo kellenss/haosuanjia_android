@@ -294,10 +294,14 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
 
         @Override
         public void onUpdateViews(final LabourServicesBean auctionBean, final int position) {
-            ((TextView)getView(R.id.tv_title_price)).setText(auctionBean.workType);
-            ((TextView)getView(R.id.tv_name_phone)).setText(auctionBean.contact+" | 家庭住址："+auctionBean.address);
+            ((TextView)getView(R.id.tv_title)).setText(auctionBean.title);
+            ((TextView)getView(R.id.tv_title_price)).setText("劳务工种："+auctionBean.workType);
+            ((TextView)getView(R.id.tv_name_phone)).setText("联系人："+auctionBean.contact+" | 联系方式："+auctionBean.phone);
             ((TextView)getView(R.id.tv_work_time)).setText("工作时间："+auctionBean.startDate+" -- "+auctionBean.endDate);
-            ((TextView)getView(R.id.tv_address_text)).setText("工作描述： "+auctionBean.workType+"  "+auctionBean.supplyNum+"人");
+            ((TextView)getView(R.id.tv_address_text)).setText("地址: "+auctionBean.address);
+            getView(R.id.tv_desc_text).setVisibility(View.VISIBLE);
+            ((TextView)getView(R.id.tv_desc_text)).setText("工作描述： "+auctionBean.workType+"  "+auctionBean.supplyNum+"人");
+            ((TextView)getView(R.id.tv_desc_text)).setTextColor(getActivity().getResources().getColor(R.color.data_text));
             String comments_count_txt="";
             if(auctionBean.comments_count>0){
                 comments_count_txt="我要留言 ( "+auctionBean.comments_count+" )";
@@ -313,7 +317,6 @@ public class LabourServicesTwoFragment extends BaseFragment implements View.OnCl
             }
             ((TextView)getView(R.id.tv_baojia)).setText(offer_count_txt);
             BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+auctionBean.avatar);
-            ((TextView)getView(R.id.tv_desc_text)).setVisibility(View.GONE);
         }
     }
 

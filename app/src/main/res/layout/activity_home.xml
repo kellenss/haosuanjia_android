@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@android:id/tabhost"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@color/color_common_bg"
-    >
+    android:background="@color/color_common_bg">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -483,6 +483,20 @@
             android:background="@mipmap/icon_all_brand"
             android:visibility="visible" />
 
+        <TextView
+            android:id="@+id/tv_count_num"
+            android:layout_width="@dimen/size_14dip"
+            android:layout_height="@dimen/size_14dip"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="7dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/bg_circle_red_6dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="0"
+            android:textSize="@dimen/size_10sp"
+            android:visibility="gone" />
       <!--      <View
                 android:id="@+id/tv_line"
                 android:layout_width="fill_parent"

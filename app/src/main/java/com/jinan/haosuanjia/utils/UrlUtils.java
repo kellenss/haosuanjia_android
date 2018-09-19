@@ -113,6 +113,18 @@ public class UrlUtils {
 	public static String getNewsInformationDetail() {
 		return getBaseUrl() + "news/get_news_by_id";
 	}
+	//获取消息详情
+	public static String getMessageDetail() {
+		return getBaseUrl() + "message/get_message_info";
+	}
+	//更新消息状态为已读
+	public static String getUpdateMessageType() {
+		return getBaseUrl() + "message/update_message_read";
+	}
+	//删除消息
+	public static String getDeleteMessage() {
+		return getBaseUrl() + "message/del_message";
+	}
 	//添加新闻评论
 	public static String getAddNewsComments() {
 		return getBaseUrl() + "news/add_news_comments";
@@ -124,6 +136,10 @@ public class UrlUtils {
 	//获取所有经纪人
 	public static String getAgentList() {
 		return getBaseUrl() + "common/get_all_agent";
+	}
+	//获取未读消息总数
+	public static String getMessageCount() {
+		return getBaseUrl() + "message/get_message_count_unread";
 	}
 	//获取语音播报
 	public static String getAudioBroadcastList() {

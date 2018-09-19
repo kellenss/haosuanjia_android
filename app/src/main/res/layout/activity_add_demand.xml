@@ -8,6 +8,9 @@
     <include
     android:id="@+id/inc"
     layout="@layout/include_title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -78,11 +81,11 @@
                 android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="联系方式"
+                android:text="需求标题"
                 android:layout_marginLeft="@dimen/size_10dip"
                 android:textColor="@color/black"/>
             <EditText
-                android:id="@+id/et_phone_number"
+                android:id="@+id/et_title"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -91,10 +94,92 @@
                 android:background="@drawable/bg_5_stroke_gray"
                 android:textColorHint="@color/font_gray"
                 android:textColor="@color/wheel_timebtn_nor"
-                android:hint="请输入联系方式"
+                android:hint="请输入需求标题"
                 android:gravity="start"
                 android:textSize="12sp"/>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+            <TextView
+                android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="劳务工种"
+                android:layout_marginLeft="@dimen/size_10dip"
+                android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/et_work_type"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                android:background="@drawable/bg_5_stroke_gray"
+                android:textColorHint="@color/font_gray"
+                android:textColor="@color/wheel_timebtn_nor"
+                android:hint="请输入劳务工种"
+                android:gravity="start"
+                android:textSize="12sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="联系方式"
+            android:layout_marginLeft="@dimen/size_10dip"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/et_phone_number"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_5_stroke_gray"
+            android:textColorHint="@color/font_gray"
+            android:textColor="@color/wheel_timebtn_nor"
+            android:hint="请输入联系方式"
+            android:gravity="start"
+            android:textSize="12sp"/>
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/white"
+        android:gravity="center_vertical">
+        <TextView
+            android:layout_weight="3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="联系人"
+            android:layout_marginLeft="@dimen/size_10dip"
+            android:textColor="@color/black"/>
+        <EditText
+            android:id="@+id/et_contact"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:padding="5dp"
+            android:background="@drawable/bg_5_stroke_gray"
+            android:textColorHint="@color/font_gray"
+            android:textColor="@color/wheel_timebtn_nor"
+            android:hint="请输入联系人"
+            android:gravity="start"
+            android:textSize="12sp"/>
+    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -285,5 +370,5 @@
                 android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
-
+    </ScrollView>
 </LinearLayout>

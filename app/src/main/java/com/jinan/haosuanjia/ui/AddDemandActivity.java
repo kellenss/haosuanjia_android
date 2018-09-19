@@ -1,6 +1,7 @@
 package com.jinan.haosuanjia.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,7 +30,10 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
     private TextView tv_right_head;
     private EditText et_company_name;
     private EditText et_address;
+    private EditText et_contact;
+    private EditText et_title;
     private EditText et_phone_number;
+    private EditText et_work_type;
     private EditText et_job_content;
     private EditText et_job_start_date;
     private EditText et_job_end_date;
@@ -47,7 +51,9 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
     private String need_number;
     private String one_price;
     private String all_price;
-    private String status="0";//状态 0：正常，1：作废
+    private String workType="";
+    private String title="";
+    private String contact="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +93,11 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
         iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
         et_company_name= (EditText) findViewById(R.id.et_company_name);
         et_address= (EditText) findViewById(R.id.et_address);
+        et_title= (EditText) findViewById(R.id.et_title);
+        et_contact= (EditText) findViewById(R.id.et_contact);
         et_phone_number= (EditText) findViewById(R.id.et_phone_number);
         et_job_content= (EditText) findViewById(R.id.et_job_content);
+        et_work_type= (EditText) findViewById(R.id.et_work_type);
         et_job_start_date= (EditText) findViewById(R.id.et_job_start_date);
         et_job_end_date= (EditText) findViewById(R.id.et_job_end_date);
         et_all_day= (EditText) findViewById(R.id.et_all_day);
@@ -108,10 +117,10 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
 //
 
     }
-    private void SendMessagePost(String unitName,String address,String phone,String workContent,String startDate,
-                                 String endDate,String workDays,String workers,String price,String amount,String status,String user_id,String user_nickname) {
-        AuctionModule.getInstance().getAddDemand(context,unitName,address,phone,workContent,startDate,
-                endDate,workDays,workers,price,amount,status,user_id,user_nickname,new BaseHandlerJsonObject() {
+    private void SendMessagePost(String unitName,String address,String contact,String phone,String workContent,String startDate,
+                                 String endDate,String workDays,String workers,String price,String amount,String workType,String user_id,String title) {
+        AuctionModule.getInstance().getAddDemand(context,unitName,contact,address,phone,workContent,startDate,
+                endDate,workDays,workers,price,amount,workType,user_id,title,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
@@ -142,6 +151,8 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
             case R.id.tv_right_head:
                 company_name=et_company_name.getText().toString();
                 address=et_address.getText().toString();
+                title=et_title.getText().toString();
+                contact=et_contact.getText().toString();
                 phone_number=et_phone_number.getText().toString();
                 job_content=et_job_content.getText().toString();
                 job_start_date=et_job_start_date.getText().toString();
@@ -149,10 +160,47 @@ public class AddDemandActivity extends StatisticsActivity implements  View.OnCli
                 all_day=et_all_day.getText().toString();
                 need_number=et_need_number.getText().toString();
                 one_price=et_one_price.getText().toString();
+                workType=et_work_type.getText().toString();
                 all_price=et_all_price.getText().toString();
 
-                SendMessagePost(company_name,address,phone_number,job_content,job_start_date,
-                        job_end_date,all_day,need_number,one_price,all_price,status,SPUtil.get(ConstantString.USERID),SPUtil.get(ConstantString.USERNICKNAME));
+                if(TextUtils.isEmpty(company_name)){
+                    ShowToastUtil.Short("请输入单位名称");
+                    return;
+                }
+                if(TextUtils.isEmpty(address)){
+                    ShowToastUtil.Short("请输入地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(contact)){
+                    ShowToastUtil.Short("请输入联系人");
+                    return;
+                }
+                if(TextUtils.isEmpty(phone_number)){
+                    ShowToastUtil.Short("请输入数量");
+                    return;
+                }
+                if(TextUtils.isEmpty(title)){
+                    ShowToastUtil.Short("请输入标题");
+                    return;
+                }
+                if(TextUtils.isEmpty(job_content)){
+                    ShowToastUtil.Short("请输入工种内容");
+                    return;
+                }
+                if(TextUtils.isEmpty(all_day)){
+                    ShowToastUtil.Short("请输入总天数");
+                    return;
+                }
+                if(TextUtils.isEmpty(need_number)){
+                    ShowToastUtil.Short("请输入工人数量");
+                    return;
+                }
+                if(TextUtils.isEmpty(one_price)){
+                    ShowToastUtil.Short("请输入金额（元/人天）");
+                    return;
+                }
+                SendMessagePost(company_name,address,contact,phone_number,job_content,job_start_date,
+                        job_end_date,all_day,need_number,one_price,all_price,workType,SPUtil.get(ConstantString.USERID),title);
                 break;
             default:
                 break;

@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="100dp"
               android:layout_height="100dp"
-              android:background="@color/black"
+              android:background="@drawable/grey_round_corner_bg"
               android:gravity="center"
               android:orientation="vertical"
               android:padding="15dp">
@@ -13,6 +13,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:indeterminateDuration="1500"
+        style="@style/mProgress_circle"
         android:indeterminate="false"/>
 
 
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="加载中…"
+        android:text="正在加载…"
         android:singleLine="true"
         android:textColor="@android:color/white"
         android:textSize="14sp"/>

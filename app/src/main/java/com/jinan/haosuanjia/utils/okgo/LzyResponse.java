@@ -30,15 +30,15 @@ public class LzyResponse<T> implements Serializable {
 
     private static final long serialVersionUID = 5213230387175987834L;
 
-    public boolean status;
-    public int code;
+    public int status;
+    public int errorCode;
     public String msg;
     public T data;
 
     @Override
     public String toString() {
         return "LzyResponse{\n" +//
-               "\tcode=" + code + "\n" +//
+               "\tcode=" + errorCode + "\n" +//
                "\tmsg='" + msg + "\'\n" +//
                "\tdata=" + data + "\n" +//
                '}';

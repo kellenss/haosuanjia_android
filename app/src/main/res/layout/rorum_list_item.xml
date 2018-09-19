@@ -15,11 +15,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         >
-        <ImageView
+        <com.jinan.haosuanjia.view.CircleImageView
             android:id="@+id/iv_user_photo"
-            android:layout_width="@dimen/size_70dip"
-            android:layout_height="@dimen/size_70dip"
-            android:layout_marginTop="10dp"
+            android:layout_width="@dimen/size_50dip"
+            android:layout_height="@dimen/size_50dip"
+            android:layout_marginTop="15dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:src="@mipmap/ic_launcher"/>
@@ -80,8 +80,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="吃大蒜对喂有好处吗？"
-                    android:textColor="@color/color_405db4"
-                    android:textSize="16sp" />
+                    android:textColor="@color/black"
+                    android:textSize="18sp" />
 
                 <TextView android:id="@+id/tv_item_content"
                     android:layout_width="wrap_content"
@@ -89,8 +89,9 @@
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
                     android:maxLines="8"
+                    android:lineSpacingExtra="@dimen/size_2dip"
                     android:text="一级大蒜 |5000.00斤 |价格：2.5元/公斤一级大蒜 |5000.00斤 |价格：2.5元/公斤"
-                    android:textColor="@color/black"
+                    android:textColor="@color/limit_buy_text_bg"
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>

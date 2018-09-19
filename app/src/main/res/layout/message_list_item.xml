@@ -6,11 +6,18 @@
     android:orientation="vertical"
     android:background="@color/white">
     <LinearLayout
-        android:id="@android:id/tabhost"
+        android:id="@+id/ll_item_all"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:background="@color/white">
+        <ImageView
+            android:id="@+id/iv_message_isread"
+            android:layout_width="@dimen/size_6dip"
+            android:layout_height="@dimen/size_6dip"
+            android:layout_marginTop="@dimen/size_18dip"
+            android:layout_marginLeft="@dimen/size_10dp"
+            android:background="@drawable/bg_circle_red_6dp"/>
    <!-- <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,7 +38,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:orientation="vertical">
 
             <LinearLayout

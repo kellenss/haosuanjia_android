@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.provider.SyncStateContract;
 import android.support.v4.content.ContextCompat;
@@ -109,6 +110,8 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
     private Uri imgUriOri;
     //裁剪图像 URI
     private Uri imgUriCrop;
+
+    private int tryUploadTime = 0;
 //    private String job_start_date;
 //    private String job_end_date;
 //    private String flag="0";//状态 0：正常，1：作废
@@ -242,7 +245,8 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
             } else if (requestCode == REQUEST_CHOOSE_PHOTO) {// 调用系统裁剪
                 dojudgeStorage(data.getData());
             } else if (requestCode == REQUEST_CLIP_OVER) {// 裁剪完成上传图片
-                JinChaoUtils.scanFileAsync(context, new File(imgPathCrop));
+                final File file = new File(imgPathCrop);
+                JinChaoUtils.scanFileAsync(context, file);
 //                ImageUtils.loadImageWithError(imgPathCrop, R.mipmap.icon_user_default_head, iv_head_photo);
 //                toUploadPhotos();
 //                uploadPic();
@@ -254,7 +258,6 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
 //                    if (bitmap != null)// 保存图片
 //                    {
 //                        iv_head.setImageBitmap(bitmap);
-                        uploderPic(type_pic);
 //                    }
 //
 //                    if(bitmap != null && bitmap.isRecycled()){
@@ -264,6 +267,13 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
 //                    e.printStackTrace();
 //                }
                 revokeUriPermission(imgUriCrop, Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                uploderPic(type_pic);
+
+
+                defaultLoading.show();
+                tryUploadTime=0;
+                iscanuploade(file);
+
             }else if (requestCode == ADD_FINISH) {// 添加积分完成
                 finish();
             }
@@ -271,31 +281,96 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
     }
     int type_pic = 1;
     int type_bg = 2;
-
+private void iscanuploade(final File file){
+        if (file.exists() && file.length() > 0) {
+            uploderPic( file,type_pic);
+        }else{
+            if (tryUploadTime > 20) {
+                defaultLoading.dismiss();
+                Toast.makeText(context, "上传失败", Toast.LENGTH_SHORT).show();
+            } else {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        tryUploadTime++;
+//                        LogX.e("uploadUrl","Successcontent-->"+tryUploadTime);
+                        iscanuploade(file);
+                    }
+                }, 1000);
+            }
+//                    new Handler().postDelayed(new Runnable(){
+//                        public void run() {
+//                            uploderPic( file,type_pic);
+////                                doUpLoadPic(file);
+//                        }
+//                    }, 1000);
+        }
+    }
     /**
      * 上传图片
      */
-    private void uploderPic(final int type) {
-        File file = new File(imgPathCrop);
-        defaultLoading.show();
+    private void uploderPic(final File file,final int type) {
 
-        new UpLoadInfoUtils(new UpLoadInfoUtils.UpLoadPicCallBack() {
+        UpLoadInfoUtils upLoadInfoUtils=new UpLoadInfoUtils(new UpLoadInfoUtils.UpLoadPicCallBack() {
             @Override
             public void onSuccess(int statusCode, String content) {
-                upLoadPicSuccess(content, type);
+
+                LogX.e("uploadUrl","Successcontent-->"+content);
+                upLoadPicSuccess(file,content, type);
             }
 
             @Override
             public void onFailure(int statusCode, Throwable error, String content) {
                 ShowToastUtil.Short("图片上传失败");
+                LogX.e("uploadUrl","Failurecontent-->"+content);
                 defaultLoading.dismiss();
             }
-        }, file, 1).startUploadPic();
-
+        }, file, 1);
+        upLoadInfoUtils.setTimeout(100000);
+        upLoadInfoUtils.startUploadPic();
 //        doUpLoadPic(file, type);
 //        uploadPic();
     }
-/* */   private void upLoadPicSuccess(String reslut, int type) {
+
+    public void doUpLoadPic(File file){
+        // TODO: 2017/6/21 由OKhttp的图片上传替换掉AsyncHttpClient
+        OKhttpUtil.upLoadFile(1, file, new JsonCallback<LzyResponse<UploadBitmapModel>>() {
+            @Override
+            public void onSuccess(Response<LzyResponse<UploadBitmapModel>> response) {
+                UploadBitmapModel result = response.body().data;
+
+//                imageId = result.imageId;
+                String imgUrl=result.files.get(0).path;
+//                String imgUrl=jsonObject.getJSONObject("data").getJSONArray("files").getJSONObject(0).getString("path");
+                if(!TextUtils.isEmpty(imgUrl)){
+                    ShowToastUtil.Short("头像上传成功");
+                    SPUtil.set(ConstantString.AVATAR,imgUrl);
+                    Upadate_Head(imgUrl);
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
+                    Bitmap bitmap = BitmapFactory.decodeFile(imgPathCrop,
+                            options);
+                    if (bitmap != null)// 保存图片
+                    {
+                        iv_user_photo.setImageBitmap(bitmap);
+                    }
+                }else{
+                    ShowToastUtil.Short("更新头像失败，请稍后重试!");
+                }
+                if (defaultLoading != null && defaultLoading.isShowing() && !isFinishing())
+                    defaultLoading.dismiss();
+            }
+
+            @Override
+            public void onError(Response<LzyResponse<UploadBitmapModel>> response) {
+                super.onError(response);
+                ShowToastUtil.Short("图片上传失败");
+                if (defaultLoading != null && defaultLoading.isShowing() && !isFinishing())
+                    defaultLoading.dismiss();
+            }
+        });
+    }
+/* */   private void upLoadPicSuccess(File files,String reslut, int type) {
         try {
             JSONObject jsonObject = new JSONObject(reslut);
 
@@ -325,7 +400,10 @@ public class PersonalInformationActivity extends StatisticsActivity implements  
                     iv_user_photo.setImageBitmap(bitmap);
                 }
             }else{
-                ShowToastUtil.Short("更新头像失败，请稍后重试!");
+                uploderPic(files,type);
+                if (defaultLoading != null && defaultLoading.isShowing() && !isFinishing())
+                    defaultLoading.dismiss();
+//                ShowToastUtil.Short("更新头像失败，请稍后重试!");
             }
 //            if (type == 1) {
 //                updateUserInfo(

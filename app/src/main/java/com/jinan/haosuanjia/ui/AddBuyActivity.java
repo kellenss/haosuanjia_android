@@ -29,6 +29,7 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
     private TextView tv_title_head;
     private TextView tv_right_head;
     private EditText et_send_user_name;
+    private EditText et_title;
     private EditText et_address;
     private EditText et_requirement;
     private EditText et_want_price;
@@ -37,6 +38,7 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
     private EditText et_amount;
     private EditText et_phone_number;
     private String send_user_name;
+    private String title;
     private String crop;
     private String amount;
     private String spec;
@@ -82,6 +84,7 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
         iv_back_head = (ImageView) findViewById(R.id.iv_back_head);
         iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
         et_send_user_name= (EditText) findViewById(R.id.et_send_user_name);
+        et_title= (EditText) findViewById(R.id.et_title);
         et_address= (EditText) findViewById(R.id.et_address);
         et_requirement= (EditText) findViewById(R.id.et_requirement);
         et_want_price= (EditText) findViewById(R.id.et_want_price);
@@ -102,9 +105,9 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
 //
 
     }
-    private void SendMessagePost(String send_user_name,String crop,String address,String phone,String spec,String wantPrice,
+    private void SendMessagePost(String send_user_name,String title,String crop,String address,String phone,String spec,String wantPrice,
                                  String requirement,String amount,String user_id) {
-        AuctionModule.getInstance().getAddBuy(context,send_user_name,crop,address,phone,spec,wantPrice,
+        AuctionModule.getInstance().getAddBuy(context,send_user_name,title,crop,address,phone,spec,wantPrice,
                 requirement,amount,user_id,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
@@ -136,6 +139,7 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
             case R.id.tv_right_head:
 
                 send_user_name=et_send_user_name.getText().toString();
+                title=et_title.getText().toString();
                 crop=et_crop.getText().toString();
                 address=et_address.getText().toString();
                 phone=et_phone_number.getText().toString();
@@ -143,6 +147,10 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
                 amount=et_amount.getText().toString();
                 requirement=et_requirement.getText().toString();
                 wantPrice=et_want_price.getText().toString();
+                if(TextUtils.isEmpty(title)){
+                    ShowToastUtil.Short("请输入标题");
+                    return;
+                }
                 if(TextUtils.isEmpty(send_user_name)){
                     ShowToastUtil.Short("请输入联系人");
                     return;
@@ -167,7 +175,7 @@ public class AddBuyActivity extends StatisticsActivity implements  View.OnClickL
                     ShowToastUtil.Short("请输入联系电话");
                     return;
                 }
-                SendMessagePost(send_user_name,crop,address,phone,spec,wantPrice,
+                SendMessagePost(send_user_name,title,crop,address,phone,spec,wantPrice,
                         requirement,amount,SPUtil.get(ConstantString.USERID));
                 break;
             default:

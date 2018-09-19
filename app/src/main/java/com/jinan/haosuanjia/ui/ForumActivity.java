@@ -186,7 +186,6 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                 try {
                     com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
                     if(jsonObject.getInteger("status")==1){
-                    }else if(jsonObject.getInteger("status")==2){
                     }else{
                     }
                     feedAdapter.notifyDataSetChanged();
@@ -325,12 +324,12 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
                 case R.id.iv_shoucang_icon:
                 case R.id.tv_shoucang:
                     getAddCircleCollection(getModel().id+"", SPUtil.get(ConstantString.USERID),"1");
-                    if(getModel().status==1){
+                    if(getModel().is_collection==2){
                         getModel().collection=getModel().collection+1;
-                        getModel().status=2;
+                        getModel().is_collection=1;
                     }else{
                         getModel().collection=getModel().collection-1;
-                        getModel().status=1;
+                        getModel().is_collection=2;
                     }
 //                    getModel().collection++;
                     break;
@@ -360,7 +359,7 @@ public class ForumActivity extends StatisticsActivity implements  View.OnClickLi
             ((TextView)getView(R.id.tv_pinglun)).setText(auctionBean.comments+"");
 //            ((ImageView)getView(R.id.iv_user_photo)).setText(auctionBean.collection+"");
 //            String headPhotoUrl = ImageLoaderUtil.getPhotoUrl(auctionBean.bidInfo.bidGoods.supplier.supplierPic, 200);
-            if (auctionBean.status==2){
+            if (auctionBean.is_collection==1){
                 (getView(R.id.iv_shoucang_icon)).setBackground(getApplicationContext().getResources().getDrawable(R.drawable.ic_scccccccccc));
             }else{
                 (getView(R.id.iv_shoucang_icon)).setBackground(getApplicationContext().getResources().getDrawable(R.mipmap.icon_shoucang));

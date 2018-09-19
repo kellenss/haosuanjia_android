@@ -1,6 +1,7 @@
 package com.jinan.haosuanjia.ui;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,7 @@ public class AddSupplyActivity extends StatisticsActivity implements  View.OnCli
     private TextView tv_right_head;
     private EditText et_send_user_name;
     private EditText et_job_number;
+    private EditText et_title;
     private EditText et_job_status;
     private EditText et_address;
     private EditText et_phone_number;
@@ -42,7 +44,7 @@ public class AddSupplyActivity extends StatisticsActivity implements  View.OnCli
     private String job_start_date;
     private String job_end_date;
     private String flag="0";//状态 0：正常，1：作废
-    private String createTime="2018-06-20";
+    private String title="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,7 @@ public class AddSupplyActivity extends StatisticsActivity implements  View.OnCli
         iv_right_head = (ImageView) findViewById(R.id.iv_right_head);
         et_send_user_name= (EditText) findViewById(R.id.et_send_user_name);
         et_job_number= (EditText) findViewById(R.id.et_job_number);
+        et_title= (EditText) findViewById(R.id.et_title);
         et_job_status= (EditText) findViewById(R.id.et_job_status);
         et_address= (EditText) findViewById(R.id.et_address);
         et_phone_number= (EditText) findViewById(R.id.et_phone_number);
@@ -101,9 +104,9 @@ public class AddSupplyActivity extends StatisticsActivity implements  View.OnCli
 
     }
     private void SendMessagePost(String user_nickname,String supplyNum,String workType,String startDate,
-                                 String endDate,String address,String phone,String flag,String createTime,String user_id) {
+                                 String endDate,String address,String phone,String flag,String title,String user_id) {
         AuctionModule.getInstance().getAddSupply(context,user_nickname,supplyNum,workType,startDate,
-                endDate,address,phone,flag,createTime,user_id,new BaseHandlerJsonObject() {
+                endDate,address,phone,flag,title,user_id,new BaseHandlerJsonObject() {
             @Override
             public void onGotJson(JSONObject result) {
                 try {
@@ -133,14 +136,39 @@ public class AddSupplyActivity extends StatisticsActivity implements  View.OnCli
             case R.id.tv_right_head:
                 send_user_name=et_send_user_name.getText().toString();
                 job_number=et_job_number.getText().toString();
+                title=et_title.getText().toString();
                 job_status=et_job_status.getText().toString();
                 address=et_address.getText().toString();
                 phone_number=et_phone_number.getText().toString();
                 job_start_date=et_job_start_date.getText().toString();
                 job_end_date=et_job_end_date.getText().toString();
 
+                if(TextUtils.isEmpty(send_user_name)){
+                    ShowToastUtil.Short("请输入联系人");
+                    return;
+                }
+                if(TextUtils.isEmpty(job_number)){
+                    ShowToastUtil.Short("请输入劳务输出数量");
+                    return;
+                }
+                if(TextUtils.isEmpty(title)){
+                    ShowToastUtil.Short("请输入标题");
+                    return;
+                }
+                if(TextUtils.isEmpty(job_status)){
+                    ShowToastUtil.Short("请输入工种");
+                    return;
+                }
+                if(TextUtils.isEmpty(address)){
+                    ShowToastUtil.Short("请输入地址");
+                    return;
+                }
+                if(TextUtils.isEmpty(phone_number)){
+                    ShowToastUtil.Short("请输入联系方式");
+                    return;
+                }
                 SendMessagePost(send_user_name,job_number,job_status,job_start_date,
-                        job_end_date,address,phone_number,flag,createTime,SPUtil.get(ConstantString.USERID));
+                        job_end_date,address,phone_number,flag,title,SPUtil.get(ConstantString.USERID));
                 break;
             default:
                 break;

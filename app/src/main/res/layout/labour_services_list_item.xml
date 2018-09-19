@@ -13,11 +13,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             >
-            <ImageView
+            <com.jinan.haosuanjia.view.CircleImageView
                 android:id="@+id/iv_user_photo"
-                android:layout_width="@dimen/size_70dip"
-                android:layout_height="@dimen/size_70dip"
-                android:layout_marginTop="10dp"
+                android:layout_width="@dimen/size_50dip"
+                android:layout_height="@dimen/size_50dip"
+                android:layout_marginTop="15dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:src="@mipmap/ic_launcher"/>
@@ -30,20 +30,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:layout_marginTop="15dp"/>
                 <TextView
                     android:id="@+id/tv_title_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/data_text"
+                    android:layout_marginTop="10dp"
                     android:text="一级大蒜 |5000.00斤 |价格："/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="vertical">
                 <TextView
                     android:id="@+id/tv_name_phone"
@@ -57,10 +63,9 @@
                     android:layout_height="wrap_content"
                     android:textSize="14sp"
                     android:textColor="@color/color_405db4"
-                    android:layout_marginBottom="@dimen/size_5dip"
                     android:layout_marginTop="@dimen/size_5dip"
                     android:layout_marginRight="15dip"
-                    android:visibility="gone"
+                    android:visibility="visible"
                     android:text="招工：挖蒜工人20人，工资150元/天"/>
 
                 <TextView

@@ -1,16 +1,24 @@
 package com.jinan.haosuanjia.ui;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AgentListBean;
+import com.jinan.haosuanjia.bean.InformationConsultationBean;
 import com.jinan.haosuanjia.bean.MessageListBean;
+import com.jinan.haosuanjia.commons.LogX;
+import com.jinan.haosuanjia.dialog.CustomDialogBack;
+import com.jinan.haosuanjia.dialog.CustomDialogEditText;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.BitmapUtil;
@@ -102,6 +110,15 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
         lv_activity_main.setXListViewListener(this);
 //
 //
+//        lv_activity_main.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                getUpdateMessageType(activityList.get(position).aboutid+"");
+//                Intent intent = new Intent(context,MessageDetailActivity.class);
+//                intent.putExtra("class_id",activityList.get(position).aboutid+"");
+//                startActivity(intent);
+//            }
+//        });
         lv_activity_main.setOnScrollListener(new AbsListView.OnScrollListener() {
 
             int firstVisibleItem, lastVisibleItem;
@@ -231,7 +248,91 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
         page=1;
         initDataPost(true);
     }
+    private void getUpdateMessageType(String class_id) {
 
+        AuctionModule.getInstance().getUpdateMessageType(context,class_id, new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                        try{
+                            feedAdapter.notifyDataSetChanged();
+//                            informationConsultationBean = ParseJson.parseGetResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            informationConsultationBean=ParseJson.parseConvertResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            tv_content_title.setText(informationConsultationBean.title);
+//                            BitmapUtil.loadImageUrl(iv_company_img, R.mipmap.icon_commpany_zd, HMApplication.KP_BASE_URL_YU + informationConsultationBean.cover);
+//                            String htmlData = informationConsultationBean.content;
+//                            if(!TextUtils.isEmpty(htmlData)){
+//                                htmlData = htmlData.replaceAll("&amp;", "")
+//                                        .replaceAll("&quot;", "\"")
+//                                        .replaceAll("&lt;", "<")
+//                                        .replaceAll("&gt;", ">");
+//                                wv_content_detail.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//                            }
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+                    }else{
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+            }
+        });
+    }
+    private void getDeleteMessage(final int class_id) {
+
+        AuctionModule.getInstance().getDeleteMessage(context, class_id+"", new BaseHandlerJsonObject() {
+            @Override
+            public void onGotJson(JSONObject result) {
+                try {
+                    com.alibaba.fastjson.JSONObject jsonObject = JSON.parseObject(result.toString());
+                    if(jsonObject.getInteger("status")==1){
+                        try{
+                            for(int i=0;i<activityList.size();i++){
+                                if(activityList.get(i).id==class_id){
+                                    activityList.remove(i);
+                                }
+                            }
+                            feedAdapter.notifyDataSetChanged();
+//                            informationConsultationBean = ParseJson.parseGetResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            informationConsultationBean=ParseJson.parseConvertResultObject(result.getJSONObject("data"), InformationConsultationBean.class);
+//                            tv_content_title.setText(informationConsultationBean.title);
+//                            BitmapUtil.loadImageUrl(iv_company_img, R.mipmap.icon_commpany_zd, HMApplication.KP_BASE_URL_YU + informationConsultationBean.cover);
+//                            String htmlData = informationConsultationBean.content;
+//                            if(!TextUtils.isEmpty(htmlData)){
+//                                htmlData = htmlData.replaceAll("&amp;", "")
+//                                        .replaceAll("&quot;", "\"")
+//                                        .replaceAll("&lt;", "<")
+//                                        .replaceAll("&gt;", ">");
+//                                wv_content_detail.loadDataWithBaseURL(null, htmlData, "text/html", "UTF-8", null);
+//                            }
+                        }catch (Exception e ){
+                            e.printStackTrace();
+                            ShowToastUtil.Short("没有更多数据！");
+                        }
+                    }else{
+                        ShowToastUtil.Short(jsonObject.getString("msg"));
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    ShowToastUtil.Short("解析异常！");
+                }
+            }
+
+            @Override
+            public void onGotError(String code, String error) {
+            }
+        });
+    }
     @Override
     public void onLoadMore() {
         initDataPost(false);
@@ -314,7 +415,7 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
 
         @Override
         public void onSetViews() {
-//            getView(R.id.tv_user_name).setOnClickListener(this);
+//            getView(R.id.ll_item_all).setOnClickListener(this);
 
         }
 
@@ -324,6 +425,50 @@ public class MessageListActivity extends StatisticsActivity implements  View.OnC
             ((TextView)getView(R.id.tv_title)).setText(auctionBean.title+"  来自"+auctionBean.from_user);
             ((TextView)getView(R.id.tv_content)).setText(auctionBean.type_name+":"+auctionBean.content);
             ((TextView)getView(R.id.tv_createtime)).setText(auctionBean.createtime);
+            if (auctionBean.is_read==2){
+                getView(R.id.iv_message_isread).setVisibility(View.INVISIBLE);
+            }else{
+              getView(R.id.iv_message_isread).setVisibility(View.VISIBLE);
+            }
+            getView(R.id.ll_item_all).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (auctionBean.is_read!=2){
+                        getUpdateMessageType(auctionBean.id+"");
+                        auctionBean.is_read=2;
+                    }
+                    Intent intent = new Intent(context,MessageDetailActivity.class);
+                    intent.putExtra("class_id",auctionBean.id+"");
+                    startActivity(intent);
+                }
+            });
+            getView(R.id.ll_item_all).setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    new CustomDialogBack.Builder(context)
+                            .setMessage("删除消息")
+                            .setCancelable(false)
+                            .setPositiveButton(R.string.confirm,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,
+                                                            int id) {
+                                            LogX.d("setPagePath",
+                                                    "" +
+                                                            "报价");
+                                            getDeleteMessage(auctionBean.id);
+                                        }
+                                    })
+                            .setNegativeButton(R.string.cancel,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog,
+                                                            int id) {
+                                            dialog.cancel();
+                                        }
+                                    })
+                            .show();
+                    return false;
+                }
+            });
 //            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU+auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);

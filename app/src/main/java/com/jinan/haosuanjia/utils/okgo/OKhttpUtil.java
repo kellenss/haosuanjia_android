@@ -147,9 +147,9 @@ public class OKhttpUtil {
                 }
 
                 LzyResponse result = response.body();
-                if(!result.status)
+                if(result.status!=1)
                     ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-                else if(result.code != 0)
+                else if(result.errorCode != 0)
                     ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
                 if(callBack != null)
                     callBack.onSuccess(response);
@@ -171,9 +171,9 @@ public class OKhttpUtil {
                 if(response.body() == null)return;
 
                 LzyResponse result = response.body();
-                if(!result.status)
+                if(result.status!=1)
                     ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
-                else if(result.code != 0)
+                else if(result.errorCode != 0)
                     ShowToastUtil.Short(ConstantString.TEXT_EMPTY + result.msg);
                 if(callBack != null)
                     callBack.onSuccess(response);
