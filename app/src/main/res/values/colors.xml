@@ -57,6 +57,7 @@
     <color name="home_not_select">#7c7c7c</color>
 
     <color name="gray_use_temp">#cacaca</color>
+    <color name="black_10_trans">#11000000</color>
     <color name="black_20_trans">#33000000</color>
     <color name="black_30_trans">#4c000000</color>
     <color name="black_40_trans">#66000000</color>

@@ -1,7 +1,9 @@
 package com.jinan.haosuanjia.ui;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,15 +11,18 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AgentListBean;
 import com.jinan.haosuanjia.bean.AudioBroadCastBean;
+import com.jinan.haosuanjia.commons.LogX;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
 import com.jinan.haosuanjia.utils.BitmapUtil;
 import com.jinan.haosuanjia.utils.HMApplication;
+import com.jinan.haosuanjia.utils.MediaBusiness;
 import com.jinan.haosuanjia.utils.ParseJson;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.MusicController;
@@ -52,6 +57,9 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
 
     int page=1;
     String zone ="1729";
+
+    private ImageView id_iv_voice;
+    private AnimationDrawable animationDrawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -259,6 +267,7 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
         @Override
         public void onSetViews() {
             getView(R.id.iv_user_photo).setOnClickListener(this);
+            getView(R.id.id_rl_voice_kuang).setOnClickListener(this);
 
         }
 
@@ -281,6 +290,7 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
 //            }else{
 //                ((TextView) getView(R.id.rv_address)).setText("地区 ：" );
 //            }
+            setVoiceAnimation((ImageView) getView(R.id.iv_voice),auctionBean);
             final MusicPlayer musicPlayer = new MusicPlayer(context,  (MusicController)getView(R.id.music_controller));
 //            musicPlayer=new MusicPlayer(context,)
               musicPlayer.setVideoPath(HMApplication.KP_BASE_URL_FILE +auctionBean.music_url);
@@ -295,12 +305,115 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
 
                 }
             });
+            getView(R.id.id_rl_voice_kuang).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    id_iv_voice = (ImageView) getView(R.id.iv_voice);
+                    if(auctionBean!=null)
+//                        new P
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                playVoice(auctionBean,position);
+                            }
+                        }, 0);
+//                        playVoice(auctionBean,position);
+
+                }
+            });
 //            musicPlayer.
 //            BitmapUtil.loadImageUrl(((ImageView) getView(R.id.iv_user_photo)), R.mipmap.icon_my_head_img, HMApplication.KP_BASE_URL_YU + auctionBean.agent_avatar);
 //            ((WebView)getView(R.id.wv_shoucang)).l("公司简介："+auctionBean.title+"  公司地址："+ Html.fromHtml(auctionBean.content));
 //            ((WebView)getView(R.id.wv_shoucang)).loadDataWithBaseURL(null, auctionBean.content, "text/html", "UTF-8", null);
         }
     }
+    private int lastPosition = -1;
+    private void playVoice(AudioBroadCastBean obj, int position) {
+        String videoPath = HMApplication.KP_BASE_URL_FILE +obj.music_url;
+        if(TextUtils.isEmpty(videoPath) || !videoPath.contains(".mp3")){
+            Toast.makeText(this,"语音文件不合法",Toast.LENGTH_LONG).show();
+            return;
+        }
+        if(position != lastPosition){  //点击不同条目先停止动画 重置音频资源
+            stopAnimation();
+            MediaBusiness.reset();
+        }
+        if(feedAdapter!=null)
+            selectItem(position, lastPosition);
+        lastPosition = position;
+
+        id_iv_voice.setBackgroundResource(R.drawable.animation_voice);
+        animationDrawable = (AnimationDrawable) id_iv_voice.getBackground();
+        if(MediaBusiness.isPlaying()){
+            stopAnimation();
+            MediaBusiness.pause();
+        }else if(MediaBusiness.isPause()){
+            startAnimation();
+            MediaBusiness.resume();
+        }else{
+            startAnimation();
+            MediaBusiness.playSound(this,videoPath, new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    LogX.e("onCompletion","播放完成");
+                    stopAnimation();
+                    MediaBusiness.stop();
+                }
+            });
+        }
+    }
+
+    private void startAnimation(){
+        if(id_iv_voice == null)
+            return;
+        id_iv_voice.setBackgroundResource(R.drawable.animation_voice);
+        animationDrawable = (AnimationDrawable) id_iv_voice.getBackground();
+        if (animationDrawable != null && !animationDrawable.isRunning()) {
+            animationDrawable.start();
+        }
+    }
+
+    private void stopAnimation(){
+        if (animationDrawable != null && animationDrawable.isRunning()) {
+            animationDrawable.stop();
+            id_iv_voice.setBackgroundResource(R.drawable.voice_listen);
+        }
+    }
+    private void setVoiceAnimation(ImageView iv_voice, AudioBroadCastBean obj) {
+
+        //处理动画复用问题
+        AnimationDrawable animationDrawable;
+        if(obj.isSelect){
+            iv_voice.setBackgroundResource(R.drawable.animation_voice);
+            animationDrawable = (AnimationDrawable) iv_voice.getBackground();
+            if(MediaBusiness.isPlaying() && animationDrawable!=null){
+                animationDrawable.start();
+            }else{
+                iv_voice.setBackgroundResource(R.drawable.voice_listen);
+                animationDrawable.stop();
+            }
+        }else{
+            iv_voice.setBackgroundResource(R.drawable.voice_listen);
+        }
+    }
+    //点击了某一个条目 这个条目isSelect=true 上一个条目isSelect需要改为false 防止滑动过程中 帧动画复用问题
+    public void selectItem(int position, int lastPosition) {
+
+        LogX.e("selectItem"," ;lastPosition="+lastPosition+" ;position="+position);
+        if(lastPosition >= 0 && lastPosition < activityList.size() && lastPosition != position){
+            AudioBroadCastBean bean = activityList.get(lastPosition);
+            bean.isSelect = false;
+            activityList.set(lastPosition, bean);
+            feedAdapter.notifyDataSetChanged();
+        }
+
+        if(position < activityList.size() && position != lastPosition){
+            AudioBroadCastBean bean = activityList.get(position);
+            bean.isSelect = true;
+            activityList.set(position,bean);
+        }
+    }
+
     private void onLoad() {
         if (lv_activity_main != null) {
             lv_activity_main.stopRefresh();
@@ -312,6 +425,10 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
         super.onPause();
         if (musicPlayer!=null)
         musicPlayer.pause();
+        stopAnimation();
+        if(MediaBusiness.isPlaying()){
+            MediaBusiness.pause();
+        }
     }
 
     @Override
@@ -319,6 +436,10 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
         super.onResume();
         if (musicPlayer!=null&&musicPlayer.isPlaying())
         musicPlayer.resume();
+        startAnimation();
+        if(MediaBusiness.isPause()){
+            MediaBusiness.resume();
+        }
     }
 
     @Override
@@ -326,6 +447,8 @@ public class AudioBroadcastActivity extends StatisticsActivity implements  View.
         if (musicPlayer!=null)
         musicPlayer.stopPlayback();
         super.onDestroy();
+        stopAnimation();
+        MediaBusiness.release();
 //        if(musicPlayer!=null){
 //        MusicPlayer.stopPlayback();
 

@@ -28,6 +28,7 @@ public class AudioBroadCastBean implements Serializable {
     public String province_name;
     public String country_name;
     public String zone_name;
+    public boolean isSelect=false;
 
 }
 

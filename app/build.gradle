@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5"
+
     }
 }
 apply plugin: "org.sonarqube"
@@ -24,6 +25,7 @@ android {
     }
     sourceSets.main {
         jniLibs.srcDirs = ['libs'] // <-- Set your folder here!
+        jni.srcDirs = []    //disable automatic ndk-build
     }
     buildTypes {
         release {
@@ -65,10 +67,17 @@ dependencies {
     implementation files('libs/fastjson-1.1.38-sources.jar')
     implementation files('libs/jcore-android-1.2.3.jar')
     implementation files('libs/jpush-android-3.1.5.jar')
+    implementation files('libs/BaiduLBS_Android.jar')
     implementation project(':library_volley')
     implementation project(':MPChartLib')
     implementation project(':okgo')
     implementation files('libs/alipaySdk-20180601.jar')
     api 'com.github.bumptech.glide:glide:3.8.0'
     api 'jp.wasabeef:glide-transformations:2.0.1'
+//    implementation fileTree(dir:  'libs' , include: ['*.jar'])
+//    androidTestImplementation ('com.android.support.test.espresso: espresso-core: 2.2.2', {
+//        exclude group: 'com.android.support',  module: 'support-annotations'
+//    })
+//    implementation 'com.android.support: appcompat-v7:25.1.0'
+//    testImplementation 'junit: junit: 4.12'
 }

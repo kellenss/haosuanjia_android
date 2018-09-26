@@ -429,7 +429,8 @@
     <RelativeLayout
         android:id="@+id/rl_top"
         android:layout_width="fill_parent"
-        android:layout_height="@dimen/title_height">
+        android:layout_height="@dimen/title_height"
+        android:background="@color/black_10_trans">
 
         <ImageView
             android:id="@+id/iv_back"
@@ -446,9 +447,11 @@
             android:layout_marginStart="@dimen/title_left_margin"
             android:layout_marginLeft="@dimen/title_left_margin"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/size_2dip"
             android:text="金乡"
             android:textSize="@dimen/size_18sp"
             android:textColor="@color/white"
+            android:drawableLeft="@drawable/icon_fx_wz"
             android:layout_width="wrap_content" />
         <TextView
             android:id="@+id/tv_title"

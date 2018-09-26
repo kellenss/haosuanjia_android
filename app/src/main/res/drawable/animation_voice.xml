@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="false"
+    >
+    <item android:drawable="@drawable/shengyin_start" android:duration="100" />
+    <item android:drawable="@drawable/shengyin_zhong20" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_zhong40" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_zhong60" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_zhong80" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_zhong100" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_end20" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_end40" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_end60" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_end80" android:duration="100"></item>
+    <item android:drawable="@drawable/shengyin_end100" android:duration="100"></item>
+
+</animation-list>

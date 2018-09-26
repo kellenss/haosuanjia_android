@@ -6,19 +6,26 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.jinan.haosuanjia.R;
 import com.jinan.haosuanjia.bean.AgentListBean;
 import com.jinan.haosuanjia.bean.TipsList;
 import com.jinan.haosuanjia.request.BaseHandlerJsonObject;
 import com.jinan.haosuanjia.request.module.AuctionModule;
+import com.jinan.haosuanjia.utils.Constant;
 import com.jinan.haosuanjia.utils.ConstantString;
 import com.jinan.haosuanjia.utils.ParseJson;
+import com.jinan.haosuanjia.utils.SPUtil;
 import com.jinan.haosuanjia.utils.ShowToastUtil;
 import com.jinan.haosuanjia.view.TipsViewPagerAdapter;
 
@@ -45,10 +52,17 @@ private LinearLayout ll_agent;
 private LinearLayout ll_customer_service;
 private LinearLayout ll_zsq;
 private TextView tv_count_num;
+private TextView tv_address;
 private ImageView iv_right;
 private ViewPager view_pager;
 
+    public LocationClient mLocationClient = null;
+    private MyLocationListener myListener = new MyLocationListener();
+    //BDAbstractLocationListener为7.2版本新增的Abstract类型的监听接口
+//原有BDLocationListener接口暂时同步保留。具体介绍请参考后文中的说明
+    public void onCreate() {
 
+    }
     List<TipsList> tipslist; // 动态数组
     TipsViewPagerAdapter tipsAdapter;
     @Override
@@ -59,7 +73,47 @@ private ViewPager view_pager;
         registerLin();
         tipslist= new ArrayList<>();
         viewPageInit();
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(myListener);
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
+
+        option.setIsNeedAddress(true);
+//可选，是否需要地址信息，默认为不需要，即参数为false
+//如果开发者需要获得当前点的地址信息，此处必须为true
+
+        mLocationClient.setLocOption(option);
+//mLocationClient为第二步初始化过的LocationClient对象
+//需将配置好的LocationClientOption对象，通过setLocOption方法传递给LocationClient对象使用
+//更多LocationClientOption的配置，请参照类参考中LocationClientOption类的详细说明
 //        Toast.makeText(context,"首页",Toast.LENGTH_SHORT).show();
+        mLocationClient.start();
+        if(!TextUtils.isEmpty(SPUtil.get(ConstantString.CITY)))
+        tv_address.setText(SPUtil.get(ConstantString.CITY));
+    }
+    public class MyLocationListener extends BDAbstractLocationListener {
+        @Override
+        public void onReceiveLocation(BDLocation location){
+            //此处的BDLocation为定位结果信息类，通过它的各种get方法可获取定位相关的全部结果
+            //以下只列举部分获取地址相关的结果信息
+            //更多结果信息获取说明，请参照类参考中BDLocation类中的说明
+
+            String addr = location.getAddrStr();    //获取详细地址信息
+            String country = location.getCountry();    //获取国家
+            String province = location.getProvince();    //获取省份
+            String city = location.getCity();    //获取城市
+            String district = location.getDistrict();    //获取区县
+            String street = location.getStreet();    //获取街道信息
+            double Latitude = location.getLatitude();    //获取街道信息
+            double Longitude = location.getLongitude();    //获取街道信息
+            ShowToastUtil.Short(addr+"|"+country+"|"+province+"|"+city+"|"+district+"|"+street);
+            if(!TextUtils.isEmpty(city)){
+                SPUtil.set(context,ConstantString.CITY,city);
+                tv_address.setText(city);
+//                tv_address.setText(addr+"|"+country+"|"+province+"|"+city+"|"+district+"|"+street+"|"+Latitude+"|"+Longitude);
+            }
+        }
     }
     boolean openTimer;
     public Timer mTimerWait;// 定时器
@@ -188,6 +242,7 @@ private ViewPager view_pager;
         ll_zsq=(LinearLayout) findViewById(R.id.ll_zsq);
         iv_right=(ImageView) findViewById(R.id.iv_right);
         tv_count_num=(TextView) findViewById(R.id.tv_count_num);
+        tv_address=(TextView) findViewById(R.id.tv_address);
         view_pager=(ViewPager) findViewById(R.id.view_pager);
 
     }
@@ -202,6 +257,7 @@ private ViewPager view_pager;
         ll_agent.setOnClickListener(this);
         ll_customer_service.setOnClickListener(this);
         iv_right.setOnClickListener(this);
+        tv_address.setOnClickListener(this);
     }
 
     @Override
@@ -288,6 +344,11 @@ private ViewPager view_pager;
             case R.id.iv_right:
                 Intent intent10=new Intent(this,MessageListActivity.class);
                 startActivity(intent10);
+                break;
+            case R.id.tv_address:
+                mLocationClient.stop();
+                mLocationClient.start();
+                tv_address.setText("定位中");
                 break;
             default:
                 break;
